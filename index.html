@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>English with Mina</title>
+<style>
+:root{--bg:#faf7fc;--card:#fff;--ink:#2a2035;--mute:#6d6379;--pur:#6b3a8c;--soft:#efe3f6;--shadow:rgba(107,58,140,.15)}
+@media (prefers-color-scheme:dark){:root{--bg:#1c1624;--card:#272031;--ink:#f1eaf6;--mute:#a99db6;--pur:#c9a0e6;--soft:#3a2d48;--shadow:rgba(0,0,0,.4)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 "Nunito","Segoe UI",system-ui,sans-serif}
+main{max-width:860px;margin:0 auto;padding:32px 16px 56px}
+h1{font:800 40px/1.1 Georgia,"Times New Roman",serif;margin:0 0 6px;color:var(--pur)}
+.sub{color:var(--mute);margin:0 0 22px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.filters button{border:2px solid var(--pur);background:transparent;color:var(--pur);border-radius:999px;padding:6px 14px;font:inherit;font-weight:700;cursor:pointer}
+.filters button.on{background:var(--pur);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+a.card{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:inherit;background:var(--card);border:2px solid var(--pur);border-radius:20px;padding:18px;transition:transform .15s,box-shadow .15s}
+a.card:hover{transform:translateY(-3px);box-shadow:0 8px 20px var(--shadow)}
+.emoji{font-size:34px;line-height:1}
+.tag{align-self:flex-start;background:var(--soft);color:var(--pur);border-radius:999px;padding:2px 10px;font-size:13px;font-weight:800}
+.card h2{margin:4px 0 0;font-size:20px}
+.card p{margin:0;color:var(--mute);font-size:15px}
+.go{margin-top:auto;padding-top:8px;font-weight:800;color:var(--pur)}
+footer{margin-top:40px;color:var(--mute);font-size:14px;text-align:center}
+:focus-visible{outline:3px solid var(--pur);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>English with Mina</h1>
+<p class="sub">Шпаргалки и тренажёры по английскому языку. Выберите задание и нажмите на карточку.</p>
+<div class="filters" id="filters"></div>
+<div class="grid" id="grid"></div>
+<footer>Удачи в изучении английского! ✨</footer>
+</main>
+<script>
+/* ============================================================
+   СПИСОК ЗАДАНИЙ — меняйте только эту часть.
+   Чтобы добавить новый тренажёр, скопируйте одну строчку {...},
+   вставьте ниже и поменяйте текст. Не забудьте запятую в конце.
+   file  — точное имя файла в репозитории (регистр важен!)
+   tag   — категория (по ней работают кнопки-фильтры)
+   ============================================================ */
+const TASKS = [
+  {emoji:"⏰", title:"Времена английского языка", desc:"Шпаргалка: все времена с примерами и формулами.", file:"english-tenses-cheatsheet.html", tag:"Шпаргалки"},
+  {emoji:"🍎", title:"Plural nouns", desc:"Множественное число существительных: правила и 4 вида упражнений.", file:"plural-nouns.html", tag:"Тренажёры"},
+  {emoji:"🧪", title:"Зельеварня: plural nouns", desc:"Игра: свари зелье, ставя слова во множественное число.", file:"potion-plural.html", tag:"Игры"},
+];
+
+/* ---------- дальше ничего менять не нужно ---------- */
+const tags = ["Все", ...new Set(TASKS.map(t => t.tag))];
+let current = "Все";
+function draw(){
+  document.getElementById("filters").innerHTML = tags.map(t =>
+    `<button class="${t==current?"on":""}" onclick="current='${t}';draw()">${t}</button>`).join("");
+  document.getElementById("grid").innerHTML = TASKS
+    .filter(t => current=="Все" || t.tag==current)
+    .map(t => `<a class="card" href="${encodeURI(t.file)}">
+      <span class="emoji">${t.emoji}</span>
+      <span class="tag">${t.tag}</span>
+      <h2>${t.title}</h2>
+      <p>${t.desc}</p>
+      <span class="go">Открыть →</span>
+    </a>`).join("");
+}
+draw();
+</script>
+</body>
+</html>
