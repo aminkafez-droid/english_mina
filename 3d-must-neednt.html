@@ -1,0 +1,262 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3D Homework: must / needn't</title>
+<style>
+:root{--bg:#f4f6ff;--card:#fff;--ink:#1b1d2e;--mute:#62677d;--ac:#3b5bdb;--ac2:#e8edff;--ok:#2b8a3e;--okb:#e6f6ea;--no:#c92a2a;--nob:#fde8e8;--line:#dde2f5;--tip:#fff4d6;--tipl:#f08c00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10121c;--card:#1a1d2e;--ink:#eef0fa;--mute:#a3a8c0;--ac:#8da2ff;--ac2:#252a48;--ok:#69db7c;--okb:#1e3a27;--no:#ff8787;--nob:#3f2024;--line:#30344f;--tip:#3a3220;--tipl:#ffc233}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:820px;margin:0 auto;padding:16px 16px 80px}
+.hero{border-radius:20px;background:linear-gradient(135deg,#3b5bdb,#7048e8);color:#fff;padding:22px;margin-top:8px;box-shadow:0 6px 22px rgba(59,91,219,.3)}
+.hero .tag{display:inline-block;background:#ffc233;color:#10143a;font-weight:800;padding:2px 12px;border-radius:8px;font-size:15px}
+.hero h1{font-size:1.9rem;margin:.25em 0 .1em;line-height:1.15}.hero p{margin:0;opacity:.9}
+.score{position:sticky;top:8px;z-index:5;margin:14px 0;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:8px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 14px rgba(0,0,0,.1)}
+.score .bar{flex:1;height:10px;border-radius:9px;background:var(--ac2);overflow:hidden}.score .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2f9e44,#0ca678);transition:width .4s}
+.score b{white-space:nowrap}
+.mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:14px 0}
+.mini div{color:#fff;border-radius:14px;padding:10px 14px;font-size:.95rem}
+.mini b{display:block;font-size:1.15rem}
+.m1{background:linear-gradient(135deg,#2f9e44,#0ca678)}.m2{background:linear-gradient(135deg,#f59f00,#f76707)}.m3{background:linear-gradient(135deg,#e03131,#c2255c)}
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin:22px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+h2{margin:0 0 .6em;font-size:1.25rem;display:flex;align-items:center;gap:10px}
+h2 .n{background:var(--ac);color:#fff;border-radius:10px;min-width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;font-size:1rem;padding:0 8px}
+@media (prefers-color-scheme:dark){h2 .n,button{color:#10121c}}
+.task{font-weight:600}
+.row{display:flex;gap:10px;align-items:center;margin:9px 0;flex-wrap:wrap}.row .t{flex:1 1 280px}
+select,input[type=text]{font:inherit;padding:5px 8px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);max-width:100%}
+input[type=text]{width:9em}input.s{width:7em}input.m{width:12em}input.w{width:100%;margin-top:4px}input.p{width:14em}
+.ok{border-color:var(--ok)!important;background:var(--okb)!important}.no{border-color:var(--no)!important;background:var(--nob)!important}
+button{font:inherit;font-weight:700;cursor:pointer;border:0;border-radius:10px;padding:8px 16px;background:var(--ac);color:#fff}
+.res{margin-left:10px;font-weight:700}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}.pills span{background:var(--ac2);border-radius:99px;padding:3px 13px;font-weight:600;font-size:.95rem}
+.list{background:var(--ac2);border-radius:12px;padding:10px 16px;margin:10px 0}.list div{margin:3px 0}
+.model{color:var(--mute);font-style:italic}
+.tip{background:var(--tip);border-left:5px solid var(--tipl);padding:10px 14px;border-radius:8px;margin:12px 0}
+textarea{width:100%;font:inherit;padding:8px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);min-height:100px}
+.pg{margin:10px 0}.pg label{display:block;margin-bottom:3px}
+.send input.nm{font:inherit;padding:8px 10px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);width:100%;max-width:340px;display:block;margin:6px 0 12px}
+.send button{font-size:1.05rem;padding:11px 22px}
+.send .msg{margin-top:12px;font-weight:700}.send .msg.good{color:var(--ok)}.send .msg.bad{color:var(--no)}
+</style></head><body><div class="wrap">
+
+<div class="hero"><span class="tag">3D</span><h1>Homework: must, mustn’t, needn’t / don’t have to</h1><p>Practise the rules, find the mistakes and talk about your own life.</p></div>
+
+<div class="score"><b id="tot">0 / 0</b><div class="bar"><i id="bar"></i></div><span style="color:var(--mute);font-size:.9rem">score</span></div>
+
+<div class="mini">
+<div class="m1"><b>must</b>it’s necessary</div>
+<div class="m2"><b>needn’t / don’t have to</b>it’s NOT necessary</div>
+<div class="m3"><b>mustn’t</b>it’s prohibited</div></div>
+
+<section><h2><span class="n">1</span>Choose the correct answer</h2>
+<div class="grp">
+<div class="row"><span class="t">1 Be quiet! The baby is sleeping. You <select data-o="must|mustn't|don't have to" data-a="mustn't"></select> make so much noise.</span></div>
+<div class="row"><span class="t">2 It’s Sunday, so I <select data-o="must|mustn't|don't have to" data-a="don't have to"></select> get up early.</span></div>
+<div class="row"><span class="t">3 You <select data-o="must|mustn't|don't have to" data-a="must"></select> wear a seat belt in a car. It’s the law.</span></div>
+<div class="row"><span class="t">4 Students <select data-o="must|mustn't|don't have to" data-a="mustn't"></select> cheat in exams.</span></div>
+<div class="row"><span class="t">5 We <select data-o="must|mustn't|don't have to" data-a="don't have to"></select> take an umbrella. It isn’t going to rain.</span></div>
+<div class="row"><span class="t">6 Passengers <select data-o="must|mustn't|don't have to" data-a="must"></select> keep their passports with them.</span></div>
+<div class="row"><span class="t">7 You <select data-o="must|mustn't|don't have to" data-a="mustn't"></select> touch that wire! It’s dangerous.</span></div>
+<div class="row"><span class="t">8 You <select data-o="must|mustn't|don't have to" data-a="don't have to"></select> bring any food to the party. We have plenty.</span></div>
+<button onclick="chk(this)">Check</button><span class="res"></span></div></section>
+
+<section><h2><span class="n">2</span>Complete with must, mustn’t or needn’t</h2>
+<div class="grp">
+<div class="row"><span class="t">1 You <input class="s" type="text" data-a="needn't"> hurry. We’ve got plenty of time.</span></div>
+<div class="row"><span class="t">2 Drivers <input class="s" type="text" data-a="must"> stop at a red light.</span></div>
+<div class="row"><span class="t">3 You <input class="s" type="text" data-a="mustn't"> forget your keys again!</span></div>
+<div class="row"><span class="t">4 I <input class="s" type="text" data-a="must"> revise tonight. I’ve got a test tomorrow.</span></div>
+<div class="row"><span class="t">5 You <input class="s" type="text" data-a="mustn't"> tell anybody. It’s a secret.</span></div>
+<div class="row"><span class="t">6 She <input class="s" type="text" data-a="needn't"> come with us if she doesn’t want to.</span></div>
+<div class="row"><span class="t">7 We <input class="s" type="text" data-a="mustn't"> be late for the lesson.</span></div>
+<div class="row"><span class="t">8 You <input class="s" type="text" data-a="needn't"> buy a ticket. Entry is free.</span></div>
+<button onclick="chk(this)">Check</button><span class="res"></span></div></section>
+
+<section><h2><span class="n">3</span>have to: choose the correct form</h2>
+<div class="tip"><i>have to / has to / don’t have to / doesn’t have to</i>. Remember: <b>he / she / it → has to, doesn’t have to</b>.</div>
+<div class="grp">
+<div class="row"><span class="t">1 Tom <select data-o="have to|has to|don't have to|doesn't have to" data-a="has to"></select> get up at six every day. His school is far away.</span></div>
+<div class="row"><span class="t">2 We <select data-o="have to|has to|don't have to|doesn't have to" data-a="don't have to"></select> wear a uniform at my school. We can wear what we like.</span></div>
+<div class="row"><span class="t">3 Do you <select data-o="have to|has to|don't have to|doesn't have to" data-a="have to"></select> work on Saturdays?</span></div>
+<div class="row"><span class="t">4 My sister <select data-o="have to|has to|don't have to|doesn't have to" data-a="doesn't have to"></select> do the washing-up tonight. It’s my turn.</span></div>
+<div class="row"><span class="t">5 Sam <select data-o="have to|has to|don't have to|doesn't have to" data-a="has to"></select> stay in bed today. The doctor says so.</span></div>
+<div class="row"><span class="t">6 You <select data-o="have to|has to|don't have to|doesn't have to" data-a="don't have to"></select> pay to enter the museum on Sundays. It’s free.</span></div>
+<div class="row"><span class="t">7 Does Ben <select data-o="have to|has to|don't have to|doesn't have to" data-a="have to"></select> wear glasses?</span></div>
+<div class="row"><span class="t">8 Passengers <select data-o="have to|has to|don't have to|doesn't have to" data-a="have to"></select> show their tickets to the driver.</span></div>
+<button onclick="chk(this)">Check</button><span class="res"></span></div></section>
+
+<section><h2><span class="n">4</span>must or have to / has to?</h2>
+<div class="mini">
+<div class="m1"><b>must</b>my own opinion or feeling<br><i>I must call my mum. I miss her.</i></div>
+<div style="background:linear-gradient(135deg,#4263eb,#7048e8)"><b>have to / has to</b>a rule, a law, somebody else decides<br><i>I have to wear a uniform. It’s a rule.</i></div></div>
+<div class="tip"><b>he / she / it → has to</b> (She <u>has to</u> work). But <b>must</b> never changes: <i>She must work.</i> Questions: <i>Do you have to…? Does he have to…?</i></div>
+<div class="grp">
+<p class="task">A. Choose <b>must</b>, <b>have to</b> or <b>has to</b>.</p>
+<div class="row"><span class="t">1 I <select data-o="must|have to|has to" data-a="must"></select> call my mum tonight. I miss her so much.</span></div>
+<div class="row"><span class="t">2 Children <select data-o="must|have to|has to" data-a="have to"></select> go to school until they are 16. It’s the law.</span></div>
+<div class="row"><span class="t">3 You <select data-o="must|have to|has to" data-a="must"></select> try this cake! It’s delicious.</span></div>
+<div class="row"><span class="t">4 My brother <select data-o="must|have to|has to" data-a="has to"></select> wear a suit at work. His boss says so.</span></div>
+<div class="row"><span class="t">5 I really <select data-o="must|have to|has to" data-a="must"></select> start exercising. I want to be healthier.</span></div>
+<div class="row"><span class="t">6 Pilots <select data-o="must|have to|has to" data-a="have to"></select> pass a medical test every year.</span></div>
+<div class="row"><span class="t">7 Anna <select data-o="must|have to|has to" data-a="has to"></select> be home by ten. Her parents’ rule!</span></div>
+<div class="row"><span class="t">8 You <select data-o="must|have to|has to" data-a="must"></select> see that film. It’s brilliant, in my opinion.</span></div>
+<button onclick="chk(this)">Check</button><span class="res"></span></div>
+<div class="grp">
+<p class="task" style="margin-top:22px">B. What is the difference? Choose <b>a</b> or <b>b</b>.</p>
+<div class="row"><span class="t">1 <b>I must</b> do my homework.<br>a) It’s my own decision. &nbsp; b) Somebody told me to.</span><select data-o="a|b" data-a="a"></select></div>
+<div class="row"><span class="t">2 <b>I have to</b> do my homework.<br>a) It’s my own decision. &nbsp; b) Somebody told me to.</span><select data-o="a|b" data-a="b"></select></div>
+<div class="row"><span class="t">3 <b>You must</b> try this café!<br>a) It’s my opinion – it’s great. &nbsp; b) There’s a rule about it.</span><select data-o="a|b" data-a="a"></select></div>
+<div class="row"><span class="t">4 <b>Sara has to</b> wear a uniform.<br>a) She wants to. &nbsp; b) It’s the school rule.</span><select data-o="a|b" data-a="b"></select></div>
+<div class="row"><span class="t">5 <b>Does he have to</b> wear a helmet?<br>a) Is it a rule? &nbsp; b) Does he want to?</span><select data-o="a|b" data-a="a"></select></div>
+<button onclick="chk(this)">Check</button><span class="res"></span></div>
+<div class="grp">
+<p class="task" style="margin-top:22px">C. Write the correct form: <b>must, have to, has to</b> or <b>does … have to</b>.</p>
+<div class="row"><span class="t">1 She <input class="s" type="text" data-a="has to"> get up at five. The bakery opens at six.</span></div>
+<div class="row"><span class="t">2 We <input class="s" type="text" data-a="have to"> leave now, or we’ll miss the train. (the train is at 6.15)</span></div>
+<div class="row"><span class="t">3 <input class="s" type="text" data-a="does"> your sister <input class="s" type="text" data-a="have to"> wear glasses?</span></div>
+<div class="row"><span class="t">4 You really <input class="s" type="text" data-a="must"> listen to this song! I love it.</span></div>
+<div class="row"><span class="t">5 My parents say I <input class="s" type="text" data-a="have to"> tidy my room every Saturday.</span></div>
+<div class="row"><span class="t">6 <input class="s" type="text" data-a="do"> we <input class="s" type="text" data-a="have to"> wear uniforms at your school?</span></div>
+<button onclick="chk(this)">Check</button><span class="res"></span></div>
+</section>
+
+<section><h2><span class="n">5</span>Same meaning</h2>
+<p class="task">Rewrite the sentences using the words in brackets.</p>
+<div class="grp">
+<div class="row"><span class="t">1 It isn’t necessary for you to call me. (needn’t)<br><span class="model">You needn’t call me.</span></span></div>
+<div class="row"><span class="t">2 It’s against the rules to use phones in class. (mustn’t) <span class="model">– start with “You”</span><br><input class="w" type="text" data-a="you mustn't use phones in class|you mustn't use mobiles in class|you mustn't use your phone in class"></span></div>
+<div class="row"><span class="t">3 It’s important that I go to bed early tonight. (must)<br><input class="w" type="text" data-a="i must go to bed early tonight"></span></div>
+<div class="row"><span class="t">4 It isn’t necessary for them to wear ties. (don’t have to)<br><input class="w" type="text" data-a="they don't have to wear ties"></span></div>
+<div class="row"><span class="t">5 It’s compulsory for us to wear helmets. (have to)<br><input class="w" type="text" data-a="we have to wear helmets"></span></div>
+<div class="row"><span class="t">6 It isn’t necessary for her to wait for me. (doesn’t have to)<br><input class="w" type="text" data-a="she doesn't have to wait for me"></span></div>
+<button onclick="chk(this)">Check</button><span class="res"></span></div></section>
+
+<section><h2><span class="n">6</span>Match the situation with the rule</h2>
+<div class="list">
+<div><b>A</b> You must hand in your homework by Friday.</div>
+<div><b>B</b> You mustn’t smoke here.</div>
+<div><b>C</b> You mustn’t run by the pool.</div>
+<div><b>D</b> You needn’t bring anything.</div>
+<div><b>E</b> You must stay in bed and drink lots of water.</div>
+<div><b>F</b> She doesn’t have to go to school today.</div></div>
+<div class="grp">
+<div class="row"><span class="t">1 A sign at a petrol station: <b>NO SMOKING</b></span><select data-o="A|B|C|D|E|F" data-a="B"></select></div>
+<div class="row"><span class="t">2 Your friend asks: “Shall I bring some snacks?” You already have lots.</span><select data-o="A|B|C|D|E|F" data-a="D"></select></div>
+<div class="row"><span class="t">3 A teacher: “I want your homework on my desk on Friday.”</span><select data-o="A|B|C|D|E|F" data-a="A"></select></div>
+<div class="row"><span class="t">4 A sign by a swimming pool: <b>NO RUNNING</b></span><select data-o="A|B|C|D|E|F" data-a="C"></select></div>
+<div class="row"><span class="t">5 Your sister’s school is closed today for a holiday.</span><select data-o="A|B|C|D|E|F" data-a="F"></select></div>
+<div class="row"><span class="t">6 The doctor talks to a patient with a bad cold.</span><select data-o="A|B|C|D|E|F" data-a="E"></select></div>
+<button onclick="chk(this)">Check</button><span class="res"></span></div></section>
+
+<section><h2><span class="n">7</span>Find the mistakes</h2>
+<p class="task">Some sentences have a mistake, some are correct. Choose, then write the correct sentence.</p>
+<div class="grp">
+<div class="row"><span class="t">1 She must to go to school every day.<br><select data-o="✓ correct|✗ mistake" data-a="✗ mistake"></select> <input class="w" type="text" data-a="she must go to school every day|she has to go to school every day"></span></div>
+<div class="row"><span class="t">2 You mustn’t pay for the ticket. It’s free.<br><select data-o="✓ correct|✗ mistake" data-a="✗ mistake"></select> <input class="w" type="text" data-a="you needn't pay for the ticket it's free|you don't have to pay for the ticket it's free"></span></div>
+<div class="row"><span class="t">3 He musts wear a uniform at his school.<br><select data-o="✓ correct|✗ mistake" data-a="✗ mistake"></select> <input class="w" type="text" data-a="he must wear a uniform at his school|he has to wear a uniform at his school"></span></div>
+<div class="row"><span class="t">4 We doesn’t have to wear a tie.<br><select data-o="✓ correct|✗ mistake" data-a="✗ mistake"></select> <input class="w" type="text" data-a="we don't have to wear a tie|we needn't wear a tie"></span></div>
+<div class="row"><span class="t">5 You mustn’t run in the corridor.<br><select data-o="✓ correct|✗ mistake" data-a="✓ correct"></select></span></div>
+<div class="row"><span class="t">6 Do I must finish this today?<br><select data-o="✓ correct|✗ mistake" data-a="✗ mistake"></select> <input class="w" type="text" data-a="must i finish this today|do i have to finish this today"></span></div>
+<div class="row"><span class="t">7 You needn’t to worry about me.<br><select data-o="✓ correct|✗ mistake" data-a="✗ mistake"></select> <input class="w" type="text" data-a="you needn't worry about me|you don't have to worry about me"></span></div>
+<div class="row"><span class="t">8 They don’t have to take a taxi. It’s only five minutes’ walk.<br><select data-o="✓ correct|✗ mistake" data-a="✓ correct"></select></span></div>
+<button onclick="chk(this)">Check</button><span class="res"></span></div></section>
+
+<section><h2><span class="n">8</span>About you</h2>
+<p class="task">Complete the sentences so that they are true for you. Use your own ideas!</p>
+<div class="pg"><label>1 Every morning I must <input class="p" type="text"> .</label></div>
+<div class="pg"><label>2 At home I don’t have to <input class="p" type="text"> .</label></div>
+<div class="pg"><label>3 At my school (or at work) we mustn’t <input class="p" type="text"> .</label></div>
+<div class="pg"><label>4 At the weekend I needn’t <input class="p" type="text"> .</label></div>
+<div class="pg"><label>5 In a library you mustn’t <input class="p" type="text"> , but you don’t have to <input class="p" type="text"> .</label></div>
+<div class="pg"><label>6 This week I must <input class="p" type="text"> because <input class="p" type="text"> .</label></div>
+<div class="pg"><label>7 My friend / brother / sister has to <input class="p" type="text"> every day, but I don’t have to.</label></div>
+<div class="pg"><label>8 I think the silliest rule is: we must <input class="p" type="text"> .</label></div>
+<p class="task" style="margin-top:20px">Bonus: write 3 rules for your dream school.</p>
+<textarea placeholder="At my dream school, students must … / mustn’t … / don’t have to …"></textarea>
+<p class="model">Be ready to read your sentences aloud in the next lesson!</p>
+</section>
+
+<section class="send" id="send"><h2><span class="n">✓</span>Send your answers to your teacher</h2>
+<p class="task">Write your name and press the button. Your teacher will see all your answers.</p>
+<label for="stName">Your name and surname</label>
+<input class="nm" id="stName" autocomplete="name" placeholder="e.g. Anna Petrova">
+<button id="sendBtn">Send answers</button>
+<p class="msg" id="sendMsg" role="status"></p>
+</section>
+
+</div>
+<script>
+function norm(s){return s.toLowerCase().replace(/[’‘`]/g,"'").replace(/[.,!?–]/g,'').replace(/\s+/g,' ').trim()}
+document.querySelectorAll('select[data-o]').forEach(function(s){
+  s.innerHTML='<option value="">…</option>'+s.dataset.o.split('|').map(function(o){return '<option>'+o+'</option>'}).join('');
+});
+var sc={};
+function chk(btn){
+  var box=btn.closest('.grp'), ok=0, t=0;
+  box.querySelectorAll('[data-a]').forEach(function(e){
+    var v=norm(e.tagName==='SELECT'?(e.selectedIndex?e.options[e.selectedIndex].text:''):e.value);
+    var good=norm(e.dataset.a).split('|').indexOf(v)>-1;
+    t++; if(good)ok++; e.classList.remove('ok','no'); e.classList.add(good?'ok':'no');
+  });
+  btn.nextElementSibling.textContent=ok+' / '+t+(ok===t?' – great!':' – try again');
+  var id=[].indexOf.call(document.querySelectorAll('.grp'),box); sc[id]=[ok,t];
+  var a=0,b=0; document.querySelectorAll('.grp').forEach(function(g,i){var tt=g.querySelectorAll('[data-a]').length; b+=tt; if(sc[i])a+=sc[i][0]});
+  document.getElementById('tot').textContent=a+' / '+b;
+  document.getElementById('bar').style.width=(b?a/b*100:0)+'%';
+}
+(function(){var b=0;document.querySelectorAll('.grp').forEach(function(g){b+=g.querySelectorAll('[data-a]').length});document.getElementById('tot').textContent='0 / '+b})();
+
+/* ============================================================
+   ОТПРАВКА ОТВЕТОВ В GOOGLE ТАБЛИЦУ
+   ============================================================ */
+var SHEET_URL = "https://script.google.com/macros/s/AKfycbxHOtqDkBDmDCURknXm6UqP3sZHLemql3TmUEznGUQwOFMbArs0UPX_h0WmIBOBFUrxeQ/exec";
+var HOMEWORK  = "3D must, needn't";     /* так будет называться лист в таблице */
+
+function valOf(e){return e.tagName==='SELECT'?(e.selectedIndex?e.options[e.selectedIndex].text:''):e.value.trim()}
+document.getElementById("sendBtn").onclick=function(){
+  var btn=this,msg=document.getElementById("sendMsg"),name=document.getElementById("stName").value.trim();
+  function say(t,good){msg.textContent=t;msg.className="msg "+(good?"good":"bad")}
+  if(!name){say("Please write your name first.",false);document.getElementById("stName").focus();return}
+  var secs=[].slice.call(document.querySelectorAll("section")),per={},errs=[],skipped=[],total=0,max=0,empty=0;
+  document.querySelectorAll(".grp").forEach(function(g){
+    var sec=g.closest("section"),sn=secs.indexOf(sec)+1,grps=sec.querySelectorAll(".grp");
+    var part=grps.length>1?"ABCDEFG"[[].indexOf.call(grps,g)]:"";
+    per[sn]=per[sn]||[0,0];
+    g.querySelectorAll(".row").forEach(function(row,r){
+      row.querySelectorAll("[data-a]").forEach(function(e){
+        var v=valOf(e),good=norm(e.dataset.a).split("|").indexOf(norm(v))>-1,id=sn+part+"."+(r+1);
+        per[sn][1]++;max++;if(good){per[sn][0]++;total++}
+        else if(v)errs.push(id+"  "+v+" → "+e.dataset.a.split("|")[0]);
+        else{if(skipped.indexOf(id)<0)skipped.push(id);empty++}
+      });
+    });
+  });
+  var fields={"Имя":name};
+  fields["Итог"]=total+" / "+max+"  ("+Math.round(total/max*100)+"%)";
+  Object.keys(per).forEach(function(k){fields["Упр. "+k]=per[k][0]+" / "+per[k][1]});
+  if(skipped.length)errs.push("пропущено: "+skipped.join(", "));
+  fields["Ошибки"]=errs.length?errs.join("\n"):"без ошибок ✓";
+  var own=[];
+  document.querySelectorAll(".pg label").forEach(function(l){
+    var c=l.cloneNode(true),filled=false;
+    c.querySelectorAll("input").forEach(function(inp,i){
+      var v=l.querySelectorAll("input")[i].value.trim();if(v)filled=true;else empty++;
+      inp.replaceWith(document.createTextNode(v?"["+v+"]":"[…]"));
+    });
+    if(filled)own.push(c.textContent.replace(/\s+/g," ").replace(/ ([.,])/g,"$1").trim());
+  });
+  var bonus=document.querySelector("section textarea");
+  if(bonus&&bonus.value.trim())own.push("Bonus: "+bonus.value.trim());
+  fields["О себе (упр. 8)"]=own.length?own.join("\n"):"(пусто)";
+  if(empty&&!confirm(empty+" answers are empty. Send anyway?"))return;
+  btn.disabled=true;say("Sending…",true);
+  fetch(SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify({sheet:HOMEWORK,fields:fields})})
+  .then(function(){say("Sent! ✓ Your teacher has your answers. Score: "+total+" / "+max,true);btn.textContent="Sent ✓"})
+  .catch(function(){btn.disabled=false;say("Could not send. Check your internet and try again.",false)});
+};
+</script></body></html>
+
+</body></html>
