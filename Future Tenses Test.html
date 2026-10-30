@@ -1,0 +1,96 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Future Tenses Test</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one long column, stage by stage, like a briefing file for a 2049 case. Dark neon-noir by default, pale daylight variant for light mode. */
+:root{--bg:#0c1419;--surface:#131f27;--ink:#e8eef1;--mute:#94a8b3;--line:#2a3d49;--hot:#ff7a2f;--cy:#35d0c0;--mag:#ee5c9a;--on:#06161a;--ok:#5fd68a;--okbg:#12301f;--bad:#ff8585;--badbg:#3a1818;--tint:#16262f;
+--display:"Barlow Condensed","Arial Narrow",Impact,sans-serif;--body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#edf1f3;--surface:#fff;--ink:#11202a;--mute:#4d6270;--line:#c6d3da;--hot:#c2410c;--cy:#0b6e8a;--mag:#b0245f;--on:#fff;--ok:#166534;--okbg:#dcfce7;--bad:#b91c1c;--badbg:#fee2e2;--tint:#e4edf1;color-scheme:light}}
+:root[data-theme="light"]{--bg:#edf1f3;--surface:#fff;--ink:#11202a;--mute:#4d6270;--line:#c6d3da;--hot:#c2410c;--cy:#0b6e8a;--mag:#b0245f;--on:#fff;--ok:#166534;--okbg:#dcfce7;--bad:#b91c1c;--badbg:#fee2e2;--tint:#e4edf1;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body);padding-block:8px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:780px;margin:0 auto}
+header{padding:28px 0 8px}
+.eye{font:500 .78rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--hot);margin:0 0 10px}
+h1{font:700 clamp(2.8rem,10vw,4.6rem)/.95 var(--display);letter-spacing:.01em;text-transform:uppercase;margin:0 0 10px;text-wrap:balance}
+.goal{color:var(--mute);margin:0;max-width:60ch}
+nav{display:flex;flex-wrap:wrap;gap:6px 16px;margin:18px 0 6px;font:500 .8rem var(--mono);letter-spacing:.06em;text-transform:uppercase}
+nav a{color:var(--cy);text-decoration:none;padding:3px 0;border-bottom:1px solid transparent}
+nav a:hover,nav a:focus-visible{border-bottom-color:var(--cy)}
+section{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:22px 20px;margin:20px 0;min-width:0}
+h2{font:700 1.7rem/1.1 var(--display);letter-spacing:.03em;text-transform:uppercase;margin:0 0 6px;text-wrap:balance}
+h3{font:600 1rem/1.3 var(--body);margin:22px 0 6px;color:var(--cy)}
+.stage{font:500 .74rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--hot);margin:0 0 8px;display:block}
+.task{color:var(--mute);margin:0 0 14px;font-size:.96rem}
+ol,ul{padding-left:22px;margin:8px 0}li{margin:9px 0}
+p{margin:8px 0}
+input.a,select.a,textarea{font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:3px 8px;max-width:100%}
+input.a{width:17ch}input.s{width:11ch}
+select.a{min-width:7ch}
+textarea{width:100%;padding:8px 10px;resize:vertical;display:block;margin-top:6px}
+.ok{background:var(--okbg)!important;border-color:var(--ok)!important}
+.bad{background:var(--badbg)!important;border-color:var(--bad)!important}
+button{font:600 .88rem var(--body);background:var(--cy);color:var(--on);border:0;border-radius:4px;padding:9px 16px;cursor:pointer;margin:12px 8px 0 0}
+button.g{background:transparent;color:var(--cy);border:1px solid var(--cy)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+.res{font:500 .9rem var(--mono);color:var(--hot);margin-left:4px}
+.pic{display:block;width:100%;height:auto;border-radius:4px}
+figure{margin:0 0 14px}figcaption{font:400 .78rem var(--mono);color:var(--mute);margin-top:5px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.pair{grid-template-columns:1fr}}
+.box{background:var(--tint);border:1px solid var(--line);border-radius:4px;padding:12px 16px;margin:14px 0}
+.box b.l{font:500 .74rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mag);display:block;margin-bottom:4px}
+.wb{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px}
+.wb span{border:1px solid var(--cy);color:var(--cy);border-radius:4px;padding:1px 10px;font:500 .9rem var(--mono)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+td,th{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--tint);font:500 .78rem var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.tl td{text-align:center;font-size:.85rem;min-width:70px}
+.tl .p{background:var(--cy);color:var(--on);font-weight:600}
+.tl .d{background:var(--hot);color:var(--on);font-weight:600}
+.formula{font:500 1.05rem/1.5 var(--mono);color:var(--ink)}
+.formula em{font-style:normal;color:var(--hot)}
+.formula i{font-style:normal;color:var(--cy)}
+.read{border-left:2px solid var(--line);padding-left:16px;margin:10px 0}
+.read h4{font:500 .78rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mag);margin:0 0 6px}
+.t{font-weight:600}
+.chk label{display:block;margin:6px 0}
+.chk input{margin-right:8px}
+</style>
+
+<main>
+<header>
+<p class="eye">Unit 3 · Grammar · Test</p>
+<h1>Future tenses</h1>
+<p class="goal">Future continuous (will be doing) and future perfect (will have done). Four parts, 33 points. Press <b>Check all</b> at the end.</p>
+</header>
+<section id="t1"><span class="stage">Part 1</span><h2>Choose from the box</h2><p class="task">Complete the sentences with the phrases in the box. Use each phrase once.</p><div class="wb"><span>will be having</span><span>will be arriving</span><span>won't be working</span><span>will you be using</span><span>will be travelling</span><span>won't be coming</span><span>will be starting</span><span>will be waiting</span></div><div data-sec><ol><li>Don't phone at seven. We <input class="a w" data-a="will be having" aria-label="gap 1"> dinner with my parents.</li><li>Please wait here. The bus <input class="a w" data-a="will be arriving" aria-label="gap 2"> in ten minutes.</li><li>Tom is on holiday next week, so he <input class="a w" data-a="won't be working|will not be working" aria-label="gap 3">.</li><li>I'm going to the party, but Sara is ill, so she <input class="a w" data-a="won't be coming|will not be coming" aria-label="gap 4">.</li><li>This time next month, they <input class="a w" data-a="will be travelling|will be traveling" aria-label="gap 5"> round South America.</li><li>Hurry up! The film <input class="a w" data-a="will be starting" aria-label="gap 6"> in a few minutes.</li><li>I need the car on Saturday. <input class="a w" data-a="will you be using" aria-label="gap 7"> it?</li><li>Stay at the entrance. I <input class="a w" data-a="will be waiting|'ll be waiting" aria-label="gap 8"> for you when you arrive.</li></ol><button data-check>Check</button><button class="g" data-show>Show answers</button><span class="res"></span></div></section>
+<section id="t2"><span class="stage">Part 2</span><h2>Put the verb in the correct form</h2><p class="task">Use will be doing (future continuous) or will have done (future perfect).</p><div data-sec><ol><li>Don't phone between 8 and 9. <input class="a w" data-a="we will be watching|we'll be watching" aria-label="gap 9"> a film then. (we / watch)</li><li>Tomorrow I'm going to clean the house from 9 until 11. So at 10, <input class="a w" data-a="I will be cleaning|I'll be cleaning" aria-label="gap 10">. (I / clean)</li><li>The shop closes at 6, so <input class="a w" data-a="it will have closed|it'll have closed" aria-label="gap 11"> by the time we get there. (it / close)</li><li>Anna is training for a marathon. By next summer, <input class="a w" data-a="she will have run|she'll have run" aria-label="gap 12"> over 500 km. (she / run)</li><li>Do you think <input class="a w" data-a="will you still be working" aria-label="gap 13"> in this job in five years' time? (you / still / work)</li><li>I'll meet you at the airport. <input class="a w" data-a="I will be waiting|I'll be waiting" aria-label="gap 14"> outside Gate 3. (I / wait)</li><li>The builders started in May. <input class="a w" data-a="they will have finished|they'll have finished" aria-label="gap 15"> the kitchen by Christmas. (they / finish)</li><li>If you phone Ken after midnight, <input class="a w" data-a="he will be sleeping|he'll be sleeping" aria-label="gap 16">. (he / sleep)</li><li>I hope <input class="a w" data-a="I won't be living|I will not be living" aria-label="gap 17"> in this small flat much longer. (I / not / live)</li></ol><button data-check>Check</button><button class="g" data-show>Show answers</button><span class="res"></span></div></section>
+<section id="t3"><span class="stage">Part 3</span><h2>Fill in the missing word</h2><p class="task">Write one word in each gap, or the verb that fits.</p><div data-sec><ol><li>She's got a new job in Spain. She'll be <input class="a s" data-a="living|working|staying" aria-label="gap 18"> in Madrid from March.</li><li>I'm taking my exam in June. Hopefully, I'll have <input class="a s" data-a="passed" aria-label="gap 19"> it by then.</li><li><input class="a s" data-a="will" aria-label="gap 20"> you be using the laptop this evening?</li><li>We're changing the line-up tonight! Mia will be dancing and Leo will be <input class="a s" data-a="playing" aria-label="gap 21"> the drums.</li><li>I'm afraid I <input class="a s" data-a="won't|will not" aria-label="gap 22"> be joining you tonight. I have a lesson until late.</li><li>In two weeks' time we'll <input class="a s" data-a="be" aria-label="gap 23"> sitting on a beach in Greece.</li><li>Let's call Dan. He'll <input class="a s" data-a="have" aria-label="gap 24"> arrived by now.</li><li>Kate can't come to the early class. She won't have <input class="a s" data-a="finished" aria-label="gap 25"> work at that time.</li></ol><button data-check>Check</button><button class="g" data-show>Show answers</button><span class="res"></span></div></section>
+<section id="t4"><span class="stage">Part 4</span><h2>Sam’s Saturday</h2><p class="task">Read Sam’s plan and complete the sentences. Then answer the two questions with a short answer.</p><div class="scroll"><table><tr><th>Time</th><th>Sam’s Saturday</th></tr>
+<tr><td>8:00–9:00</td><td>run in the park</td></tr>
+<tr><td>10:00</td><td>finish breakfast</td></tr>
+<tr><td>10:30–12:30</td><td>study for an English test</td></tr>
+<tr><td>12:30</td><td>finish studying</td></tr>
+<tr><td>3:00–5:00</td><td>play a football match</td></tr></table></div><div data-sec><ol><li>At 8:30, Sam <input class="a w" data-a="will be running" aria-label="gap 26"> in the park. (run)</li><li>By 10:15, he <input class="a w" data-a="will have finished" aria-label="gap 27"> his breakfast. (finish)</li><li>At 11:30, he <input class="a w" data-a="will be studying" aria-label="gap 28"> for his English test. (study)</li><li>By 12:45, he <input class="a w" data-a="will have finished" aria-label="gap 29"> studying. (finish)</li><li>At 4:00, he <input class="a w" data-a="will be playing" aria-label="gap 30"> football. (play)</li><li>By 5:30, he <input class="a w" data-a="will have played" aria-label="gap 31"> two hours of football. (play)</li><li>Will Sam be running at 8:30? <input class="a w" data-a="yes, he will|yes he will" aria-label="gap 32"></li><li>Will Sam have finished the football match by 4:00? <input class="a w" data-a="no, he won't|no he won't|no, he will not|no he will not" aria-label="gap 33"></li></ol><button data-check>Check</button><button class="g" data-show>Show answers</button><span class="res"></span></div></section>
+<section id="fin"><span class="stage">Result</span><h2>Total score</h2><button id="all">Check all</button><span class="res" id="tot"></span></section>
+</main>
+<script>
+document.getElementById("all").onclick=function(){var n=0,t=0;document.querySelectorAll("[data-sec]").forEach(function(s){s.querySelector("[data-check]").click();var m=s.querySelector(".res").textContent.match(/(\d+) \/ (\d+)/);if(m){n+=+m[1];t+=+m[2]}});document.getElementById("tot").textContent=n+" / "+t};
+</script>
+<script>
+function norm(s){return s.toLowerCase().replace(/[’‘`]/g,"'").replace(/[–−]/g,"-").replace(/\s+/g," ").replace(/[.!]+$/,"").trim()}
+function vars(a){var out=[];a.split("|").forEach(function(x){out.push(x);if(/^will not /.test(x))out.push("won't "+x.slice(9));else if(/^will /.test(x))out.push("'ll "+x.slice(5))});return out}
+function ok(el){var v=norm(el.value);if(!v)return false;return vars(el.dataset.a).some(function(a){return norm(a)===v})}
+function first(el){return el.dataset.a.split("|")[0]}
+function build(id,pairs,perm){var L="ABCDEFGH".slice(0,pairs.length).split(""),ul=document.getElementById(id+"-l"),dl=document.getElementById(id+"-d");
+pairs.forEach(function(p,i){var li=document.createElement("li");li.innerHTML='<span class="t"></span> <select class="a" aria-label="Answer" data-a="'+L[perm.indexOf(i)]+'"><option></option>'+L.map(function(c){return "<option>"+c+"</option>"}).join("")+"</select>";li.firstChild.textContent=p[0];ul.appendChild(li)});
+perm.forEach(function(i){var li=document.createElement("li");li.textContent=pairs[i][1];dl.appendChild(li)})}
+document.querySelectorAll("[data-sec]").forEach(function(sec){var res=sec.querySelector(".res");
+sec.querySelector("[data-check]").onclick=function(){var n=0,t=0;sec.querySelectorAll(".a").forEach(function(el){t++;var g=ok(el);if(g)n++;el.classList.toggle("ok",g);el.classList.toggle("bad",!g)});res.textContent=n+" / "+t};
+sec.querySelector("[data-show]").onclick=function(){sec.querySelectorAll(".a").forEach(function(el){el.value=first(el);el.classList.add("ok");el.classList.remove("bad")});res.textContent=""}});
+</script>
+
+</body></html>
