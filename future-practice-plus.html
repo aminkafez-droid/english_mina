@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Future Practice Plus</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one long column, stage by stage, like a briefing file for a 2049 case. Always dark neon-noir. */
+:root{--bg:#0c1419;--surface:#131f27;--ink:#e8eef1;--mute:#94a8b3;--line:#2a3d49;--hot:#ff7a2f;--cy:#35d0c0;--mag:#ee5c9a;--on:#06161a;--ok:#5fd68a;--okbg:#12301f;--bad:#ff8585;--badbg:#3a1818;--tint:#16262f;
+--display:"Barlow Condensed","Arial Narrow",Impact,sans-serif;--body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body);padding-block:8px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:780px;margin:0 auto}
+header{padding:28px 0 8px}
+.eye{font:500 .78rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--hot);margin:0 0 10px}
+h1{font:700 clamp(2.8rem,10vw,4.6rem)/.95 var(--display);letter-spacing:.01em;text-transform:uppercase;margin:0 0 10px;text-wrap:balance}
+.goal{color:var(--mute);margin:0;max-width:60ch}
+nav{display:flex;flex-wrap:wrap;gap:6px 16px;margin:18px 0 6px;font:500 .8rem var(--mono);letter-spacing:.06em;text-transform:uppercase}
+nav a{color:var(--cy);text-decoration:none;padding:3px 0;border-bottom:1px solid transparent}
+nav a:hover,nav a:focus-visible{border-bottom-color:var(--cy)}
+section{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:22px 20px;margin:20px 0;min-width:0}
+h2{font:700 1.7rem/1.1 var(--display);letter-spacing:.03em;text-transform:uppercase;margin:0 0 6px;text-wrap:balance}
+h3{font:600 1rem/1.3 var(--body);margin:22px 0 6px;color:var(--cy)}
+.stage{font:500 .74rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--hot);margin:0 0 8px;display:block}
+.task{color:var(--mute);margin:0 0 14px;font-size:.96rem}
+ol,ul{padding-left:22px;margin:8px 0}li{margin:9px 0}
+p{margin:8px 0}
+input.a,select.a,textarea{font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:3px 8px;max-width:100%}
+input.a{width:17ch}input.s{width:11ch}
+select.a{min-width:7ch}
+textarea{width:100%;padding:8px 10px;resize:vertical;display:block;margin-top:6px}
+.ok{background:var(--okbg)!important;border-color:var(--ok)!important}
+.bad{background:var(--badbg)!important;border-color:var(--bad)!important}
+button{font:600 .88rem var(--body);background:var(--cy);color:var(--on);border:0;border-radius:4px;padding:9px 16px;cursor:pointer;margin:12px 8px 0 0}
+button.g{background:transparent;color:var(--cy);border:1px solid var(--cy)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+.res{font:500 .9rem var(--mono);color:var(--hot);margin-left:4px}
+.pic{display:block;width:100%;height:auto;border-radius:4px}
+figure{margin:0 0 14px}figcaption{font:400 .78rem var(--mono);color:var(--mute);margin-top:5px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.pair{grid-template-columns:1fr}}
+.box{background:var(--tint);border:1px solid var(--line);border-radius:4px;padding:12px 16px;margin:14px 0}
+.box b.l{font:500 .74rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mag);display:block;margin-bottom:4px}
+.wb{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 14px}
+.wb span{border:1px solid var(--cy);color:var(--cy);border-radius:4px;padding:1px 10px;font:500 .9rem var(--mono)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.95rem}
+td,th{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--tint);font:500 .78rem var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.tl td{text-align:center;font-size:.85rem;min-width:70px}
+.tl .p{background:var(--cy);color:var(--on);font-weight:600}
+.tl .d{background:var(--hot);color:var(--on);font-weight:600}
+.formula{font:500 1.05rem/1.5 var(--mono);color:var(--ink)}
+.formula em{font-style:normal;color:var(--hot)}
+.formula i{font-style:normal;color:var(--cy)}
+.read{border-left:2px solid var(--line);padding-left:16px;margin:10px 0}
+.read h4{font:500 .78rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--mag);margin:0 0 6px}
+.t{font-weight:600}
+.chk label{display:block;margin:6px 0}
+.chk input{margin-right:8px}
+/* --- отправка учителю --- */
+.send label.nm{display:block;font-weight:600;margin:4px 0 6px}
+.send input.nm{font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:8px 10px;width:100%;max-width:340px}
+.send button{font-size:1rem;padding:11px 22px}
+.send .msg{margin-top:12px;font:500 .95rem var(--body)}
+.send .msg.good{color:var(--ok)}
+.send .msg.no{color:var(--bad)}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style>
+
+</head><body>
+<main>
+<header>
+<p class="eye">Unit 3 · Grammar · Level up</p>
+<h1>Future practice plus</h1>
+<p class="goal">Harder practice with <b>will</b>, <b>will be + -ing</b> and <b>will have + past participle</b>. 39 gaps. Press <b>Check all</b> at the end, then <b>send your answers</b> to your teacher.</p>
+</header>
+<section id="r0"><span class="stage">Reminder</span><h2>Which form, and why?</h2><p class="task">Read the table before you start.</p><div class="scroll"><table><tr><th>Form</th><th>Use it for</th><th>Example</th></tr>
+<tr><td>will + verb</td><td>a decision made now; an offer; a promise; a prediction</td><td>I’ll carry that bag for you. I think it will rain.</td></tr>
+<tr><td>will be + verb-ing</td><td>an action in progress at a moment in the future</td><td>At nine tomorrow I’ll be sitting in a lesson.</td></tr>
+<tr><td>will have + past participle (V3)</td><td>an action finished before a moment in the future</td><td>By nine I’ll have eaten breakfast.</td></tr>
+<tr><td>time words</td><td><b>at / this time tomorrow</b> → will be -ing<br><b>by / by the time / before</b> → will have V3</td><td>This time tomorrow I’ll be flying. By Friday I’ll have landed.</td></tr>
+<tr><td>by / until</td><td><b>by</b> = not later than; <b>until</b> = up to that time</td><td>Send it by Friday. I’ll be here until Friday.</td></tr></table></div></section><section id="r1"><span class="stage">Part 1</span><h2>Choose the best form</h2><p class="task">Is it a decision, an offer or a prediction? An action in progress? Or finished before a moment in the future?</p><div data-sec><ol><li>The phone is ringing. — I <select class="a" data-a="'ll get" aria-label="choice 1"><option></option><option>'ll get</option><option>will have got</option><option>will be getting</option></select> it!</li><li>Don't ring the bell at nine. The baby <select class="a" data-a="will be sleeping" aria-label="choice 2"><option></option><option>will have slept</option><option>will be sleeping</option><option>will sleep</option></select> at that time.</li><li>By the time the guests arrive, we <select class="a" data-a="will have blown up" aria-label="choice 3"><option></option><option>will be blowing up</option><option>will blow up</option><option>will have blown up</option></select> all the balloons.</li><li>I think robots <select class="a" data-a="will do" aria-label="choice 4"><option></option><option>will be doing</option><option>will do</option><option>will have done</option></select> most of our housework one day.</li><li>Don't worry about the luggage. I <select class="a" data-a="'ll carry" aria-label="choice 5"><option></option><option>will have carried</option><option>will be carrying</option><option>'ll carry</option></select> it upstairs for you.</li><li>By morning the technicians <select class="a" data-a="will have fixed" aria-label="choice 6"><option></option><option>will be fixing</option><option>will have fixed</option><option>will fix</option></select> the problem.</li><li>At this time on Saturday, thousands of fans <select class="a" data-a="will be queuing" aria-label="choice 7"><option></option><option>will queue</option><option>will have queued</option><option>will be queuing</option></select> outside the stadium.</li><li>I promise I <select class="a" data-a="will send" aria-label="choice 8"><option></option><option>will send</option><option>will be sending</option><option>will have sent</option></select> you the photos tomorrow.</li></ol><button data-check>Check</button><button class="g" data-show>Show answers</button><span class="res"></span></div></section><section id="r2"><span class="stage">Part 2</span><h2>Find the mistake</h2><p class="task">Each sentence has one mistake in the bold words. Write the correct words.</p><div data-sec><ol><li>By the end of the concert, the band <b>will be playing</b> thirty songs. → <input class="a w" data-a="will have played" aria-label="gap 9"></li><li>This time next month, I <b>will have hiking</b> in the Alps. → <input class="a w" data-a="will be hiking" aria-label="gap 10"></li><li>I think it <b>will to rain</b> tomorrow. → <input class="a w" data-a="will rain" aria-label="gap 11"></li><li>The farmers <b>won't have be</b> finished the harvest by October. → <input class="a w" data-a="won't have finished|will not have finished" aria-label="gap 12"></li><li><b>Will you have taking</b> photos at the wedding? → <input class="a w" data-a="will you be taking" aria-label="gap 13"></li><li>Please send the form <b>until</b> Thursday. → <input class="a s" data-a="by" aria-label="gap 14"></li><li>Don't worry. She <b>will helps</b> you with the bags. → <input class="a w" data-a="will help" aria-label="gap 15"></li><li>By tomorrow, the painters <b>will has</b> finished the fence. → <input class="a w" data-a="will have" aria-label="gap 16"></li></ol><button data-check>Check</button><button class="g" data-show>Show answers</button><span class="res"></span></div></section><section id="r3"><span class="stage">Part 3</span><h2>Keep the meaning</h2><p class="task">Complete the second sentence so that it means the same as the first. Use the word in bold.</p><div data-sec><ol><li>At 9 a.m. tomorrow my sister is in the middle of her driving lesson. (<b>taking</b>)<br>At 9 a.m. tomorrow my sister <input class="a w" data-a="will be taking|'ll be taking" aria-label="gap 17"> her driving lesson.</li><li>I plan to read the whole novel before the holidays start. (<b>read</b>)<br>Before the holidays start, I <input class="a w" data-a="will have read|'ll have read" aria-label="gap 18"> the whole novel.</li><li>The students will leave the lab before lunch. (<b>left</b>)<br>By lunch the students <input class="a w" data-a="will have left|'ll have left" aria-label="gap 19"> the lab.</li><li>Don't phone Grandpa at four. He always takes a nap then. (<b>napping</b>)<br>At four Grandpa <input class="a w" data-a="will be napping|'ll be napping" aria-label="gap 20">.</li><li>I expect the cleaners are still at work when we arrive at the hotel. (<b>still</b>)<br>The cleaners <input class="a w" data-a="will still be working|'ll still be working" aria-label="gap 21"> when we arrive.</li><li>The team will finish the last chapter on Friday. The deadline is Saturday. (<b>completed</b>)<br>By Saturday the team <input class="a w" data-a="will have completed|'ll have completed" aria-label="gap 22"> the last chapter.</li><li>Perhaps it will snow tomorrow. (<b>probably</b>)<br>It <input class="a w" data-a="will probably|'ll probably" aria-label="gap 23"> snow tomorrow.</li></ol><button data-check>Check</button><button class="g" data-show>Show answers</button><span class="res"></span></div></section><section id="r4"><span class="stage">Part 4</span><h2>By, until, by the time</h2><p class="task">Choose the correct time expression.</p><div data-sec><ol><li>The parcel will arrive <select class="a" data-a="by" aria-label="choice 24"><option></option><option>by the time</option><option>by</option><option>until</option></select> Wednesday at the latest.</li><li>The library will stay open <select class="a" data-a="until" aria-label="choice 25"><option></option><option>by</option><option>until</option><option>by the time</option></select> 9 p.m. during exams.</li><li><select class="a" data-a="By the time" aria-label="choice 26"><option></option><option>Until</option><option>By the time</option><option>At</option></select> the bell rings, the pupils will have left the classroom.</li><li><select class="a" data-a="This time" aria-label="choice 27"><option></option><option>By</option><option>Until</option><option>This time</option></select> next Tuesday, I'll be revising in the library.</li><li>The firefighters won't have put out the fire <select class="a" data-a="by" aria-label="choice 28"><option></option><option>until</option><option>at</option><option>by</option></select> midnight.</li><li>We'll be camping by the lake <select class="a" data-a="until" aria-label="choice 29"><option></option><option>by</option><option>until</option><option>by the time</option></select> Sunday morning.</li><li>She'll have written the speech <select class="a" data-a="by the time" aria-label="choice 30"><option></option><option>by the time</option><option>at</option><option>until</option></select> the ceremony begins.</li><li>My parents will be hiking in the mountains <select class="a" data-a="at" aria-label="choice 31"><option></option><option>until</option><option>at</option><option>by</option></select> this time next week.</li></ol><button data-check>Check</button><button class="g" data-show>Show answers</button><span class="res"></span></div></section><section id="r5"><span class="stage">Part 5</span><h2>School trip</h2><p class="task">Put the verb in brackets into the correct form: will, will be -ing or will have V3.</p><div data-sec><p class="read" style="margin-top:6px">Our school trip to the mountains starts on Friday. At seven in the morning the bus (1) <input class="a w" data-a="will be leaving|'ll be leaving" aria-label="gap 32"> (leave) the car park, so please be on time. By nine o’clock we (2) <input class="a w" data-a="will have reached|'ll have reached" aria-label="gap 33"> (reach) the first village, and the guide (3) <input class="a w" data-a="will be telling|'ll be telling" aria-label="gap 34"> (tell) us about the local legends. By lunchtime we (4) <input class="a w" data-a="will have walked|'ll have walked" aria-label="gap 35"> (walk) almost ten kilometres. While we are climbing the hill, the cooks (5) <input class="a w" data-a="will be preparing|'ll be preparing" aria-label="gap 36"> (prepare) soup at the mountain hut. By the time we get back, the sun (6) <input class="a w" data-a="will have set|'ll have set" aria-label="gap 37"> (set), and everybody (7) <input class="a w" data-a="will be sitting|'ll be sitting" aria-label="gap 38"> (sit) around the fire. I’m sure you (8) <input class="a w" data-a="will love|'ll love" aria-label="gap 39"> (love) the view from the top!</p><button data-check>Check</button><button class="g" data-show>Show answers</button><span class="res"></span></div></section><section id="r6"><span class="stage">Part 6</span><h2>Write about yourself</h2><p class="task">Write one or two sentences for each prompt.</p><ol>
+<li>At 7 a.m. tomorrow … (what will you be doing?)<textarea rows="2" id="f1" aria-label="Sentence 1"></textarea></li>
+<li>By the end of this month … (what will you have done?)<textarea rows="2" id="f2" aria-label="Sentence 2"></textarea></li>
+<li>In twenty years scientists … (what will they invent or be doing?)<textarea rows="2" id="f3" aria-label="Sentence 3"></textarea></li>
+<li>This time next summer … (where will you be and what will you be doing?)<textarea rows="2" id="f4" aria-label="Sentence 4"></textarea></li>
+<li>I promise that next week I … (a promise with will)<textarea rows="2" id="f5" aria-label="Sentence 5"></textarea></li>
+</ol>
+<div class="chk">
+<label><input type="checkbox"> I used all three forms: will, will be -ing, will have V3.</label>
+<label><input type="checkbox"> I used <i>by</i> or <i>until</i> correctly.</label>
+<label><input type="checkbox"> I used <i>by the time</i> or <i>this time next …</i> once.</label>
+<label><input type="checkbox"> I checked every verb form.</label>
+</div></section>
+<section id="fin"><span class="stage">Result</span><h2>Total score</h2><button id="all">Check all</button><span class="res" id="tot"></span></section>
+<section id="send" class="send">
+<span class="stage">Finish</span>
+<h2>Send your answers to your teacher</h2>
+<p class="task">Write your name and press the button. Your teacher will see all your answers.</p>
+<label class="nm" for="stName">Your name and surname</label>
+<input class="nm" id="stName" autocomplete="name" placeholder="e.g. Anna Petrova">
+<br><button id="sendBtn">Send answers</button>
+<p class="msg" id="sendMsg" role="status"></p>
+</section>
+</main>
+<script>
+document.getElementById("all").onclick=function(){var n=0,t=0;document.querySelectorAll("[data-sec]").forEach(function(s){s.querySelector("[data-check]").click();var m=s.querySelector(".res").textContent.match(/(\d+) \/ (\d+)/);if(m){n+=+m[1];t+=+m[2]}});document.getElementById("tot").textContent=n+" / "+t};
+</script>
+<script>
+function norm(s){return s.toLowerCase().replace(/[’‘`]/g,"'").replace(/[–−]/g,"-").replace(/\s+/g," ").replace(/[.!]+$/,"").trim()}
+function vars(a){var out=[];a.split("|").forEach(function(x){out.push(x);if(/^will not /.test(x))out.push("won't "+x.slice(9));else if(/^will /.test(x))out.push("'ll "+x.slice(5))});return out}
+function ok(el){var v=norm(el.value);if(!v)return false;return vars(el.dataset.a).some(function(a){return norm(a)===v})}
+function first(el){return el.dataset.a.split("|")[0]}
+document.querySelectorAll("[data-sec]").forEach(function(sec){var res=sec.querySelector(".res");
+sec.querySelector("[data-check]").onclick=function(){var n=0,t=0;sec.querySelectorAll(".a").forEach(function(el){t++;var g=ok(el);if(g)n++;el.classList.toggle("ok",g);el.classList.toggle("bad",!g)});res.textContent=n+" / "+t};
+sec.querySelector("[data-show]").onclick=function(){sec.querySelectorAll(".a").forEach(function(el){el.value=first(el);el.classList.add("ok");el.classList.remove("bad")});res.textContent=""}});
+
+/* ============================================================
+   ОТПРАВКА ОТВЕТОВ В GOOGLE ТАБЛИЦУ
+   ============================================================ */
+var SHEET_URL = "https://script.google.com/macros/s/AKfycbxHOtqDkBDmDCURknXm6UqP3sZHLemql3TmUEznGUQwOFMbArs0UPX_h0WmIBOBFUrxeQ/exec";
+var HOMEWORK  = "Future Practice Plus";   /* так будет называться лист в таблице */
+
+var peeked={};
+document.querySelectorAll("[data-sec]").forEach(function(sec,i){
+  sec.querySelector("[data-show]").addEventListener("click",function(){peeked[i+1]=true});
+});
+document.getElementById("sendBtn").onclick=function(){
+  var btn=this,msg=document.getElementById("sendMsg"),name=document.getElementById("stName").value.trim();
+  function say(t,good){msg.textContent=t;msg.className="msg "+(good?"good":"no")}
+  if(!name){say("Please write your name first.",false);document.getElementById("stName").focus();return}
+  var fields={"Имя":name},total=0,max=0,empty=0,errs=[],skipped=[],scores=[];
+  document.querySelectorAll("[data-sec]").forEach(function(sec,i){
+    var n=0,t=0;
+    sec.querySelectorAll(".a").forEach(function(el,j){
+      t++;var v=el.value.trim();
+      if(ok(el))n++;else if(v)errs.push((i+1)+"."+(j+1)+"  "+v+" → "+first(el));else skipped.push((i+1)+"."+(j+1));
+      if(!v)empty++;
+    });
+    scores.push(n+" / "+t);total+=n;max+=t;
+  });
+  fields["Итог"]=total+" / "+max+"  ("+Math.round(total/max*100)+"%)";
+  scores.forEach(function(sc,i){fields["Упр. "+(i+1)]=sc});
+  var pk=Object.keys(peeked).map(function(k){return "упр. "+k});
+  fields["Подсматривал ответы"]=pk.length?"да: "+pk.join(", "):"нет";
+  if(skipped.length)errs.push("пропущено: "+skipped.join(", "));
+  fields["Ошибки"]=errs.length?errs.join("\n"):"без ошибок ✓";
+  var pr=[];
+  for(var k=1;k<=5;k++){var ta=document.getElementById("f"+k),v=ta?ta.value.trim():"";if(v)pr.push(k+". "+v);else empty++}
+  fields["О себе (упр. 6)"]=pr.length?pr.join("\n"):"(пусто)";
+  if(empty&&!confirm(empty+" answers are empty. Send anyway?"))return;
+  btn.disabled=true;say("Sending…",true);
+  fetch(SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify({sheet:HOMEWORK,fields:fields})})
+  .then(function(){say("Sent! ✓ Your teacher has your answers. Score: "+total+" / "+max,true);btn.textContent="Sent ✓"})
+  .catch(function(){btn.disabled=false;say("Could not send. Check your internet and try again.",false)});
+};
+</script>
+</body></html>
