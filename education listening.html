@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit 1 Feelings — Revision</title>
+<style>
+  :root{
+    --ink:#1f1d24; --muted:#6c6873; --line:#e2dde6; --paper:#fff;
+    --mag:#d81b72; --org:#f08a00; --teal:#0e9aa7; --blue:#2c6bc4; --grn:#3b9a3b; --pur:#7a49b8;
+    --ok:#2c7a37; --okbg:#e3f4e1; --bad:#c62a3a; --badbg:#fde5e7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#f6f3f8;color:var(--ink);font:17px/1.55 Arial, Helvetica, sans-serif}
+  .top{background:var(--mag);color:#fff;padding:28px 0 22px;border-bottom:6px solid var(--org)}
+  .top .in{max-width:880px;margin:0 auto;padding:0 22px}
+  .top .unit{font-size:15px;letter-spacing:1px;text-transform:uppercase;opacity:.9}
+  .top h1{font-family:Georgia,serif;font-weight:normal;font-size:44px;margin:2px 0 4px}
+  .top .sub{font-size:16px;opacity:.95}
+  .top .meta{margin-top:14px;font-size:15px;display:flex;gap:30px;flex-wrap:wrap}
+  .wrap{max-width:880px;margin:0 auto;padding:10px 22px 90px}
+
+  section{background:#fff;margin-top:28px;padding:22px 24px 10px;border-top:6px solid var(--c);box-shadow:0 1px 0 var(--line)}
+  .sh{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .num{background:var(--c);color:#fff;font:bold 22px Arial,sans-serif;width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+  .sh h2{font-family:Georgia,serif;font-weight:normal;font-size:26px;margin:0;flex:1;color:var(--c)}
+  .sh .time{font-size:14px;color:var(--muted)}
+  button{font:inherit;font-size:14px;background:#fff;border:2px solid var(--ink);color:var(--ink);padding:3px 11px;cursor:pointer}
+  button:hover{background:var(--ink);color:#fff}
+  .sh button{border-color:var(--c);color:var(--c)}
+  .sh button:hover{background:var(--c);color:#fff}
+
+  .tn{margin:12px 0 4px;font-size:15px;color:#433f49;background:#faf8fb;padding:6px 12px}
+  .tn summary{cursor:pointer;color:var(--muted);font-size:14px}
+  .tn ul{margin:6px 0;padding-left:18px}
+
+  .ex{margin:22px 0}
+  .ex h3{font-family:Georgia,serif;font-weight:normal;font-size:20px;margin:0 0 6px}
+  .ex h3 .l{display:inline-block;background:var(--c);color:#fff;font:bold 14px Arial,sans-serif;padding:2px 7px;margin-right:8px;vertical-align:3px}
+  .task{color:var(--muted);font-size:15px;margin:0 0 10px}
+  .ex ol{padding-left:24px;margin:8px 0}
+  .ex li{margin:7px 0}
+  .ctrl{margin-top:10px;display:flex;gap:8px;align-items:center}
+  .score{font-weight:bold;color:var(--c)}
+
+  input[type=text]{font:inherit;border:0;border-bottom:2px solid #b9b2c2;background:#fbfaf2;padding:1px 5px;width:150px}
+  input[type=text]:focus{outline:none;border-bottom-color:var(--c)}
+  input.wide{width:min(100%,430px)}
+  select{font:inherit;font-size:16px;padding:2px;border:2px solid #d4cede;background:#fff}
+  .ok{background:var(--okbg)!important;border-color:var(--ok)!important}
+  .bad{background:var(--badbg)!important;border-color:var(--bad)!important}
+  .key{display:none;color:var(--ok);font-size:14px;margin-left:6px;font-weight:bold}
+  .show .key{display:inline}
+
+  .rule{background:#fff6d8;border-left:6px solid var(--org);padding:14px 16px;margin:16px 0;font-size:16px}
+  .rule h3{font-family:Arial,sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--org);margin:0 0 8px}
+  .rule p{margin:5px 0}
+  .rule table{border-collapse:collapse;width:100%}
+  .rule td{border-bottom:1px solid #f0e2b2;padding:5px 8px;vertical-align:top}
+  .ru{color:#7a6a4a;font-size:14px}
+  .wrong{text-decoration:line-through;color:var(--bad)}
+  .right{color:var(--ok);font-weight:bold}
+
+  .sp{margin:14px 0 4px;display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+  .sp .tag{font:bold 13px Arial,sans-serif;color:var(--grn);letter-spacing:1px;padding-top:7px}
+  .bub{background:#ece4f7;color:#3d2a5c;padding:6px 14px;border-radius:14px;position:relative}
+  .bub:after{content:"";position:absolute;left:14px;bottom:-7px;border:7px solid transparent;border-top-color:#ece4f7;border-bottom:0}
+  .bub.me{background:#dff1f3;color:#14484d}
+  .bub.me:after{border-top-color:#dff1f3}
+  .help{font-size:15px}
+  .help em{font-style:normal;background:#dff1f3;padding:1px 6px;margin:2px;display:inline-block}
+
+  .words{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{border:2px solid #d4cede;background:#fff;padding:3px 11px;cursor:pointer;user-select:none}
+  .chip.pos{border-color:var(--teal);background:#d9f2f4}
+  .chip.neg{border-color:var(--org);background:#ffe9cc}
+  .legend{font-size:14px;color:var(--muted);margin-top:6px}
+  .legend span{display:inline-block;padding:0 6px;border:2px solid}
+
+  .photo{display:block;width:100%;max-width:620px;margin:14px 0;border:4px solid var(--ink)}
+  .camp{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin:10px 0;padding-left:0;list-style:none;counter-reset:q}
+  .camp li{counter-increment:q;padding-left:28px;position:relative}
+  .camp li:before{content:counter(q);position:absolute;left:0;top:1px;background:var(--c);color:#fff;font-size:13px;width:20px;height:20px;text-align:center;line-height:20px}
+  @media(max-width:640px){.camp{grid-template-columns:1fr}}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:10px 0}
+  .card{border:2px solid var(--c);padding:12px;min-height:70px;background:#fff}
+  .card.on{background:var(--c);color:#fff}
+  .notes{min-height:80px;border:2px dashed #c9c1d3;padding:10px;background:#fffef8}
+  .notes:empty:before{content:attr(data-ph);color:var(--muted)}
+  .scr{font-family:Georgia,serif;color:var(--blue)}
+  table.int{border-collapse:collapse;width:100%}
+  table.int td{border-bottom:1px solid var(--line);padding:6px 8px}
+
+  #timer{position:fixed;right:16px;bottom:16px;background:var(--mag);color:#fff;padding:8px 12px;display:none;align-items:center;gap:10px;box-shadow:0 2px 0 var(--org)}
+  #timer b{font:22px Georgia,serif;min-width:58px;display:inline-block}
+  #timer button{background:transparent;color:#fff;border-color:#fff;padding:1px 8px}
+  #timer.end{background:var(--bad)}
+  @media print{button,.ctrl,#timer,.tn{display:none!important}body{background:#fff}section{page-break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <div class="unit">Unit 1 · Revision</div>
+  <h1>Feelings</h1>
+</div></header>
+
+<div class="wrap">
+
+<!-- 1 -->
+<section style="--c:var(--mag)">
+  <div class="sh"><span class="num">1</span><h2>Warm-up: Back from camp</h2><span class="time">5 min</span><button data-min="5">Таймер</button></div>
+
+  <p class="task" style="margin-top:14px"><b>Tell me about your camp.</b></p>
+  <ol class="camp">
+    <li>Where was the camp?</li>
+    <li>How long were you there?</li>
+    <li>Who did you share a room with?</li>
+    <li>What did you do every day?</li>
+    <li>What was the food like?</li>
+    <li>Did you make new friends?</li>
+    <li>What was the best day? Why?</li>
+    <li>How did you feel on the last day?</li>
+  </ol>
+  <p class="help">Help: <em>I was there for … days</em> <em>We played / swam / danced…</em> <em>The food was…</em> <em>I felt a bit sad</em></p>
+  <p class="task" style="margin-top:16px">My mistakes:</p>
+  <div class="notes" contenteditable="true" data-ph=""></div>
+</section>
+
+<!-- 2 -->
+<section style="--c:var(--blue)">
+  <div class="sh"><span class="num">2</span><h2>Feelings: words</h2><span class="time">7 min</span><button data-min="7">Таймер</button></div>
+
+  <div class="ex" id="ex2a">
+    <h3><span class="l">2a</span>Positive or negative?</h3>
+    <p class="task">Click once for positive, twice for negative.</p>
+    <div class="words">
+      <span class="chip" data-a="neg">anxious</span><span class="chip" data-a="neg">ashamed</span>
+      <span class="chip" data-a="neg">bored</span><span class="chip" data-a="neg">confused</span>
+      <span class="chip" data-a="neg">cross</span><span class="chip" data-a="pos">delighted</span>
+      <span class="chip" data-a="neg">disappointed</span><span class="chip" data-a="neg">embarrassed</span>
+      <span class="chip" data-a="neg">envious</span><span class="chip" data-a="pos">excited</span>
+      <span class="chip" data-a="neg">frightened</span><span class="chip" data-a="pos">proud</span>
+      <span class="chip" data-a="pos">relieved</span><span class="chip" data-a="neg">shocked</span>
+      <span class="chip" data-a="neg">suspicious</span><span class="chip" data-a="neg">upset</span>
+    </div>
+    <p class="legend"><span style="background:#d9f2f4;border-color:var(--teal)">positive</span> <span style="background:#ffe9cc;border-color:var(--org)">negative</span></p>
+    <div class="ctrl"><button class="chk-chips">Check</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">Which word is you today? Why?</span></div>
+  </div>
+
+  <div class="ex" id="ex2b">
+    <h3><span class="l">2b</span>How do they feel?</h3>
+    <p class="task">Choose the best adjective.</p>
+    <ol>
+      <li>Tom has got an exam in ten minutes. He is <select data-a="anxious"></select>.</li>
+      <li>Your friend has got a new phone. You want it too. You are <select data-a="envious"></select>.</li>
+      <li>Anna fell over in front of the whole class. She was <select data-a="embarrassed"></select>.</li>
+      <li>I was worried about my exam, but I passed! I'm <select data-a="relieved"></select>.</li>
+      <li>There is a big spider in my bed! I'm <select data-a="frightened"></select>.</li>
+      <li>My little brother won the competition. I'm very <select data-a="proud"></select> of him.</li>
+      <li>I don't understand this exercise. I'm <select data-a="confused"></select>.</li>
+      <li>There's nothing to do. I'm <select data-a="bored"></select>.</li>
+    </ol>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">When were you proud of yourself at camp?</span></div>
+  </div>
+
+  <div class="ex" id="ex2c">
+    <h3><span class="l">2c</span>Modifying adverbs</h3>
+    <p class="task">Number them from weakest (1) to strongest (5).</p>
+    <ol style="list-style:none;padding-left:0">
+      <li><select data-a="3" class="n"></select> rather</li>
+      <li><select data-a="1" class="n"></select> a little bit</li>
+      <li><select data-a="5" class="n"></select> extremely</li>
+      <li><select data-a="2" class="n"></select> a bit</li>
+      <li><select data-a="4" class="n"></select> very</li>
+    </ol>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">How did you feel on your first day at camp?</span></div>
+    <p class="help">Model: <em>I was very anxious, but a little bit excited too.</em></p>
+  </div>
+</section>
+
+<!-- 3 -->
+<section style="--c:var(--org)">
+  <div class="sh"><span class="num">3</span><h2>Past Simple: affirmative (+)</h2><span class="time">12 min</span><button data-min="12">Таймер</button></div>
+
+  <div class="rule">
+    <h3>Remember</h3>
+    <table>
+      <tr><td><b>Regular</b></td><td>verb + <b>-ed</b></td><td>want → wanted, talk → talked</td></tr>
+      <tr><td></td><td>-e → + <b>d</b></td><td>move → moved, love → loved</td></tr>
+      <tr><td></td><td>согласная + y → <b>-ied</b></td><td>marry → married, study → studied <span class="ru">(но play → played)</span></td></tr>
+      <tr><td></td><td>гласная + согласная → удвоить</td><td>drop → dropped, stop → stopped</td></tr>
+      <tr><td><b>Irregular</b></td><td>учим наизусть</td><td>go → went, take → took, leave → left</td></tr>
+      <tr><td><b>be</b></td><td>I / he / she / it → <b>was</b><br>you / we / they → <b>were</b></td><td>She was tired. They were happy.</td></tr>
+    </table>
+    <p class="ru">В утверждении глагол один и тот же для всех: I went, she went, they went.</p>
+  </div>
+
+  <div class="ex" id="ex3a">
+    <h3><span class="l">3a</span>Spelling</h3>
+    <p class="task">Write the past simple.</p>
+    <ol style="columns:2;column-gap:40px">
+      <li>want — <input type="text" data-a="wanted"></li>
+      <li>stop — <input type="text" data-a="stopped"></li>
+      <li>study — <input type="text" data-a="studied"></li>
+      <li>love — <input type="text" data-a="loved"></li>
+      <li>play — <input type="text" data-a="played"></li>
+      <li>plan — <input type="text" data-a="planned"></li>
+      <li>try — <input type="text" data-a="tried"></li>
+      <li>arrive — <input type="text" data-a="arrived"></li>
+    </ol>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">What did you play at camp? Did you try something new?</span></div>
+  </div>
+
+  <div class="ex" id="ex3b">
+    <h3><span class="l">3b</span>Irregular verbs from Unit 1</h3>
+    <p class="task">Say it fast, then write.</p>
+    <ol style="columns:2;column-gap:40px">
+      <li>go — <input type="text" data-a="went"></li>
+      <li>have — <input type="text" data-a="had"></li>
+      <li>get — <input type="text" data-a="got"></li>
+      <li>win — <input type="text" data-a="won"></li>
+      <li>give — <input type="text" data-a="gave"></li>
+      <li>spend — <input type="text" data-a="spent"></li>
+      <li>begin — <input type="text" data-a="began"></li>
+      <li>say — <input type="text" data-a="said"></li>
+      <li>find — <input type="text" data-a="found"></li>
+      <li>lose — <input type="text" data-a="lost"></li>
+      <li>leave — <input type="text" data-a="left"></li>
+      <li>take — <input type="text" data-a="took"></li>
+      <li>break — <input type="text" data-a="broke"></li>
+      <li>fall — <input type="text" data-a="fell"></li>
+      <li>feel — <input type="text" data-a="felt"></li>
+      <li>buy — <input type="text" data-a="bought"></li>
+    </ol>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">Choose three verbs. Tell me three things you did at camp.</span></div>
+  </div>
+
+  <div class="ex" id="ex3c">
+    <h3><span class="l">3c</span>was or were?</h3>
+    <ol>
+      <li>I <input type="text" data-a="was" style="width:80px"> very tired after the trip.</li>
+      <li>My parents <input type="text" data-a="were" style="width:80px"> cross with me.</li>
+      <li>It <input type="text" data-a="was" style="width:80px"> cold and rainy.</li>
+      <li>We <input type="text" data-a="were" style="width:80px"> at camp for two weeks.</li>
+      <li>You <input type="text" data-a="were" style="width:80px"> late yesterday!</li>
+    </ol>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">Who were your friends at camp? What were they like?</span></div>
+  </div>
+
+  <div class="ex" id="ex3d">
+    <h3><span class="l">3d</span>Kate's first day at camp</h3>
+    <p class="task">Complete the story with the past simple of the verbs in brackets.</p>
+    <p style="line-height:2.1">
+      Last summer Kate <input type="text" data-a="went" style="width:100px"> (go) to a summer camp near a lake.
+      On the first day she <input type="text" data-a="lost" style="width:100px"> (lose) her phone on the beach.
+      She <input type="text" data-a="was" style="width:100px"> (be) really upset, and her new friends
+      <input type="text" data-a="were" style="width:100px"> (be) worried too.
+      In the evening a little boy <input type="text" data-a="found" style="width:100px"> (find) the phone in the sand and
+      <input type="text" data-a="gave" style="width:100px"> (give) it back to her.
+      Kate <input type="text" data-a="felt" style="width:100px"> (feel) extremely relieved.
+      She <input type="text" data-a="bought" style="width:100px"> (buy) the boy an ice cream, and they
+      <input type="text" data-a="became" style="width:100px"> (become) good friends.
+    </p>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">Close the text and tell Kate's story. Did you lose anything at camp?</span></div>
+    <p class="help">Keywords: <em>camp</em> <em>phone</em> <em>upset</em> <em>little boy</em> <em>relieved</em> <em>ice cream</em> <em>friends</em></p>
+  </div>
+</section>
+
+<!-- 4 -->
+<section style="--c:var(--teal)">
+  <div class="sh"><span class="num">4</span><h2>Past Simple: negative (−) and questions (?)</h2><span class="time">15 min</span><button data-min="15">Таймер</button></div>
+
+  <div class="rule">
+    <h3>Remember</h3>
+    <table>
+      <tr><td><b>(−)</b></td><td>I / she / they + <b>didn't</b> + verb</td><td>I didn't go out last night.</td></tr>
+      <tr><td><b>(?)</b></td><td><b>Did</b> + you / he + verb …?</td><td>Did Harry text you? Yes, he did. / No, he didn't.</td></tr>
+      <tr><td><b>be</b></td><td>wasn't / weren't · Was…? / Were…?</td><td>Was Joe late? Yes, he was.</td></tr>
+      <tr><td><b>could</b></td><td>couldn't · Could…?</td><td>I couldn't see the screen.</td></tr>
+    </table>
+    <p class="ru">После did и didn't глагол всегда в начальной форме: прошлое уже показывает «did».</p>
+    <p><span class="wrong">I didn't went.</span> → <span class="right">I didn't go.</span> &nbsp;&nbsp;
+       <span class="wrong">Did you saw?</span> → <span class="right">Did you see?</span> &nbsp;&nbsp;
+       <span class="wrong">Did she tired?</span> → <span class="right">Was she tired?</span></p>
+  </div>
+
+  <div class="ex" id="ex4a">
+    <h3><span class="l">4a</span>Make the sentences negative</h3>
+    <ol>
+      <li>I went shopping on Saturday.<br><input type="text" class="wide" data-a="I didn't go shopping on Saturday"></li>
+      <li>She walked home from school.<br><input type="text" class="wide" data-a="She didn't walk home from school"></li>
+      <li>We had a test on Monday.<br><input type="text" class="wide" data-a="We didn't have a test on Monday"></li>
+      <li>It was hot and sunny.<br><input type="text" class="wide" data-a="It wasn't hot and sunny"></li>
+      <li>They were at the cinema.<br><input type="text" class="wide" data-a="They weren't at the cinema"></li>
+      <li>I could swim when I was five.<br><input type="text" class="wide" data-a="I couldn't swim when I was five"></li>
+    </ol>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">Tell me two things you didn't do at camp.</span></div>
+  </div>
+
+  <div class="ex" id="ex4b">
+    <h3><span class="l">4b</span>Choose the correct form</h3>
+    <ol>
+      <li>Did you <select data-a="enjoy" data-o="enjoy|enjoyed"></select> the film?</li>
+      <li>She didn't <select data-a="call" data-o="call|called"></select> me yesterday.</li>
+      <li><select data-a="Was" data-o="Was|Did"></select> he late for school?</li>
+      <li><select data-a="Were" data-o="Were|Did"></select> they at home on Sunday?</li>
+      <li>Where did you <select data-a="go" data-o="go|went"></select> last summer?</li>
+      <li>I <select data-a="didn't" data-o="didn't|wasn't"></select> see him at the party.</li>
+      <li>We <select data-a="weren't" data-o="weren't|didn't"></select> bored at all.</li>
+    </ol>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">Did you like the food at camp? Why or why not?</span></div>
+  </div>
+
+  <div class="ex" id="ex4c">
+    <h3><span class="l">4c</span>Put the words in order</h3>
+    <p class="task">Make questions. The preposition goes at the end: <i>Who did you go <b>with</b>?</i></p>
+    <ol>
+      <li><span class="scr">you / did / the film / enjoy</span><br><input type="text" class="wide" data-a="Did you enjoy the film?"></li>
+      <li><span class="scr">did / what / watch / you</span><br><input type="text" class="wide" data-a="What did you watch?"></li>
+      <li><span class="scr">go / where / you / did</span><br><input type="text" class="wide" data-a="Where did you go?"></li>
+      <li><span class="scr">with / who / you / go / did</span><br><input type="text" class="wide" data-a="Who did you go with?"></li>
+      <li><span class="scr">she / was / why / upset</span><br><input type="text" class="wide" data-a="Why was she upset?"></li>
+      <li><span class="scr">listening / what / you / to / were</span><br><input type="text" class="wide" data-a="What were you listening to?"></li>
+    </ol>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">Ask me questions 2 and 4 about my weekend.</span></div>
+  </div>
+
+  <div class="ex" id="ex4d">
+    <h3><span class="l">4d</span>Question words</h3>
+    <p class="task">who · what · where · when · why · how · how much · how many</p>
+    <ol>
+      <li><input type="text" data-a="Where" style="width:110px"> was your camp? Near a big lake.</li>
+      <li><input type="text" data-a="Who" style="width:110px"> did you go with? My best friend.</li>
+      <li><input type="text" data-a="When" style="width:110px"> did you get back? Last Sunday.</li>
+      <li><input type="text" data-a="How much" style="width:110px"> money did you spend? Not much.</li>
+      <li><input type="text" data-a="How many" style="width:110px"> photos did you take? About a hundred!</li>
+      <li><input type="text" data-a="Why" style="width:110px"> did you cry on the last day? Because I was sad.</li>
+      <li><input type="text" data-a="What" style="width:110px"> did you eat? Pasta and pancakes.</li>
+      <li><input type="text" data-a="How" style="width:110px"> was the weather? Sunny and hot.</li>
+    </ol>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">Answer questions 1–8 about <b>your</b> camp.</span></div>
+  </div>
+
+  <div class="ex">
+    <h3><span class="l">4e</span>Interview your teacher</h3>
+    <p class="task">Ask about the teacher's holidays. Make questions from the prompts.</p>
+    <table class="int">
+      <tr><td>go / anywhere?</td><td style="color:var(--muted)">→ Did you go anywhere?</td></tr>
+      <tr><td>Where / go?</td><td></td></tr>
+      <tr><td>Who / go with?</td><td></td></tr>
+      <tr><td>see / a film?</td><td></td></tr>
+      <tr><td>What / do / at the weekend?</td><td></td></tr>
+      <tr><td>buy / anything?</td><td></td></tr>
+      <tr><td>be / bored?</td><td></td></tr>
+      <tr><td>How / feel / on the last day?</td><td></td></tr>
+    </table>
+    <p class="help" style="margin-top:8px">Short answers: <em>Yes, I did.</em> <em>No, I didn't.</em> <em>Yes, I was.</em> <em>No, I wasn't.</em></p>
+  </div>
+
+  <div class="ex">
+    <h3><span class="l">4f</span>Your mistakes</h3>
+    <p class="task">Look at “My mistakes” in exercise 1. Can you correct them?</p>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">Read each sentence again, the correct way.</span></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section style="--c:var(--pur)">
+  <div class="sh"><span class="num">5</span><h2>-ed / -ing adjectives · How + adjective</h2><span class="time">7 min</span><button data-min="7">Таймер</button></div>
+
+  <div class="rule">
+    <h3>Remember</h3>
+    <p><b>-ed</b> = how a person feels <span class="ru">(что я чувствую)</span>: <i>I'm <b>bored</b>. I'm disappointed.</i></p>
+    <p><b>-ing</b> = what makes us feel this <span class="ru">(что вызывает чувство)</span>: <i>This film is <b>boring</b>. My result is disappointing.</i></p>
+  </div>
+
+  <div class="ex" id="ex5a">
+    <h3><span class="l">5a</span>Choose the correct form</h3>
+    <ol>
+      <li>I don't like this film. It's <select data-a="boring" data-o="bored|boring"></select>.</li>
+      <li>I was <select data-a="shocked" data-o="shocked|shocking"></select> when I heard the news.</li>
+      <li>Don't be <select data-a="frightened" data-o="frightened|frightening"></select>. The dog won't bite.</li>
+      <li>It's really <select data-a="annoying" data-o="annoyed|annoying"></select> when you interrupt me.</li>
+      <li>Why are you looking so <select data-a="worried" data-o="worried|worrying"></select>?</li>
+      <li>The journey was long and <select data-a="tiring" data-o="tired|tiring"></select>.</li>
+      <li>Are you <select data-a="interested" data-o="interested|interesting"></select> in photography?</li>
+      <li>I fell over at school. It was so <select data-a="embarrassing" data-o="embarrassed|embarrassing"></select>!</li>
+    </ol>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">What was boring at camp? What was exciting?</span></div>
+  </div>
+
+  <div class="ex">
+    <h3><span class="l">5b</span>React!</h3>
+    <p class="help"><em>How boring!</em> <em>How annoying!</em> <em>How exciting!</em> <em>How embarrassing!</em> <em>How disgusting!</em> <em>How wonderful!</em> <em>How frightening!</em></p>
+    <ol>
+      <li>I dropped my phone and it broke.</li>
+      <li>I won a prize at the camp disco!</li>
+      <li>I found a hair in my soup.</li>
+      <li>I fell over in front of everyone.</li>
+      <li>It rained for five days, and we stayed inside.</li>
+      <li>I saw a huge spider in my bed.</li>
+    </ol>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub me">Now you tell me something that happened at camp. I react!</span></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section style="--c:var(--grn)">
+  <div class="sh"><span class="num">6</span><h2>Speaking: tell me a story</h2><span class="time">8 min</span><button data-min="8">Таймер</button></div>
+  <p class="task">Tell me about a time when you…</p>
+  <div class="cards" id="cards">
+    <div class="card">were really <b>excited</b></div>
+    <div class="card">felt <b>embarrassed</b></div>
+    <div class="card">were <b>frightened</b></div>
+    <div class="card">felt <b>proud</b> of yourself</div>
+    <div class="card">were <b>disappointed</b></div>
+    <div class="card"><b>hurt</b> yourself (broke / cut / burned / fell over)</div>
+  </div>
+  <div class="ctrl"><button id="pick">Pick a card</button></div>
+  <div class="rule">
+    <h3>Plan your story</h3>
+    <p><b>When?</b> Last year… / When I was eight… / At camp…</p>
+    <p><b>Where?</b> I was at school / at home / at camp…</p>
+    <p><b>What happened?</b> I went… I saw… I fell over and hurt my…</p>
+    <p><b>How did you feel? Why?</b> I was very… because…</p>
+    <p class="ru">Пример: Two years ago I was in the park. I fell off my bike and broke my arm. I was very upset because I couldn't swim all summer.</p>
+  </div>
+</section>
+
+<!-- 7 -->
+<section style="--c:var(--mag)">
+  <div class="sh"><span class="num">7</span><h2>Mini test</h2><span class="time">5 min</span><button data-min="5">Таймер</button></div>
+  <div class="ex" id="ex7">
+    <ol>
+      <li>She <input type="text" data-a="didn't like"> (not / like) the film.</li>
+      <li><input type="text" data-a="Did" style="width:90px"> you see Tom yesterday? Yes, I did.</li>
+      <li>We <input type="text" data-a="were" style="width:90px"> (be) very tired after the trip.</li>
+      <li>I <input type="text" data-a="lost" style="width:90px"> (lose) my keys last week.</li>
+      <li>The bus <input type="text" data-a="stopped"> (stop) near my school.</li>
+      <li>Where <input type="text" data-a="did" style="width:90px"> you go last summer?</li>
+      <li>The lesson was really <input type="text" data-a="boring"> (bore).</li>
+      <li>I was <input type="text" data-a="embarrassed"> (embarrass) when I fell over.</li>
+      <li>She <input type="text" data-a="wasn't"> (not / be) at school on Monday.</li>
+      <li>Who did you go to the cinema <input type="text" data-a="with" style="width:90px">?</li>
+    </ol>
+    <div class="ctrl"><button class="chk">Check</button><button class="ans">Answers</button><span class="score"></span></div>
+    <div class="sp"><span class="tag">SPEAKING</span><span class="bub">How do you feel about the test now? Use an adverb!</span></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section style="--c:var(--blue)">
+  <div class="sh"><span class="num">8</span><h2>Finish</h2><span class="time">1 min</span></div>
+  <p class="task">Tick what you can do now.</p>
+  <p><label><input type="checkbox"> I can say how I feel: <i>I'm a bit anxious.</i></label><br>
+     <label><input type="checkbox"> I know 15 irregular verbs in the past.</label><br>
+     <label><input type="checkbox"> I can make negatives with <i>didn't</i>.</label><br>
+     <label><input type="checkbox"> I can ask questions with <i>Did…?</i> and <i>Where / What / Who…?</i></label><br>
+     <label><input type="checkbox"> I know the difference: <i>bored / boring</i>.</label></p>
+  <div class="rule">
+    <h3>Homework</h3>
+    <p>1. Write about your camp (6–8 sentences): what you did, what you didn't do, how you felt.</p>
+    <p>2. Grammar Builder 1B and 1D, page 124.</p>
+    <p>3. Learn the irregular verbs from exercise 3b.</p>
+  </div>
+</section>
+
+</div>
+
+<div id="timer"><b id="tclock">0:00</b><button id="tpause">Pause</button><button id="tclose">×</button></div>
+
+<script>
+const feel=["anxious","bored","confused","embarrassed","envious","frightened","proud","relieved"];
+document.querySelectorAll("#ex2b select").forEach(s=>fill(s,feel));
+document.querySelectorAll("select.n").forEach(s=>fill(s,["1","2","3","4","5"]));
+document.querySelectorAll("select[data-o]").forEach(s=>fill(s,s.dataset.o.split("|")));
+function fill(s,o){s.innerHTML='<option value="">…</option>'+o.map(x=>`<option>${x}</option>`).join("");}
+
+document.querySelectorAll("[data-a]:not(.chip)").forEach(el=>{
+  const k=document.createElement("span");k.className="key";k.textContent=el.dataset.a.split("|")[0];el.after(k);
+});
+function norm(s){
+  s=(s||"").toLowerCase().replace(/[’‘`]/g,"'").replace(/\s+/g," ").trim();
+  s=s.replace(/\bdid not\b/g,"didn't").replace(/\bwas not\b/g,"wasn't").replace(/\bwere not\b/g,"weren't").replace(/\bcould not\b/g,"couldn't");
+  return s.replace(/\s*[.!?]+$/,"").trim();
+}
+document.querySelectorAll(".chk").forEach(b=>b.addEventListener("click",()=>{
+  const ex=b.closest(".ex");let ok=0,n=0;
+  ex.querySelectorAll("[data-a]").forEach(el=>{n++;
+    const g=el.dataset.a.split("|").some(a=>norm(a)===norm(el.value));
+    el.classList.toggle("ok",g);el.classList.toggle("bad",!g);if(g)ok++;});
+  ex.querySelector(".score").textContent=ok+" / "+n;
+}));
+document.querySelectorAll(".ans").forEach(b=>b.addEventListener("click",()=>b.closest(".ex").classList.toggle("show")));
+
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+  c.classList.remove("ok","bad");
+  if(c.classList.contains("pos"))c.classList.replace("pos","neg");
+  else if(c.classList.contains("neg"))c.classList.remove("neg");
+  else c.classList.add("pos");
+}));
+document.querySelectorAll(".chk-chips").forEach(b=>b.addEventListener("click",()=>{
+  const ex=b.closest(".ex");let ok=0,n=0;
+  ex.querySelectorAll(".chip").forEach(c=>{n++;const g=c.classList.contains(c.dataset.a);
+    c.classList.toggle("ok",g);c.classList.toggle("bad",!g);if(g)ok++;});
+  ex.querySelector(".score").textContent=ok+" / "+n;
+}));
+
+document.getElementById("pick").addEventListener("click",()=>{
+  const cs=[...document.querySelectorAll("#cards .card")];
+  let pool=cs.filter(c=>!c.dataset.used); if(!pool.length){cs.forEach(c=>delete c.dataset.used);pool=cs;}
+  cs.forEach(c=>c.classList.remove("on"));
+  const c=pool[Math.floor(Math.random()*pool.length)];c.classList.add("on");c.dataset.used=1;
+});
+
+let left=0,tid=null,paused=false;
+const T=document.getElementById("timer"),clk=document.getElementById("tclock"),pb=document.getElementById("tpause");
+function draw(){const a=Math.abs(left);clk.textContent=(left<0?"−":"")+Math.floor(a/60)+":"+String(a%60).padStart(2,"0");T.classList.toggle("end",left<=0);}
+document.querySelectorAll(".sh button[data-min]").forEach(b=>b.addEventListener("click",()=>{
+  left=+b.dataset.min*60;paused=false;pb.textContent="Pause";T.style.display="flex";draw();
+  clearInterval(tid);tid=setInterval(()=>{if(!paused){left--;draw();}},1000);
+}));
+pb.addEventListener("click",()=>{paused=!paused;pb.textContent=paused?"Go":"Pause";});
+document.getElementById("tclose").addEventListener("click",()=>{clearInterval(tid);T.style.display="none";});
+</script>
+</body>
+</html>
