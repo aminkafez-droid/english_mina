@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Отработка</title>
+<style>
+  :root{
+    --bg:#faf8f3; --card:#ffffff; --text:#222; --muted:#777; --line:#e4e0d6;
+    --accent:#3b5bdb; --ok:#2b8a3e; --ok-soft:#ebfbee; --bad:#c92a2a; --bad-soft:#fff0f0;
+    --hint-soft:#fff9db;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1a1a1a; --card:#242424; --text:#eee; --muted:#999; --line:#383838;
+      --accent:#91a7ff; --ok:#8ce99a; --ok-soft:#1e3323; --bad:#ffa8a8; --bad-soft:#3b1f1f;
+      --hint-soft:#3a3420;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1a1a1a; --card:#242424; --text:#eee; --muted:#999; --line:#383838;
+    --accent:#91a7ff; --ok:#8ce99a; --ok-soft:#1e3323; --bad:#ffa8a8; --bad-soft:#3b1f1f;
+    --hint-soft:#3a3420;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font:17px/1.5 Georgia,"Times New Roman",serif}
+  .wrap{max-width:640px;margin:0 auto;padding:28px 16px 40px}
+  h1{font-size:2rem;margin:0 0 18px;font-weight:700}
+  .tabs{display:flex;gap:16px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+  .tab{padding:6px 0;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);
+    font:inherit;cursor:pointer;margin-bottom:-1px}
+  .tab.active{color:var(--text);border-bottom-color:var(--text)}
+  .count{color:var(--muted);font-size:.95rem;margin-bottom:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:20px}
+  .q{font-size:1.15rem;margin:0 0 16px}
+  .opt{display:block;width:100%;text-align:left;padding:10px 12px;margin:0 0 8px;
+    border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--text);
+    font:inherit;cursor:pointer}
+  .opt:hover:not(:disabled){border-color:var(--text)}
+  .opt:disabled{cursor:default}
+  .opt.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+  .opt.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+  .fb{margin-top:12px;display:none}
+  .fb.show{display:block}
+  .fb b{margin-right:6px}
+  .fb.ok b{color:var(--ok)} .fb.bad b{color:var(--bad)}
+  .hint{margin-top:12px;padding:8px 12px;background:var(--hint-soft);display:none;border-radius:4px}
+  .hint.show{display:block}
+  .row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .btn{padding:8px 14px;border-radius:4px;border:1px solid var(--line);background:var(--card);
+    color:var(--text);font:inherit;cursor:pointer}
+  .btn.primary{background:var(--text);border-color:var(--text);color:var(--card)}
+  .btn:disabled{opacity:.35;cursor:default}
+  .score{font-size:2.6rem;font-weight:700;margin:4px 0 8px}
+  .mist{margin-top:16px}
+  .mist div{padding:10px 0;border-top:1px solid var(--line)}
+  .mist s{color:var(--bad)} .mist b{color:var(--ok)}
+  .mist small{color:var(--muted)}
+  .flash{min-height:200px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;text-align:center}
+  .flash .back{display:none}
+  .flash.flipped .front{display:none}
+  .flash.flipped .back{display:block}
+  .flash .ans{font-size:1.2rem;font-weight:700;color:var(--ok);margin-bottom:8px}
+  .tap{color:var(--muted);font-size:.9rem;margin-top:12px}
+  .hidden{display:none}
+  footer{text-align:center;color:var(--muted);font-style:italic;margin-top:36px;font-size:1.05rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Отработка</h1>
+
+  <div class="tabs">
+    <button class="tab active" id="tabQuiz">Тест</button>
+    <button class="tab" id="tabFlash">Карточки</button>
+  </div>
+
+  <section id="quiz">
+    <div class="card" id="qcard"></div>
+  </section>
+
+  <section id="flash" class="hidden">
+    <div class="count" id="fcount"></div>
+    <div class="card flash" id="fcard"></div>
+    <div class="row">
+      <button class="btn" id="fprev">Назад</button>
+      <button class="btn primary" id="fnext">Дальше</button>
+    </div>
+  </section>
+
+  <footer>for my lovely kate</footer>
+</div>
+
+<script>
+const Q = [
+ {p:"«Я всегда рада получить от тебя весточку».",
+  o:["I'm always glad to hear it from you.","I'm always glad to hear from you.","I'm always glad to hear about you.","I'm always glad hear from you."],a:1,
+  h:"Лишнее слово.",
+  e:"Hear from someone: «получить весточку от кого-то». It здесь лишнее."},
+ {p:"«Мои хобби: плавание и игра на гитаре».",
+  o:["My hobbies are swimming and playing guitar.","My hobbies are swimming and playing the guitar.","My hobbies are swimming and playing on the guitar.","My hobbies are swim and play the guitar."],a:1,
+  h:"С музыкальными инструментами нужен артикль.",
+  e:"Play the guitar, play the piano: с инструментами ставим the, без предлога on."},
+ {p:"«Игра на гитаре развивает слух».",
+  o:["Playing guitar improves your hearing.","Playing the guitar improves your hearing.","Play the guitar improves your hearing.","Playing the guitar improve your hearing."],a:1,
+  h:"Артикль и окончание глагола.",
+  e:"Playing the guitar. Подлежащее одно (playing), поэтому improves с -s."},
+ {p:"«Я занимаюсь ими с детства».",
+  o:["I have been doing them since my youngster.","I have been doing them since childhood.","I have been doing them since I was youngster.","I have been doing them from my childhood years."],a:1,
+  h:"«Детство» это childhood.",
+  e:"Since childhood или since I was a child. Youngster значит «подросток», и с since так не говорят."},
+ {p:"«Может быть, в будущем я начну ходить в спортзал».",
+  o:["Maybe in the future I'd add to go to gym.","Maybe in the future I'll start going to the gym.","Maybe in the future I'd add going to gym.","Maybe in the future I'll start go to the gym."],a:1,
+  h:"«Начну ходить»: start + -ing.",
+  e:"I'll start going или I'd like to start going. Add to go так не говорят. И to the gym с артиклем."},
+ {p:"«Я хожу в спортзал».",
+  o:["I go to gym.","I go to the gym.","I go to a gym.","I go in gym."],a:1,
+  h:"Перед gym нужен артикль.",
+  e:"Go to the gym: всегда с the."},
+ {p:"«Я трачу на свои хобби 3 часа в неделю».",
+  o:["I waste 3 hours in week on my hobbies.","I spend 3 hours a week on my hobbies.","I spend 3 hours in week for my hobbies.","I waste 3 hours a week on my hobbies."],a:1,
+  h:"Waste звучит негативно, и проверь «в неделю».",
+  e:"Spend time on something. Waste значит «тратить впустую». «В неделю» будет a week."},
+ {p:"«Два раза в неделю».",
+  o:["twice in week","twice a week","twice in the week","twice on week"],a:1,
+  h:"Так же, как three hours ___ week.",
+  e:"Как часто: a week, a month, a day. Twice a week, three hours a week."},
+ {p:"«Игра на гитаре делает пальцы гибкими».",
+  o:["Playing the guitar improves flexibility your fingers.","Playing the guitar makes your fingers flexible.","Playing the guitar makes flexible your fingers.","Playing the guitar improves flexible your fingers."],a:1,
+  h:"Make + что + какое.",
+  e:"Make your fingers flexible. Или improves the flexibility of your fingers, с of."},
+ {p:"«Плавание развивает физические способности».",
+  o:["Swimming develops your physical opportunities.","Swimming develops your physical abilities.","Swimming develops your physical possibilities.","Swimming develop your physical abilities."],a:1,
+  h:"Opportunity значит «возможность, шанс».",
+  e:"Abilities значит «способности». Opportunities это «возможности, шансы», не про тело."},
+ {p:"«Когда ты плаваешь, твоя спина становится крепче».",
+  o:["When you swim, your back become stronger.","When you swim, your back becomes stronger.","When you swim, your back is become stronger.","When you swim, your back becoming stronger."],a:1,
+  h:"Back это he, she или it?",
+  e:"Your back = it, поэтому becomes с -s."},
+ {p:"«Это помогает тебе, когда у тебя проблемы со здоровьем».",
+  o:["It is helping you when you have an issue by your health.","It helps you when you have health problems.","It is helping you when you have problems by your health.","It help you when you have health problems."],a:1,
+  h:"Это общий факт, а не процесс прямо сейчас.",
+  e:"Общие факты в Present Simple: it helps. «Проблемы со здоровьем» будет health problems или problems with your health."},
+ {p:"«Проблемы со здоровьем».",
+  o:["an issue by your health","problems with your health","problems in your health","an issue of your health"],a:1,
+  h:"Какой предлог после problems?",
+  e:"Problems with something. Ещё проще: health problems."},
+ {p:"«Плавание помогает оставаться здоровой».",
+  o:["Swimming is helping to stay healthy.","Swimming helps me stay healthy.","Swimming helps me staying healthy.","Swimming help me stay healthy."],a:1,
+  h:"Present Simple и help + кто-то + глагол.",
+  e:"Swimming helps me stay healthy. Не is helping и не staying."},
+ {p:"Переход ко второму вопросу Mary: «___ skills, playing the guitar improves my hearing.»",
+  o:["In fact,","For instance,","As for","Truly,"],a:2,
+  h:"Нужно «что касается…».",
+  e:"As for… значит «что касается…». In fact это «на самом деле», и новую тему оно не открывает."},
+ {p:"«Playing the guitar improves my hearing. ___ swimming, it makes my body strong.»",
+  o:["For instance,","As for","In fact,","Truly,"],a:1,
+  h:"Плавание это не пример к гитаре.",
+  e:"For instance значит «например». Плавание не пример игры на гитаре, это новая тема: As for swimming…"},
+ {p:"Как перейти к прощанию: «___ I've got to go now.»",
+  o:["Truly,","Anyway,","In fact,","For instance,"],a:1,
+  h:"Нужно «ну ладно, в общем».",
+  e:"Anyway, I've got to go now. Truly значит «искренне», так прощание не начинают."},
+ {p:"Где правильно стоят знаки?",
+  o:["…your fingers. for instance, swimming…","…your fingers. For instance, swimming…","…your fingers, for instance swimming…","…your fingers for instance, swimming…"],a:1,
+  h:"Что после точки?",
+  e:"После точки предложение начинается с заглавной буквы."},
+ {p:"Где правильно стоят запятые?",
+  o:["When you swim your back becomes stronger.","When you swim, your back becomes stronger.","When, you swim your back becomes stronger.","When you swim your back, becomes stronger."],a:1,
+  h:"Запятая отделяет часть с When.",
+  e:"Если предложение начинается с When или If, после этой части ставим запятую."},
+ {p:"Где правильно стоят запятые?",
+  o:["It helps you, when you have health problems.","It helps you when you have health problems.","It helps, you when you have health problems.","It helps you when, you have health problems."],a:1,
+  h:"When стоит в середине предложения.",
+  e:"Если when стоит в середине, запятая перед ним не нужна."},
+ {p:"«Я давно не получала от неё вестей».",
+  o:["I haven't heard it from her for a long time.","I haven't heard from her for a long time.","I haven't heard about her from a long time.","I didn't hear her for a long time."],a:1,
+  h:"Hear from someone, без лишних слов.",
+  e:"Hear from someone: «получать весточку». It не нужно."},
+ {p:"«Надеюсь скоро получить от тебя ответ».",
+  o:["Hope to hear it from you soon.","Hope to hear from you soon.","Hope to hear you soon.","Hope hear from you soon."],a:1,
+  h:"Та же фраза, что в начале письма.",
+  e:"Hope to hear from you soon. Готовая фраза для конца письма."},
+ {p:"«Мой брат играет на скрипке».",
+  o:["My brother plays violin.","My brother plays the violin.","My brother play the violin.","My brother plays on the violin."],a:1,
+  h:"Инструмент: артикль. Brother: he.",
+  e:"Plays the violin: the перед инструментом и -s, потому что he."},
+ {p:"«Я учусь играть на барабанах».",
+  o:["I'm learning to play drums.","I'm learning to play the drums.","I'm learning play the drums.","I'm learning to play on drums."],a:1,
+  h:"Инструмент всегда с the.",
+  e:"Play the drums, play the guitar, play the piano."},
+ {p:"«Я играю в теннис и на гитаре».",
+  o:["I play the tennis and the guitar.","I play tennis and the guitar.","I play tennis and guitar.","I play the tennis and guitar."],a:1,
+  h:"Спорт без артикля, инструмент с артиклем.",
+  e:"Play tennis (спорт без the), play the guitar (инструмент с the)."},
+ {p:"«Я занимаюсь танцами с семи лет».",
+  o:["I have been dancing since my youngster.","I have been dancing since I was seven.","I am dancing since I was seven.","I have been dancing from seven years."],a:1,
+  h:"С какого момента: since + момент.",
+  e:"Since I was seven. И have been + -ing, потому что занимаешься до сих пор."},
+ {p:"«Я читаю с детства».",
+  o:["I have been reading since my childhood years.","I have loved reading since I was a child.","I love reading since I was a youngster.","I am reading since childhood."],a:1,
+  h:"Since + I was a child.",
+  e:"Since I was a child или since childhood. С since нужен Present Perfect: have loved, а не love."},
+ {p:"«Я хочу начать заниматься йогой».",
+  o:["I want to add to do yoga.","I want to start doing yoga.","I want to start do yoga.","I want add doing yoga."],a:1,
+  h:"Start + -ing.",
+  e:"Start doing yoga. «Начать что-то делать»: start + -ing (или start to do)."},
+ {p:"«По субботам я хожу в кино».",
+  o:["On Saturdays I go to cinema.","On Saturdays I go to the cinema.","On Saturdays I go in cinema.","On Saturdays I go to a cinema."],a:1,
+  h:"Как с gym.",
+  e:"Go to the cinema, go to the gym, go to the park: с the."},
+ {p:"«После школы я иду в бассейн».",
+  o:["After school I go to swimming pool.","After school I go to the swimming pool.","After school I go at the swimming pool.","After school I go in swimming pool."],a:1,
+  h:"Перед swimming pool нужен артикль.",
+  e:"Go to the swimming pool. Так же, как to the gym."},
+ {p:"«Я провожу много времени с друзьями».",
+  o:["I waste a lot of time with my friends.","I spend a lot of time with my friends.","I spend many time with my friends.","I pass a lot of time with my friends."],a:1,
+  h:"Тратить время на хорошее: spend.",
+  e:"Spend time. Waste значит «тратить зря», а друзья это не пустая трата."},
+ {p:"«Я трачу слишком много времени на телефон, это пустая трата».",
+  o:["I spend too much time on my phone, it's a waste of time.","I waste too much time on my phone, it's a spend of time.","I spend too much time for my phone, it's a waste of time.","I waste too much time at my phone, it's a waste."],a:0,
+  h:"Здесь как раз можно waste, но в другом месте.",
+  e:"Spend time on something. Waste of time: «пустая трата времени», тут оно к месту."},
+ {p:"«Я хожу на плавание три раза в неделю».",
+  o:["I go swimming three times in week.","I go swimming three times a week.","I go swimming three times in the week.","I go to swimming three times a week."],a:1,
+  h:"Как часто: ___ week.",
+  e:"Three times a week. И go swimming без to."},
+ {p:"«Я гуляю с собакой два раза в день».",
+  o:["I walk my dog twice in day.","I walk my dog twice a day.","I walk my dog two times in a day.","I walk my dog twice on day."],a:1,
+  h:"То же правило, что и с неделей.",
+  e:"Twice a day, once a month, three hours a week."},
+ {p:"«Плавание делает тебя сильнее».",
+  o:["Swimming makes you stronger.","Swimming makes stronger you.","Swimming improves stronger you.","Swimming make you stronger."],a:0,
+  h:"Make + кого + какой.",
+  e:"Make + кто-то + прилагательное: makes you stronger, makes me happy."},
+ {p:"«Чтение улучшает память».",
+  o:["Reading improves memory your.","Reading improves your memory.","Reading improve your memory.","Reading improves of your memory."],a:1,
+  h:"Improves + что.",
+  e:"Improves your memory. Reading одно, поэтому improves с -s."},
+ {p:"«Шахматы развивают логическое мышление».",
+  o:["Chess develops logical thinking.","Chess develops logical opportunities.","Chess develop logical thinking.","Chess is developing logical thinking."],a:0,
+  h:"Общий факт и правильное слово.",
+  e:"Chess develops logical thinking. Это общий факт, поэтому Present Simple с -s."},
+ {p:"«У меня есть возможность ходить в бассейн».",
+  o:["I have an ability to go to the pool.","I have an opportunity to go to the pool.","I have opportunity go to the pool.","I have an opportunity going to the pool."],a:1,
+  h:"Здесь «возможность» = шанс.",
+  e:"Opportunity: «шанс, возможность». Ability: «способность, умение». В письме было наоборот."},
+ {p:"«Мой друг всегда помогает мне с математикой».",
+  o:["My friend always help me with maths.","My friend always helps me with maths.","My friend is always helping me with maths.","My friend always helps me in maths."],a:1,
+  h:"Always = регулярно, значит Present Simple.",
+  e:"Always helps: регулярное действие, Present Simple, -s для he. Help with something."},
+ {p:"«Мне нравится музыка, она меня успокаивает».",
+  o:["I like music, it is calming me down.","I like music, it calms me down.","I like music, it calm me down.","I am liking music, it calms me down."],a:1,
+  h:"Это всегда так, а не прямо сейчас.",
+  e:"It calms me down: общий факт. Like в Continuous не ставится."},
+ {p:"«У меня проблемы с английским».",
+  o:["I have problems by English.","I have problems with English.","I have problems in English with.","I have an issue by English."],a:1,
+  h:"Problems + какой предлог?",
+  e:"Problems with something: problems with English, problems with your health."},
+ {p:"«Ты мне задала несколько вопросов о хобби. ___ my hobbies, I love drawing.»",
+  o:["As for","In fact,","For instance,","Truly,"],a:0,
+  h:"Нужно «что касается…».",
+  e:"As for my hobbies… открывает ответ на вопрос. Удобно начинать так каждый абзац."},
+ {p:"«I love sport. ___, I go swimming and play tennis.»",
+  o:["As for","For example","In fact","Truly"],a:1,
+  h:"Здесь как раз даются примеры.",
+  e:"For example / for instance можно, когда дальше идёт пример того, что сказано раньше. Плавание и теннис это примеры спорта."},
+ {p:"«Ну ладно, мне пора делать уроки».",
+  o:["Truly, I have to do my homework now.","Anyway, I have to do my homework now.","For instance, I have to do my homework now.","In fact, I have to make my homework now."],a:1,
+  h:"Как перейти к прощанию?",
+  e:"Anyway, I have to… Типичная фраза перед концом письма. И do homework, а не make."},
+ {p:"Где правильно?",
+  o:["I love music. it makes me happy.","I love music. It makes me happy.","I love music, It makes me happy.","i love music. It makes me happy."],a:1,
+  h:"После точки и в начале.",
+  e:"После точки и в начале предложения заглавная буква. I всегда заглавная."},
+ {p:"Где правильно стоят запятые?",
+  o:["If I have free time I play the guitar.","If I have free time, I play the guitar.","If, I have free time I play the guitar.","If I have, free time I play the guitar."],a:1,
+  h:"Правило как с When.",
+  e:"Предложение начинается с If или When, значит после этой части запятая."},
+ {p:"Где правильно стоят запятые?",
+  o:["I play the guitar, when I have free time.","I play the guitar when I have free time.","I play, the guitar when I have free time.","I play the guitar when, I have free time."],a:1,
+  h:"When в середине.",
+  e:"Когда when или if стоят в середине предложения, запятая не нужна."},
+ {p:"Где правильно стоят запятые?",
+  o:["I go to the gym, because I want to be strong.","I go to the gym because I want to be strong.","I go, to the gym because I want to be strong.","Because I go to the gym I want, to be strong."],a:1,
+  h:"Because как when.",
+  e:"Перед because в середине предложения запятая обычно не ставится."}
+];
+
+let i=0, score=0, answered=false, wrong=[], order=[], QQ=[];
+function mix(){QQ=shuffle(Q.length).map(k=>Q[k])}
+mix();
+const $=id=>document.getElementById(id);
+
+function shuffle(n){const a=[...Array(n).keys()];for(let k=n-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+
+function render(){
+  if(i>=Q.length) return finish();
+  const q=QQ[i]; answered=false; order=shuffle(q.o.length);
+  $("qcard").innerHTML=`
+    <div class="count">${i+1} / ${Q.length}</div>
+    <p class="q">${q.p}</p>
+    <div>${order.map(k=>`<button class="opt" data-k="${k}">${q.o[k]}</button>`).join("")}</div>
+    <div class="hint" id="hint">${q.h}</div>
+    <div class="fb" id="fb"></div>
+    <div class="row">
+      <button class="btn" id="hbtn">Подсказка</button>
+      <button class="btn primary" id="next" disabled>${i===Q.length-1?"Результат":"Дальше"}</button>
+    </div>`;
+  document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(+b.dataset.k));
+  $("hbtn").onclick=()=>$("hint").classList.add("show");
+  $("next").onclick=()=>{i++;render()};
+}
+
+function pick(k){
+  if(answered) return; answered=true;
+  const q=QQ[i], ok=k===q.a;
+  if(ok) score++; else wrong.push({q, chosen:q.o[k]});
+  document.querySelectorAll(".opt").forEach(b=>{
+    const kk=+b.dataset.k; b.disabled=true;
+    if(kk===q.a) b.classList.add("ok"); else if(kk===k) b.classList.add("bad");
+  });
+  const fb=$("fb"); fb.className="fb show "+(ok?"ok":"bad");
+  fb.innerHTML=`<b>${ok?"Верно.":"Нет."}</b>${q.e}`;
+  $("next").disabled=false;
+}
+
+function finish(){
+  const msg = score>=Q.length*0.9?"Молодец!":score>=Q.length*0.7?"Неплохо, но кое-что надо повторить.":"Давай ещё раз, сначала через карточки.";
+  $("qcard").innerHTML=`<div>Твой результат</div><div class="score">${score} / ${Q.length}</div><p>${msg}</p>
+    ${wrong.length?`<div class="mist"><div style="border:0;padding-bottom:0">Повтори:</div>${wrong.map(w=>`<div><s>${w.chosen}</s><br><b>${w.q.o[w.q.a]}</b><br><small>${w.q.e}</small></div>`).join("")}</div>`:""}
+    <div class="row"><button class="btn primary" id="again">Ещё раз</button></div>`;
+  $("again").onclick=()=>{i=0;score=0;wrong=[];mix();render()};
+}
+
+let f=0;
+function renderFlash(){
+  const q=Q[f]; const c=$("fcard"); c.classList.remove("flipped");
+  $("fcount").textContent=`${f+1} / ${Q.length}`;
+  c.innerHTML=`<div class="front">${q.p}<div class="tap">Как правильно? Нажми, чтобы увидеть ответ</div></div>
+    <div class="back"><div class="ans">${q.o[q.a]}</div><div>${q.e}</div></div>`;
+  $("fprev").disabled=f===0; $("fnext").disabled=f===Q.length-1;
+}
+$("fcard").onclick=()=>$("fcard").classList.toggle("flipped");
+$("fprev").onclick=()=>{if(f>0){f--;renderFlash()}};
+$("fnext").onclick=()=>{if(f<Q.length-1){f++;renderFlash()}};
+
+$("tabQuiz").onclick=()=>{$("tabQuiz").classList.add("active");$("tabFlash").classList.remove("active");$("quiz").classList.remove("hidden");$("flash").classList.add("hidden")};
+$("tabFlash").onclick=()=>{$("tabFlash").classList.add("active");$("tabQuiz").classList.remove("active");$("flash").classList.remove("hidden");$("quiz").classList.add("hidden");renderFlash()};
+
+render();
+</script>
+</body>
+</html>
