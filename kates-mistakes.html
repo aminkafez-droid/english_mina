@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kate's mistakes</title>
+<style>
+  :root{
+    --bg:#faf8f3; --card:#ffffff; --text:#222; --muted:#777; --line:#e4e0d6;
+    --accent:#3b5bdb; --ok:#2b8a3e; --ok-soft:#ebfbee; --bad:#c92a2a; --bad-soft:#fff0f0;
+    --hint-soft:#fff9db;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1a1a1a; --card:#242424; --text:#eee; --muted:#999; --line:#383838;
+      --accent:#91a7ff; --ok:#8ce99a; --ok-soft:#1e3323; --bad:#ffa8a8; --bad-soft:#3b1f1f;
+      --hint-soft:#3a3420;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1a1a1a; --card:#242424; --text:#eee; --muted:#999; --line:#383838;
+    --accent:#91a7ff; --ok:#8ce99a; --ok-soft:#1e3323; --bad:#ffa8a8; --bad-soft:#3b1f1f;
+    --hint-soft:#3a3420;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);
+    font:17px/1.5 Georgia,"Times New Roman",serif}
+  .wrap{max-width:640px;margin:0 auto;padding:28px 16px 40px}
+  h1{font-size:2rem;margin:0 0 18px;font-weight:700}
+  .tabs{display:flex;gap:16px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+  .tab{padding:6px 0;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);
+    font:inherit;cursor:pointer;margin-bottom:-1px}
+  .tab.active{color:var(--text);border-bottom-color:var(--text)}
+  .count{color:var(--muted);font-size:.95rem;margin-bottom:8px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:20px}
+  .q{font-size:1.15rem;margin:0 0 16px}
+  .opt{display:block;width:100%;text-align:left;padding:10px 12px;margin:0 0 8px;
+    border:1px solid var(--line);border-radius:4px;background:transparent;color:var(--text);
+    font:inherit;cursor:pointer}
+  .opt:hover:not(:disabled){border-color:var(--text)}
+  .opt:disabled{cursor:default}
+  .opt.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+  .opt.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+  .fb{margin-top:12px;display:none}
+  .fb.show{display:block}
+  .fb b{margin-right:6px}
+  .fb.ok b{color:var(--ok)} .fb.bad b{color:var(--bad)}
+  .hint{margin-top:12px;padding:8px 12px;background:var(--hint-soft);display:none;border-radius:4px}
+  .hint.show{display:block}
+  .row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .btn{padding:8px 14px;border-radius:4px;border:1px solid var(--line);background:var(--card);
+    color:var(--text);font:inherit;cursor:pointer}
+  .btn.primary{background:var(--text);border-color:var(--text);color:var(--card)}
+  .btn:disabled{opacity:.35;cursor:default}
+  .score{font-size:2.6rem;font-weight:700;margin:4px 0 8px}
+  .mist{margin-top:16px}
+  .mist div{padding:10px 0;border-top:1px solid var(--line)}
+  .mist s{color:var(--bad)} .mist b{color:var(--ok)}
+  .mist small{color:var(--muted)}
+  .flash{min-height:200px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;text-align:center}
+  .flash .back{display:none}
+  .flash.flipped .front{display:none}
+  .flash.flipped .back{display:block}
+  .flash .ans{font-size:1.2rem;font-weight:700;color:var(--ok);margin-bottom:8px}
+  .tap{color:var(--muted);font-size:.9rem;margin-top:12px}
+  .hidden{display:none}
+  footer{text-align:center;color:var(--muted);font-style:italic;margin-top:36px;font-size:1.05rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Kate's mistakes</h1>
+
+  <div class="tabs">
+    <button class="tab active" id="tabQuiz">Тест</button>
+    <button class="tab" id="tabFlash">Карточки</button>
+  </div>
+
+  <section id="quiz">
+    <div class="card" id="qcard"></div>
+  </section>
+
+  <section id="flash" class="hidden">
+    <div class="count" id="fcount"></div>
+    <div class="card flash" id="fcard"></div>
+    <div class="row">
+      <button class="btn" id="fprev">Назад</button>
+      <button class="btn primary" id="fnext">Дальше</button>
+    </div>
+  </section>
+
+  <footer>for my lovely kate</footer>
+</div>
+
+<script>
+const Q = [
+ {p:"«Я хожу в спортзал с мамой».",
+  o:["I go to gym with my mom.","I go to the gym with my mom.","I go in the gym with my mom.","I go to a gym with mom my."],a:1,
+  h:"Перед gym нужен артикль.",
+  e:"Go to the gym: всегда с the."},
+ {p:"«Я люблю плавать».",
+  o:["I love swim.","I love swimming.","I love to swimming.","I am love swimming."],a:1,
+  h:"После love глагол с -ing.",
+  e:"После love, like, enjoy ставим -ing: I love swimming. Можно и I love to swim, а вот love swim нельзя."},
+ {p:"«В моей школе есть большой спортзал».",
+  o:["In my school has a big gym.","My school has a big gym.","In my school have big gym.","My school is have a big gym."],a:1,
+  h:"Кто «имеет» спортзал?",
+  e:"Правильно: My school has… или In my school there is… А In my school has так не говорят."},
+ {p:"«Три часа в неделю».",
+  o:["three hours in week","three hours in a week","three hours a week","three hours on week"],a:2,
+  h:"Вспомни: twice ___ day.",
+  e:"Как часто: three hours a week, twice a month, once a day."},
+ {p:"«Сейчас в моей школе нет бассейна».",
+  o:["My school doesn't have a pool in the moment.","My school doesn't have a pool at the moment.","My school don't have a pool at the moment.","My school doesn't has a pool at the moment."],a:1,
+  h:"Проверь предлог и глагол после doesn't.",
+  e:"«Сейчас» будет at the moment. После doesn't глагол без -s."},
+ {p:"«Я бы хотела, чтобы в моей школе был бассейн».",
+  o:["I want in my school has swimming pool.","I'd like my school to have a swimming pool.","I'd like that my school has swimming pool.","I want my school have a swimming pool."],a:1,
+  h:"I'd like + my school + to…",
+  e:"I'd like + кто-то + to + глагол. И не забудь a перед swimming pool."},
+ {p:"«Я занимаюсь этим с детства».",
+  o:["I have been doing it since my youngster.","I have been doing it since childhood.","I am doing it since I was child.","I do it from my child."],a:1,
+  h:"«Детство» это childhood.",
+  e:"Since childhood или since I was a child. Youngster значит «подросток», а не «детство»."},
+ {p:"«Мне нужно помочь маме с ужином».",
+  o:["I need to take a hand my mom with a dinner.","I need to help my mom with dinner.","I need help my mom with the dinner.","I need to give a hand to mom with a dinner."],a:1,
+  h:"Самый простой глагол здесь лучший.",
+  e:"Help someone with something. Перед dinner, breakfast, lunch артикль обычно не ставим."},
+ {p:"Сколько времени ты тратишь на хобби?",
+  o:["I waste three hours a week on my hobbies.","I spend three hours a week on my hobbies.","I spend three hours a week for my hobbies.","I spend three hours in a week to my hobbies."],a:1,
+  h:"Waste звучит негативно.",
+  e:"Spend time on something. Waste значит «тратить впустую», про хобби так не говорят."},
+ {p:"«I play the guitar three hours a week. ___ skills, it improves my hearing.»",
+  o:["In fact,","For instance,","As for","Truly,"],a:2,
+  h:"Нужно «что касается…».",
+  e:"As for… значит «что касается…». In fact это «на самом деле», for instance это «например»."},
+ {p:"Где правильно стоят запятые?",
+  o:["When you swim your back becomes stronger.","When you swim, your back becomes stronger.","When, you swim your back becomes stronger.","When you swim your back, becomes stronger."],a:1,
+  h:"Запятая отделяет часть с When.",
+  e:"Если предложение начинается с When или If, после этой части ставим запятую."},
+ {p:"Выбери правильный вариант.",
+  o:["When you swim, your back become stronger.","When you swim, your back becomes stronger.","When you swim, your back is become stronger.","When you swim, your back becoming stronger."],a:1,
+  h:"Back это he, she или it?",
+  e:"Your back = it, поэтому becomes с -s."},
+ {p:"«Моя сестра ходит в бассейн».",
+  o:["My sister go to the swimming pool.","My sister goes to the swimming pool.","My sister going to the swimming pool.","My sister is go to the swimming pool."],a:1,
+  h:"Sister это she.",
+  e:"He, she, it в Present Simple: глагол с -s. Goes."},
+ {p:"«Я играю на пианино».",
+  o:["I play piano.","I play the piano.","I play on the piano.","I play at the piano."],a:1,
+  h:"С музыкальными инструментами нужен артикль.",
+  e:"Play the piano, play the guitar: с инструментами ставим the, без предлога."},
+ {p:"«Я играю в футбол».",
+  o:["I play the football.","I play football.","I play in football.","I play at football."],a:1,
+  h:"Со спортом всё наоборот.",
+  e:"Play football, play tennis: со спортом артикль и предлог не нужны."},
+ {p:"«Я интересуюсь музыкой».",
+  o:["I am interesting in music.","I am interested in music.","I interested in music.","I am interested on music."],a:1,
+  h:"Interesting или interested?",
+  e:"I am interested in… Interesting значит «интересный», это про сам предмет, а не про тебя."},
+ {p:"«Я хорошо рисую».",
+  o:["I am good in drawing.","I am good at drawing.","I good at drawing.","I am well at drawing."],a:1,
+  h:"Good + какой предлог?",
+  e:"Be good at + -ing: I am good at drawing."},
+ {p:"«В свободное время я слушаю музыку».",
+  o:["In my free time I listen music.","In my free time I listen to music.","At my free time I listen to music.","In my free time I am listen to music."],a:1,
+  h:"После listen нужен предлог.",
+  e:"Listen to music. И in my free time, с in."},
+ {p:"«Вечером я делаю уроки».",
+  o:["At the evening I do my homework.","In the evening I do my homework.","In the evening I make my homework.","On evening I do my homework."],a:1,
+  h:"Утром, днём, вечером: какой предлог?",
+  e:"In the morning, in the afternoon, in the evening. Но at night. Домашку делают: do homework, не make."},
+ {p:"«В моём городе много парков».",
+  o:["In my city are many parks.","There are a lot of parks in my city.","There is a lot of parks in my city.","In my city has many parks."],a:1,
+  h:"Parks во множественном числе.",
+  e:"Чтобы сказать «есть, находится»: there is + один предмет, there are + много."},
+ {p:"«Жду от тебя ответа».",
+  o:["I look forward to hear from you.","I am looking forward to hearing from you.","I am looking forward to hear from you.","I look forward hearing from you."],a:1,
+  h:"После look forward to глагол с -ing.",
+  e:"Look forward to + -ing. Здесь to это предлог, поэтому дальше hearing."},
+ {p:"«Спасибо за твоё письмо».",
+  o:["Thanks for your letter.","Thanks on your letter.","Thanks you for your letter.","Thank for your letter."],a:0,
+  h:"Thanks for или thank you for.",
+  e:"Thanks for… или Thank you for… Вариантов thanks you и thank for нет."},
+ {p:"«Это помогает мне расслабиться».",
+  o:["It helps me relax.","It helps me relaxing.","It helps to me relax.","It is help me relax."],a:0,
+  h:"Help + кто-то + глагол.",
+  e:"It helps me relax или It helps me to relax. Без -ing."},
+ {p:"«Я занимаюсь плаванием уже три года».",
+  o:["I swim for three years.","I have been swimming for three years.","I am swimming since three years.","I have been swimming since three years."],a:1,
+  h:"Началось в прошлом и продолжается сейчас.",
+  e:"Have been + -ing. For + сколько времени (for three years), since + с какого момента (since 2022, since childhood)."},
+ {p:"«Раньше я занималась танцами, а сейчас нет».",
+  o:["I used to dance, but now I don't.","I use to dance, but now I don't.","I used to dancing, but now I don't.","I was used to dance, but now I don't."],a:0,
+  h:"Used to + обычный глагол.",
+  e:"Used to значит «раньше, а теперь нет». Если занимаешься и сейчас, пиши I usually…"},
+ {p:"«Мне нравится и плавание, и бег».",
+  o:["I like both swimming and running.","I like both swimming and run.","I like as swimming as running.","I like swimming and running both of them."],a:0,
+  h:"Both … and …",
+  e:"Both A and B. Обе части в одной форме: swimming and running."},
+ {p:"«Я предпочитаю плавание бегу».",
+  o:["I prefer swimming than running.","I prefer swimming to running.","I prefer swim to run.","I more prefer swimming."],a:1,
+  h:"Prefer A ___ B.",
+  e:"Prefer something to something: I prefer swimming to running."},
+ {p:"«Я думаю, что это полезно».",
+  o:["I think it is useful.","I think it useful.","I am thinking it is useful.","I think what it is useful."],a:0,
+  h:"«Что» здесь не переводится как what.",
+  e:"I think (that) it is useful. That можно опустить, а what здесь нельзя."},
+ {p:"«I'd like to have a pool ___ I love swimming.»",
+  o:["so","because","but","although"],a:1,
+  h:"Нужно объяснить причину.",
+  e:"Because значит «потому что». С so («поэтому») получится, что бассейн нужен, и из-за этого ты любишь плавать."},
+ {p:"Как правильно начать письмо?",
+  o:["Dear Mary!","Dear, Mary,","Dear Mary,","Dear Mary."],a:2,
+  h:"В английском письме после обращения не восклицательный знак.",
+  e:"Dear Mary, с запятой, и на отдельной строке."},
+ {p:"Как правильно закончить письмо?",
+  o:["Best wishes, Masha","Best wishes,<br>Masha","Best wishes!<br>Masha","Best wishes<br>Masha."],a:1,
+  h:"Запятая и новая строка.",
+  e:"Best wishes, (с запятой) и на новой строке только имя, без точки."}
+];
+
+let i=0, score=0, answered=false, wrong=[], order=[];
+const $=id=>document.getElementById(id);
+
+function shuffle(n){const a=[...Array(n).keys()];for(let k=n-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+
+function render(){
+  if(i>=Q.length) return finish();
+  const q=Q[i]; answered=false; order=shuffle(q.o.length);
+  $("qcard").innerHTML=`
+    <div class="count">${i+1} / ${Q.length}</div>
+    <p class="q">${q.p}</p>
+    <div>${order.map(k=>`<button class="opt" data-k="${k}">${q.o[k]}</button>`).join("")}</div>
+    <div class="hint" id="hint">${q.h}</div>
+    <div class="fb" id="fb"></div>
+    <div class="row">
+      <button class="btn" id="hbtn">Подсказка</button>
+      <button class="btn primary" id="next" disabled>${i===Q.length-1?"Результат":"Дальше"}</button>
+    </div>`;
+  document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(+b.dataset.k));
+  $("hbtn").onclick=()=>$("hint").classList.add("show");
+  $("next").onclick=()=>{i++;render()};
+}
+
+function pick(k){
+  if(answered) return; answered=true;
+  const q=Q[i], ok=k===q.a;
+  if(ok) score++; else wrong.push({q, chosen:q.o[k]});
+  document.querySelectorAll(".opt").forEach(b=>{
+    const kk=+b.dataset.k; b.disabled=true;
+    if(kk===q.a) b.classList.add("ok"); else if(kk===k) b.classList.add("bad");
+  });
+  const fb=$("fb"); fb.className="fb show "+(ok?"ok":"bad");
+  fb.innerHTML=`<b>${ok?"Верно.":"Нет."}</b>${q.e}`;
+  $("next").disabled=false;
+}
+
+function finish(){
+  const msg = score>=Q.length*0.9?"Молодец!":score>=Q.length*0.7?"Неплохо, но кое-что надо повторить.":"Давай ещё раз, сначала через карточки.";
+  $("qcard").innerHTML=`<div>Твой результат</div><div class="score">${score} / ${Q.length}</div><p>${msg}</p>
+    ${wrong.length?`<div class="mist"><div style="border:0;padding-bottom:0">Повтори:</div>${wrong.map(w=>`<div><s>${w.chosen}</s><br><b>${w.q.o[w.q.a]}</b><br><small>${w.q.e}</small></div>`).join("")}</div>`:""}
+    <div class="row"><button class="btn primary" id="again">Ещё раз</button></div>`;
+  $("again").onclick=()=>{i=0;score=0;wrong=[];render()};
+}
+
+let f=0;
+function renderFlash(){
+  const q=Q[f]; const c=$("fcard"); c.classList.remove("flipped");
+  $("fcount").textContent=`${f+1} / ${Q.length}`;
+  c.innerHTML=`<div class="front">${q.p}<div class="tap">Как правильно? Нажми, чтобы увидеть ответ</div></div>
+    <div class="back"><div class="ans">${q.o[q.a]}</div><div>${q.e}</div></div>`;
+  $("fprev").disabled=f===0; $("fnext").disabled=f===Q.length-1;
+}
+$("fcard").onclick=()=>$("fcard").classList.toggle("flipped");
+$("fprev").onclick=()=>{if(f>0){f--;renderFlash()}};
+$("fnext").onclick=()=>{if(f<Q.length-1){f++;renderFlash()}};
+
+$("tabQuiz").onclick=()=>{$("tabQuiz").classList.add("active");$("tabFlash").classList.remove("active");$("quiz").classList.remove("hidden");$("flash").classList.add("hidden")};
+$("tabFlash").onclick=()=>{$("tabFlash").classList.add("active");$("tabQuiz").classList.remove("active");$("flash").classList.remove("hidden");$("quiz").classList.add("hidden");renderFlash()};
+
+render();
+</script>
+</body>
+</html>
