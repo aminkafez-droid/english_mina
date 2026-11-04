@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nelli — Homework: Past Simple, Articles, Reading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef4fa; --card:#ffffff; --ink:#1d2a3a; --muted:#5d6b7c; --line:#d8e2ec;
+    --ice:#2f7fd1; --ice-soft:#e3effb; --grass:#4f9a3a; --grass-soft:#e6f3e1;
+    --bad:#c8463d; --bad-soft:#fbe7e5; --gold:#e3a21a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-size:17px;line-height:1.5}
+  .wrap{max-width:760px;margin:0 auto;padding:24px 16px 60px}
+  header{padding:8px 0 18px}
+  header h1{margin:0;font-size:30px;font-weight:800;letter-spacing:-.3px}
+  header p{margin:4px 0 0;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;color:var(--muted)}
+  section.task{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 20px 18px;margin:18px 0;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+  .task-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .num{background:var(--ice);color:#fff;border-radius:8px;font-weight:800;padding:0 9px;font-size:15px}
+  .task-head h2{margin:0;font-size:21px}
+  .time{margin-left:auto;color:var(--muted);font-size:14px}
+  .instr{color:var(--muted);margin:6px 0 14px}
+  .rule{background:var(--ice-soft);border-radius:10px;padding:10px 14px;font-size:15px;margin:0 0 14px}
+  .rule b{color:var(--ice)}
+  .row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+  .row:last-child{border-bottom:none}
+  .verb{min-width:70px;font-weight:700}
+  input[type=text]{font:inherit;border:2px solid var(--line);border-radius:8px;padding:4px 8px;width:120px;background:#fff;color:var(--ink)}
+  input[type=text]:focus{outline:none;border-color:var(--ice)}
+  input.ok{border-color:var(--grass);background:var(--grass-soft)}
+  input.no{border-color:var(--bad);background:var(--bad-soft)}
+  .story input{width:110px;margin:2px 2px}
+  .story{line-height:2.4}
+  .opts{display:flex;gap:6px;flex-wrap:wrap}
+  button{font:inherit;cursor:pointer}
+  .opt{border:2px solid var(--line);background:#fff;border-radius:8px;padding:2px 12px;font-weight:700;color:var(--ink)}
+  .opt:hover{border-color:var(--ice)}
+  .opt.sel{border-color:var(--ice);background:var(--ice-soft)}
+  .opt.ok{border-color:var(--grass);background:var(--grass-soft)}
+  .opt.no{border-color:var(--bad);background:var(--bad-soft)}
+  .say{border:none;background:var(--ice-soft);border-radius:8px;padding:2px 8px;font-size:15px}
+  .say:hover{background:#d2e5f8}
+  .sentence{flex:1;min-width:230px}
+  .feedback{font-size:14px;color:var(--bad);width:100%;display:none}
+  .feedback.show{display:block}
+  .actions{display:flex;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+  .check{background:var(--ice);color:#fff;border:none;border-radius:10px;padding:8px 18px;font-weight:800}
+  .check:hover{filter:brightness(1.07)}
+  .ghost{background:none;border:2px solid var(--line);border-radius:10px;padding:6px 14px;font-weight:700;color:var(--muted)}
+  .score{font-weight:800}
+  .score.good{color:var(--grass)} .score.mid{color:var(--gold)} .score.low{color:var(--bad)}
+  .readtext{font-size:19px;line-height:1.8;background:#fafcfe;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .tricky{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+  .tw{border:1px solid var(--line);border-radius:10px;padding:4px 10px;background:#fff;font-size:15px}
+  .tw small{color:var(--muted)}
+  .done{background:var(--grass-soft);border:1px solid #cfe6c6}
+  .done h2{color:var(--grass)}
+  #summary{white-space:pre-line;font-size:15px;color:var(--muted)}
+  .hint{color:var(--muted);font-size:14px}
+  @media (max-width:520px){header h1{font-size:25px}.time{margin-left:0;width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Homework ⛸️ 🎿 ⛏️</h1>
+    <p>Past Simple · a / an / the · Reading. About 20 minutes.</p>
+    <div class="chips"><span class="chip">1 · Irregular verbs</span><span class="chip">2 · Articles</span><span class="chip">3 · My Saturday</span><span class="chip">4 · Read aloud</span></div>
+  </header>
+
+  <!-- 1 -->
+  <section class="task" id="t1">
+    <div class="task-head"><span class="num">1</span><h2>Irregular verbs</h2><span class="time">~4 min</span></div>
+    <p class="instr">Write the past form. Learn these 8 verbs — we use them next lesson!</p>
+    <div id="verbs"></div>
+    <div class="actions"><button class="check" data-check="1">Check</button><button class="ghost" id="hintBtn">Hint: first letter</button><span class="score" id="s1"></span></div>
+  </section>
+
+  <!-- 2 -->
+  <section class="task" id="t2">
+    <div class="task-head"><span class="num">2</span><h2>a / an / the / —</h2><span class="time">~4 min</span></div>
+    <div class="rule">
+      <b>a</b> + consonant sound: <i>a house, a snowboard</i> &nbsp;·&nbsp; <b>an</b> + vowel sound: <i>an apple, an old skate</i><br>
+      <b>the</b> = we know which one: <i>the sun, the ice rink near my house</i><br>
+      <b>—</b> (no article) with sports and games: <i>I like skiing. I play Minecraft.</i>
+    </div>
+    <div id="arts"></div>
+    <div class="actions"><button class="check" data-check="2">Check</button><span class="score" id="s2"></span></div>
+  </section>
+
+  <!-- 3 -->
+  <section class="task" id="t3">
+    <div class="task-head"><span class="num">3</span><h2>My Saturday</h2><span class="time">~6 min</span></div>
+    <p class="instr">Put the verbs in the Past Simple.</p>
+    <div class="story readtext" id="story"></div>
+    <p class="instr" style="margin-top:18px">Choose the correct sentence.</p>
+    <div id="choose"></div>
+    <div class="actions"><button class="check" data-check="3">Check</button><span class="score" id="s3"></span></div>
+  </section>
+
+  <!-- 4 -->
+  <section class="task" id="t4">
+    <div class="task-head"><span class="num">4</span><h2>Read aloud 🎙️</h2><span class="time">~3 min</span></div>
+    <p class="instr">First practise these words. Then read the whole story aloud and send me a voice message.</p>
+    <div class="tricky" id="tricky"></div>
+    <div class="readtext" id="fulltext"></div>
+    <p class="hint">Tip: <b>castle</b> — the <b>t</b> is silent. <b>once</b> sounds like “wuns”. <b>friend</b> — say “frend”, not “fri-end”.</p>
+  </section>
+
+  <section class="task done">
+    <div class="task-head"><span class="num" style="background:var(--grass)">✓</span><h2>Finished?</h2></div>
+    <p class="instr">Copy your results and send them to me with your voice message.</p>
+    <div id="summary">Do tasks 1–3 and press “Check”.</div>
+    <div class="actions"><button class="check" id="copyBtn" style="background:var(--grass)">Copy my results</button><span class="hint" id="copyMsg"></span></div>
+  </section>
+</div>
+
+<script>
+// ---------- speech ----------
+function say(text){
+  try{
+    const s = window.speechSynthesis; if(!s) return;
+    s.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-GB'; u.rate = 0.85;
+    const v = s.getVoices().find(v=>/en[-_]GB/i.test(v.lang)) || s.getVoices().find(v=>/^en/i.test(v.lang));
+    if(v) u.voice = v;
+    s.speak(u);
+  }catch(e){}
+}
+const canSpeak = false; // audio buttons turned off
+function sayBtn(text){
+  if(!canSpeak) return '';
+  return `<button class="say" type="button" data-say="${text.replace(/"/g,'&quot;')}" aria-label="Listen">🔊</button>`;
+}
+document.addEventListener('click', e=>{
+  const b = e.target.closest('[data-say]'); if(b) say(b.dataset.say);
+});
+const norm = s => s.toLowerCase().replace(/[’']/g,"'").replace(/\s+/g,' ').trim();
+const scores = {};
+
+// ---------- 1. verbs ----------
+const verbs = [['go','went'],['have','had'],['see','saw'],['get','got'],['eat','ate'],['take','took'],['fall','fell'],['make','made']];
+document.getElementById('verbs').innerHTML = verbs.map(([b,p],i)=>
+  `<div class="row"><span class="verb">${b}</span>→ <input type="text" id="v${i}" autocomplete="off" autocapitalize="off" spellcheck="false"> ${sayBtn(b+' — '+p)}</div>`).join('');
+document.getElementById('hintBtn').onclick = ()=>verbs.forEach(([b,p],i)=>{const el=document.getElementById('v'+i); if(!el.value) el.placeholder=p[0]+'…';});
+function check1(){
+  let n=0; verbs.forEach(([b,p],i)=>{const el=document.getElementById('v'+i); const ok=norm(el.value)===p; el.className=ok?'ok':'no'; if(ok)n++;});
+  return [n,verbs.length];
+}
+
+// ---------- 2. articles ----------
+const arts = [
+  ['I have ___ old pair of skates.','an','old starts with a vowel sound.'],
+  ['Yesterday I went to ___ ice rink near my house.','the','We know which rink — the one near my house.'],
+  ['My cousin has ___ snowboard.','a','snowboard starts with a consonant sound.'],
+  ['I built a house in Minecraft. ___ house has a big garden.','The','We already know this house.'],
+  ['I really like ___ skiing.','—','No article with sports.'],
+  ['I ate ___ apple after school.','an','apple starts with a vowel sound.'],
+  ['___ sun was very bright on Sunday.','The','There is only one sun.'],
+  ['My friends and I play ___ Minecraft every weekend.','—','No article with games.']
+];
+const OPTS=['a','an','the','—'];
+document.getElementById('arts').innerHTML = arts.map(([s,a,why],i)=>
+  `<div class="row"><span class="sentence">${s.replace('___','<b>___</b>')}</span><span class="opts" data-q="a${i}">${OPTS.map(o=>`<button class="opt" type="button" data-v="${o}">${o}</button>`).join('')}</span><div class="feedback" id="fa${i}">${why}</div></div>`).join('');
+document.addEventListener('click', e=>{
+  const b=e.target.closest('.opt'); if(!b) return;
+  const g=b.parentElement; g.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel','ok','no')); b.classList.add('sel');
+});
+const picked = q => {const b=document.querySelector(`[data-q="${q}"] .sel`); return b?b.dataset.v:null;};
+function markGroup(q, correct){
+  const g=document.querySelector(`[data-q="${q}"]`); const sel=g.querySelector('.sel');
+  g.querySelectorAll('.opt').forEach(x=>x.classList.remove('ok','no'));
+  const ok = sel && norm(sel.dataset.v)===norm(correct);
+  if(sel) sel.classList.add(ok?'ok':'no');
+  return ok;
+}
+function check2(){
+  let n=0; arts.forEach(([s,a],i)=>{const ok=markGroup('a'+i,a); document.getElementById('fa'+i).classList.toggle('show',!ok); if(ok)n++;});
+  return [n,arts.length];
+}
+
+// ---------- 3. story ----------
+const storyParts = [
+  'Last Saturday I ',['get','got'],' up at nine. I ',['have','had'],' breakfast and ',['go','went'],
+  ' to the ice rink with my friend. We ',['skate','skated'],' for two hours. I ',['fall','fell'],
+  ' once, but it ',['be','was'],' fun! After that we ',['eat','ate'],' pizza in a café. In the evening I ',
+  ['play','played'],' Minecraft and ',['make','made'],' a big castle. I ',['not / watch',"didn't watch","did not watch"],' TV.'
+];
+let gi=0;
+document.getElementById('story').innerHTML = storyParts.map(p=>{
+  if(typeof p==='string') return p;
+  return `<input type="text" id="g${gi++}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="(${p[0]})">`;
+}).join('');
+const gaps = storyParts.filter(p=>typeof p!=='string');
+const choose = [
+  ['Did you went to the rink?','Did you go to the rink?',1],
+  ['We were very happy.','We was very happy.',0],
+  ["She didn't skated yesterday.","She didn't skate yesterday.",1]
+];
+document.getElementById('choose').innerHTML = choose.map(([a,b,k],i)=>
+  `<div class="row"><span class="opts" data-q="c${i}"><button class="opt" type="button" data-v="${a}">${a}</button><button class="opt" type="button" data-v="${b}">${b}</button></span></div>`).join('');
+function check3(){
+  let n=0;
+  gaps.forEach((p,i)=>{const el=document.getElementById('g'+i); const ok=p.slice(1).some(x=>norm(x)===norm(el.value)); el.className=ok?'ok':'no'; if(ok)n++;});
+  choose.forEach((c,i)=>{if(markGroup('c'+i,c[c[2]])) n++;});
+  return [n,gaps.length+choose.length];
+}
+
+// ---------- 4. read aloud ----------
+const tricky = [['breakfast','/ˈbrekfəst/'],['once','/wʌns/'],['friend','/frend/'],['castle','/ˈkɑːsl/'],['hours','/ˈaʊəz/'],['evening','/ˈiːvnɪŋ/'],['bright','/braɪt/'],['café','/ˈkæfeɪ/']];
+document.getElementById('tricky').innerHTML = tricky.map(([w,t])=>`<span class="tw">${sayBtn(w)} <b>${w}</b> <small>${t}</small></span>`).join('');
+const full = storyParts.map(p=>typeof p==='string'?p:(p[0]==='not / watch'?"didn't watch":p[1])).join('');
+document.getElementById('fulltext').innerHTML = full + (canSpeak?` ${sayBtn(full)}`:'');
+
+// ---------- checking & summary ----------
+const checks = {1:check1,2:check2,3:check3};
+const names = {1:'Irregular verbs',2:'Articles',3:'My Saturday'};
+document.querySelectorAll('[data-check]').forEach(b=>b.onclick=()=>{
+  const k=b.dataset.check; const [n,t]=checks[k](); scores[k]=[n,t];
+  const el=document.getElementById('s'+k); const r=n/t;
+  el.textContent = `${n} / ${t}` + (r===1?' — perfect! 🎉':r>=.7?' — good! Fix the red ones.':' — try the red ones again.');
+  el.className = 'score ' + (r===1?'good':r>=.7?'mid':'low');
+  updateSummary();
+});
+function updateSummary(){
+  const lines = Object.keys(names).map(k=>`${names[k]}: ${scores[k]?scores[k][0]+' / '+scores[k][1]:'not checked'}`);
+  document.getElementById('summary').textContent = 'Nelli — homework results\n' + lines.join('\n');
+}
+document.getElementById('copyBtn').onclick = async ()=>{
+  updateSummary();
+  const txt = document.getElementById('summary').textContent;
+  const msg = document.getElementById('copyMsg');
+  try{ await navigator.clipboard.writeText(txt); msg.textContent='Copied! Paste it in our chat.'; }
+  catch(e){ msg.textContent='Could not copy — please take a screenshot.'; }
+};
+</script>
+</body>
+</html>
