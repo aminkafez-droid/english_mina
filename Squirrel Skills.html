@@ -1,0 +1,323 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Squirrel Skills</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: one column of stage panels under a sticky-free header; same squirrel-forest identity as the previous lessons. */
+:root{--bg:#eaf6e4;--card:#ffffff;--ink:#233a2c;--soft:#5d7466;--green:#2f7d54;--on-green:#ffffff;--leaf:#a7dc72;--orange:#ee8a2a;--sky:#cdeaf7;--blue:#bcd9f5;--bad:#d9534f;--line:#cfe3c6;--font:'Fredoka','Trebuchet MS',system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15241b;--card:#1f3326;--ink:#eaf5e6;--soft:#a5bfae;--green:#6fcf97;--on-green:#10230f;--leaf:#4f8a3a;--orange:#f2a04a;--sky:#24485a;--blue:#2c4f78;--bad:#ff7b72;--line:#37523f;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15241b;--card:#1f3326;--ink:#eaf5e6;--soft:#a5bfae;--green:#6fcf97;--on-green:#10230f;--leaf:#4f8a3a;--orange:#f2a04a;--sky:#24485a;--blue:#2c4f78;--bad:#ff7b72;--line:#37523f;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;padding-block:14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));background:var(--bg);color:var(--ink);font-family:var(--font);font-size:18px;line-height:1.45}
+.wrap{max-width:960px;margin:0 auto}
+header{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+header .ic{font-size:52px;line-height:1}
+h1{margin:0;font-size:clamp(24px,5vw,36px);font-weight:700;min-width:0}
+h1 small{display:block;font-size:15px;font-weight:500;color:var(--soft)}
+.hud{margin-left:auto;display:flex;gap:8px;align-items:stretch;flex-wrap:wrap}
+.box{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:6px 14px;text-align:center}
+.box b{font-size:26px;display:block;font-variant-numeric:tabular-nums}
+.box small{font-size:13px;color:var(--soft)}
+.box button{font:inherit;font-size:14px;border:0;background:var(--green);color:var(--on-green);border-radius:10px;padding:3px 10px;cursor:pointer}
+nav{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px}
+nav button{flex:1 0 auto;font:inherit;font-weight:500;font-size:15px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:14px;padding:8px 12px;cursor:pointer;white-space:nowrap}
+nav button span{display:block;font-size:12px;color:var(--soft)}
+nav button.on{background:var(--green);border-color:var(--green);color:var(--on-green)}
+nav button.on span{color:var(--on-green);opacity:.85}
+button:focus-visible,input:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+section{display:none;background:var(--card);border:2px solid var(--line);border-radius:22px;padding:18px}
+section.on{display:block}
+h2{margin:0 0 4px;font-size:26px}
+h3{margin:18px 0 6px;font-size:20px}
+.goal{color:var(--soft);margin:0 0 12px}
+.note{background:var(--sky);border-radius:14px;padding:10px 14px;margin:12px 0;font-size:16px}
+.note,.goal,#plan{display:none}
+body.t .note,body.t .goal,body.t #plan{display:block}
+.btn{font:inherit;font-weight:600;border:0;border-radius:14px;padding:10px 18px;background:var(--orange);color:#1d1305;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.18)}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn.alt{background:var(--green);color:var(--on-green)}
+#tn{font-size:15px;padding:8px 12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center}
+.scene{position:relative;height:150px;background:var(--sky);border-radius:16px;margin-bottom:10px;overflow:hidden}
+.scene span{position:absolute;left:50%;top:50%}
+#ob0{font-size:70px;margin:-44px 0 0 -40px}
+#sq0{font-size:42px;margin:-24px 0 0 -24px}
+.q{font-size:clamp(20px,4.5vw,28px);text-align:center;margin:12px 0}
+.opts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.opts button,.chip{font:inherit;font-size:19px;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:8px 14px;cursor:pointer}
+.opts button.ok{background:var(--leaf);color:#10230f;border-color:var(--green)}
+.chip.on{background:var(--orange);color:#1d1305;border-color:var(--orange)}
+.chip.to{background:var(--orange);color:#1d1305;border-color:var(--orange)}
+.no{animation:sh .35s;border-color:var(--bad)!important}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.score{font-weight:600;color:var(--green);text-align:center}
+.formula{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;font-weight:700;font-size:clamp(17px,4.2vw,24px);margin:8px 0}
+.formula span{border-radius:14px;padding:6px 14px}
+.b1{background:var(--blue)}.b2{background:var(--orange);color:#1d1305}.b3{background:var(--leaf);color:#10230f}.b4{background:var(--bg);border:2px solid var(--line)}
+.ans{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:8px 0;font-size:clamp(17px,4vw,22px)}
+.ans span{border-radius:14px;padding:6px 14px;background:var(--bg);border:2px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.pc{border:2px solid var(--line);border-radius:16px;padding:10px;text-align:center;background:var(--bg);cursor:pointer;font:inherit;color:var(--ink);min-width:0}
+.pc:hover{border-color:var(--orange)}
+.pc .e{font-size:34px;display:block}
+.pc b{font-size:18px;display:block;line-height:1.2;margin-top:4px}
+.pc i{font-style:normal;font-size:14px;color:var(--soft)}
+#sent{min-height:56px;text-align:center;font-weight:600;color:var(--green);margin:10px 0;font-size:20px}
+.hintbox{background:var(--sky);border-radius:16px;padding:14px 18px;margin:8px auto;max-width:680px;font-size:18px}
+.hintbox p{margin:6px 0}
+.hintbox b{color:var(--green)}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+.match button{font:inherit;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;padding:10px;cursor:pointer;font-size:20px;min-height:56px}
+.match .w{font-weight:600}
+.match .sel{border-color:var(--orange);background:var(--orange);color:#1d1305}
+.match .ok{background:var(--leaf);border-color:var(--green);color:#10230f;pointer-events:none}
+.tgt{display:flex;flex-direction:column;gap:6px;margin:8px 0 12px;min-height:44px;border-bottom:3px dashed var(--orange);padding-bottom:8px}
+.tgt .chip{background:var(--leaf);color:#10230f;border-color:var(--green);cursor:default;text-align:left}
+.tgt.w{flex-direction:row;flex-wrap:wrap}
+.pool{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.pool.col{flex-direction:column;align-items:stretch}
+.pool.col .chip{text-align:left}
+.gcard{background:var(--bg);border:3px solid var(--orange);border-radius:22px;padding:16px;text-align:center;max-width:440px;margin:10px auto}
+.gcard .e{font-size:70px;display:block;line-height:1.1}
+.gcard b{font-size:26px;display:block}
+.tm{display:inline-block;background:var(--orange);color:#1d1305;border-radius:10px;padding:2px 12px;margin:6px 4px 0}
+.tm.bl{background:var(--blue);color:var(--ink)}
+.hint{font-size:15px;color:var(--soft);text-align:center}
+.teams{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.team{background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:8px 16px;text-align:center}
+.team b{font-size:32px;display:block;font-variant-numeric:tabular-nums}
+.in{font:inherit;font-size:20px;width:100%;max-width:620px;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.res{text-align:center;min-height:40px;margin:8px 0;font-size:19px}
+.res b{background:var(--leaf);color:#10230f;border-radius:8px;padding:0 6px}
+.res b.t{background:var(--orange);color:#1d1305}
+.stars{font-size:40px;text-align:center;letter-spacing:6px}
+ul.ck{list-style:none;padding:0}ul.ck li{padding:5px 0}ul.ck input{width:20px;height:20px;margin-right:8px;accent-color:var(--green)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:520px){.match{gap:8px}.match button{font-size:17px;padding:8px}}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="ic" aria-hidden="true">🐿️</div>
+  <h1>Squirrel Skills<small>Grade 4 · Could / couldn’t · 40 min · 1-to-1 online</small></h1>
+  <div class="hud">
+    <div class="box"><b id="ac">🌰 0</b><small id="rk">Baby squirrel</small></div>
+    <div class="box"><b id="tm">00:00</b><button id="tb" type="button">Start</button></div>
+    <button class="btn" id="tn" type="button">👩‍🏫 Teacher notes</button>
+  </div>
+</header>
+<nav id="nav" aria-label="Lesson stages"></nav>
+
+<section id="s0">
+  <h2>1. Warm-up: Squirrel moves!</h2>
+  <p class="goal">4 мин · повторение лексики с белкой (предлоги движения). Белка двигается, ученица выбирает предлог. За ответ с первой попытки +1 жёлудь 🌰. «Again» повторяет движение. Для скорости можно просить полное предложение: «The squirrel is running up the tree.»</p>
+  <div class="scene" aria-hidden="true"><span id="ob0">🌳</span><span id="sq0">🐿️</span></div>
+  <div id="w0"></div>
+  <div class="row" style="margin-top:8px"><button class="btn alt" id="again" type="button">↻ Again</button></div>
+</section>
+
+<section id="s1">
+  <h2>2. Review: verb + 🌉 to</h2>
+  <p class="goal">6 мин · повторение грамматики прошлого урока, затем speaking. Часть A — быстрый выбор. Часть B — карточки желаний: ученица придумывает предложение вслух, кнопка «Check» показывает образец, «I said it!» даёт жёлуди (ученица сама оценивает, вы подтверждаете).</p>
+  <h3>A. Pick the right verb + to</h3>
+  <div id="w1a"></div>
+  <h3>B. Wish cards: say it!</h3>
+  <div class="gcard" id="wc"></div>
+  <div class="row"><button class="btn" id="wn" type="button">🃏 New card</button><button class="btn alt" id="wm" type="button">✔ Check</button><button class="btn" id="wd" type="button">I said it! +2 🌰</button></div>
+  <div class="q" id="wt" style="min-height:44px"></div>
+  <div class="note">Образцы: «Last year, Nya learnt to sail.» / «This week, Harry wants to go camping.» Если ученица пропускает to — спросите: «Where is the bridge?»</div>
+</section>
+
+<section id="s2">
+  <h2>3. Learn: Could you…?</h2>
+  <p class="goal">8 мин · лексика Lesson 5 (count to a hundred, do up your coat, tie your shoes, whistle a tune + ещё 4 действия) и конструкция «Could you … when you were …? Yes, I could. / No, I couldn’t.» Русская подсказка открывается кнопкой 💡. В конце — игра «Bridge or no bridge?» на контраст с want to.</p>
+  <div class="grid" id="cards"></div>
+  <div id="sent">Tap a card!</div>
+  <div class="formula"><span class="b1">Could you</span><span class="b3">verb</span><span class="b4">…</span><span class="b2">when you were six?</span></div>
+  <div class="ans"><span>✅ Yes, I could.</span><span>❌ No, I couldn’t.</span><span>🔄 What about you?</span></div>
+  <div class="row" style="margin:10px 0"><button class="btn alt" id="hb" type="button">💡 Подсказка: что такое could?</button></div>
+  <div class="hintbox" id="hx" hidden>
+    <p><b>could</b> = «мог / умел» (когда-то раньше). <b>couldn’t</b> = «не мог / не умел».</p>
+    <p><b>when you were six</b> = «когда тебе было шесть». Про возраст в прошлом говорим <i>when you were…</i></p>
+    <p>Вопрос: <b>Could you</b> tie your shoes <b>when you were four</b>? Ответ: <b>Yes, I could.</b> или <b>No, I couldn’t.</b></p>
+    <p>Важно: после could <b>нет «to»</b> и глагол не меняется: <i>I could swim</i> (умел плавать). Сравни: <i>I want <b>to</b> swim</i> (хочу плавать). Мостик 🌉 нужен после want, need, decide, learn, но не после could.</p>
+  </div>
+  <h3>Bridge or no bridge?</h3>
+  <div id="w2"></div>
+  <div class="note">Объясняйте через картинки возраста: «When I was two, I couldn’t tie my shoes. Now I can!» Слово can не вводим отдельно, только как «сейчас умею». Следите за ошибкой «Could you to swim?».</div>
+</section>
+
+<section id="s3">
+  <h2>4. Controlled practice</h2>
+  <p class="goal">10 мин · A: слово и картинка. B: could или couldn’t. C: сложите вопросы. D: расставьте диалог по порядку. Если не хватает времени, пропустите A или D. Это аналог заданий Grammar booster (стр. 135), но на своих примерах.</p>
+  <h3>A. Match <span class="score" id="msc"></span></h3>
+  <div class="match" id="match"></div>
+  <h3>B. could or couldn’t?</h3>
+  <div id="w3b"></div>
+  <h3>C. Build the question</h3>
+  <div id="w3c"></div>
+  <h3>D. Put the dialogue in order</h3>
+  <div class="tgt" id="dt"></div><div class="pool col" id="dp"></div><div class="score" id="dm"></div>
+  <div class="note">Ожидаемые ошибки: «Could you to ride?», «when you was», «I couldn’t to». Ошибку не исправляйте сразу, дайте 5 секунд на самопроверку.</div>
+</section>
+
+<section id="s4">
+  <h2>5. Speaking game: Skill interview</h2>
+  <p class="goal">8 мин · ученица и учитель по очереди задают друг другу вопросы по карточкам. Нечётные карточки: ученица спрашивает, учитель отвечает. Чётные: наоборот. «Check» показывает образец. Потом «Be a star»: своя мини-история с could и to-глаголом. Очки: верно сказала, +1 ей и +1 🌰, ошибка, +1 учителю.</p>
+  <div class="gcard" id="sc"></div>
+  <div class="row"><button class="btn" id="sn" type="button">🃏 New card</button><button class="btn alt" id="sm" type="button">✔ Check</button></div>
+  <div class="q" id="st" style="min-height:44px"></div>
+  <div class="teams">
+    <div class="team">You 🐿️<b id="ta">0</b><button class="btn" data-t="a" type="button">+1 🌰</button></div>
+    <div class="team">Teacher 👩‍🏫<b id="tb2">0</b><button class="btn" data-t="b" type="button">+1</button></div>
+  </div>
+  <h3>Be a star: write your own</h3>
+  <div class="q" style="font-size:19px">1. Write a question: Could you … when you were …?</div>
+  <div class="row"><input class="in" id="i1" type="text" placeholder="Could you … when you were …?" autocomplete="off"></div>
+  <div class="row" style="margin-top:8px"><button class="btn alt" id="c1" type="button">Check</button></div>
+  <div class="res" id="r1"></div>
+  <div class="q" style="font-size:19px">2. Tell your story: use <i>could/couldn’t</i> and a <i>verb + to</i></div>
+  <div class="row"><input class="in" id="i2" type="text" placeholder="I couldn’t … when I was …, but I learnt to …" autocomplete="off"></div>
+  <div class="row" style="margin-top:8px"><button class="btn alt" id="c2" type="button">Check</button></div>
+  <div class="res" id="r2"></div>
+  <div class="note">Пример: «I couldn’t whistle a tune when I was seven, but I learnt to whistle this year.» Если ученица скажет вслух, а не напишет, проверьте на слух и нажмите «+1 🌰» сами.</div>
+</section>
+
+<section id="s5">
+  <h2>6. Wrap-up</h2>
+  <p class="goal">4 мин · итог и домашнее задание</p>
+  <div class="stars" aria-hidden="true">⭐⭐⭐</div>
+  <div class="q" id="fin"></div>
+  <ul class="ck"><li><label><input type="checkbox"> I can ask: Could you … when you were …?</label></li><li><label><input type="checkbox"> I can answer: Yes, I could. / No, I couldn’t.</label></li><li><label><input type="checkbox"> I know: want TO, but could + verb</label></li></ul>
+  <div class="note"><b>Exit ticket:</b> 2 предложения: одно с could/couldn’t, одно с want/need/decide/learn + to. <b>Homework:</b> Workbook p. 22 (action verbs), плюс 3 вопроса «Could you … when you were …?» для мамы или папы и их ответы. Если не успели Grammar booster p. 135 (ex. 1 и 3) — сделать дома.</div>
+</section>
+
+<details id="plan" style="padding:14px 0"><summary>Lesson plan</summary>
+<ul><li>0–4 Warm-up: белка и предлоги</li><li>4–10 Review: verb + to (speaking)</li><li>10–18 Learn: vocabulary + could/couldn’t</li><li>18–28 Controlled practice</li><li>28–36 Speaking game + Be a star</li><li>36–40 Wrap-up + HW</li></ul></details>
+</div>
+
+<script>
+const $=id=>document.getElementById(id),sh=a=>[...a].sort(()=>Math.random()-.5),rn=a=>a[Math.floor(Math.random()*a.length)];
+const stages=[["Warm-up","4"],["Review","6"],["Learn","8"],["Practice","10"],["Speaking","8"],["Wrap-up","4"]];
+stages.forEach((s,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML=(i+1)+'. '+s[0]+'<span>'+s[1]+' min</span>';b.onclick=()=>go(i);$('nav').appendChild(b)});
+let seconds=240,run=null;
+function go(i){document.querySelectorAll('section').forEach((x,j)=>x.classList.toggle('on',i===j));[...$('nav').children].forEach((x,j)=>x.classList.toggle('on',i===j));seconds=+stages[i][1]*60;paint();if(i===5)$('fin').textContent='You collected '+A+' acorns! '+rank()}
+function paint(){const a=Math.abs(seconds);$('tm').textContent=(seconds<0?'-':'')+String(Math.floor(a/60)).padStart(2,'0')+':'+String(a%60).padStart(2,'0')}
+$('tb').onclick=()=>{if(run){clearInterval(run);run=null;$('tb').textContent='Start'}else{run=setInterval(()=>{seconds--;paint()},1000);$('tb').textContent='Pause'}};
+$('tn').onclick=()=>document.body.classList.toggle('t');
+$('hb').onclick=()=>{$('hx').hidden=!$('hx').hidden};
+
+/* acorns */
+let A=0;
+const rank=()=>A>=20?'Acorn champion 🏆':A>=10?'Tree climber 🌳':'Baby squirrel 🐿️';
+function add(n){A+=n;$('ac').textContent='🌰 '+A;$('rk').textContent=rank()}
+
+/* quiz engine */
+function mkQuiz(box,items){let i=0,s=0,lock=false,miss=false;
+  box.innerHTML='<div class="q"></div><div class="opts"></div><div class="score"></div>';const[Q,O,S]=box.children;
+  function show(){lock=false;miss=false;
+    if(i>=items.length){Q.textContent='Great job! '+s+'/'+items.length+' 🌟';S.textContent='';O.innerHTML='';const r=document.createElement('button');r.className='btn alt';r.type='button';r.textContent='Play again';r.onclick=()=>{i=0;s=0;show()};O.appendChild(r);return}
+    const it=items[i];Q.innerHTML=it.q;S.textContent=(i+1)+'/'+items.length+' · '+s+' ⭐';O.innerHTML='';if(it.f)it.f();
+    sh(it.o).forEach(o=>{const b=document.createElement('button');b.type='button';b.textContent=o;
+      b.onclick=()=>{if(lock)return;if(o===it.a){lock=true;b.classList.add('ok');if(!miss){s++;add(1)}i++;setTimeout(show,900)}else{miss=true;b.classList.add('no');setTimeout(()=>b.classList.remove('no'),400)}};O.appendChild(b)})}
+  show()}
+
+/* sentence builder (words -> sentence) */
+function mkBuild(root,S,hl){let k=0,p=0,w=[];root.innerHTML='<div class="tgt w"></div><div class="pool"></div><div class="score"></div>';const[T,P,M]=root.children;
+  function load(){w=S[k].replace(/[.?]$/,'').split(' ');p=0;T.innerHTML='';P.innerHTML='';M.textContent='';
+    sh(w.map((_,i)=>i)).forEach(i=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=w[i];
+      b.onclick=()=>{if(b.textContent!==w[p]){b.classList.add('no');setTimeout(()=>b.classList.remove('no'),400);return}
+        const c=document.createElement('span');c.className='chip';c.textContent=b.textContent;T.appendChild(c);b.remove();p++;
+        if(p===w.length){M.textContent='🎉 '+S[k]+' +2 🌰';add(2);k=(k+1)%S.length;setTimeout(load,2200)}};P.appendChild(b)})}
+  load()}
+
+/* order lines */
+function mkOrder(T,P,M,L){let p=0;
+  function load(){p=0;T.innerHTML='';P.innerHTML='';M.textContent='';
+    sh(L).forEach(t=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=t;
+      b.onclick=()=>{if(t!==L[p]){b.classList.add('no');setTimeout(()=>b.classList.remove('no'),400);return}
+        const c=document.createElement('div');c.className='chip';c.textContent=(p+1)+'. '+t;T.appendChild(c);b.remove();p++;
+        if(p===L.length){add(2);M.innerHTML='🎉 Perfect! +2 🌰 <button class="btn alt" type="button" id="dr">Again</button>';$('dr').onclick=load}};P.appendChild(b)})}
+  load()}
+
+/* 0 warm-up squirrel */
+const MV={round:[[0,0],[55,-35],[110,0],[55,35],[0,0]],across:[[-110,0],[110,0]],into:[[-110,0],[0,0],[0,0]],"out of":[[0,0],[0,0],[110,0]],through:[[-110,0],[110,0]],up:[[0,60],[0,-60]],down:[[0,-60],[0,60]],onto:[[-90,45],[0,-35]],off:[[0,-35],[90,45]],over:[[-110,35],[0,-65],[110,35]]};
+const OBJ={round:'🌳',across:'🛣️',into:'🕳️',"out of":'🕳️',through:'🪵',up:'🌳',down:'🌳',onto:'🪵',off:'🪵',over:'🪵'};
+const NM=Object.keys(MV);let cur='up';
+function move(n){cur=n;$('ob0').textContent=OBJ[n];const a=MV[n],m=a.length-1;
+  $('sq0').animate(a.map((c,i)=>({transform:'translate('+c[0]+'px,'+c[1]+'px)',opacity:((n==='into'&&i===m)||(n==='out of'&&i===0))?.15:1})),{duration:1800,easing:'ease-in-out',fill:'forwards'})}
+mkQuiz($('w0'),sh(NM).slice(0,6).map(n=>({q:'What is the squirrel doing?',a:n,o:sh(NM.filter(x=>x!==n)).slice(0,3).concat(n),f:()=>move(n)})));
+$('again').onclick=()=>move(cur);
+
+/* 1 review: verb + to */
+const TV=["to learn","to run","to do","to go","to climb","to make"];
+const RV=[["Last week, my dad decided ___ a pizza.","to make"],["The squirrel wanted ___ up the oak tree.","to climb"],["Anna needs ___ her project today.","to do"],["After school, we want ___ to the park.","to go"],["The mouse needs ___ fast!","to run"],["Next year, I want ___ French.","to learn"]];
+mkQuiz($('w1a'),RV.map(x=>({q:x[0],a:x[1],o:TV})));
+const VB={want:["wanted","wants"],need:["needed","needs"],decide:["decided","decides"],learn:["learnt","learns"]};
+const PE=["Nya","Harry","Max","Lily","Tom","Mia"];
+const PH=[["⛺","go camping"],["⛵","sail a boat"],["🐴","ride a horse"],["🏛️","visit a museum"],["🍰","make a cake"],["♟️","play chess"],["🏊","swim in the sea"],["🖍️","draw a picture"],["🧗","climb a hill"],["🛌","sleep more"]];
+let wc=null;
+function wish(){wc={t:Math.random()<.5?0:1,n:rn(PE),p:rn(PH),v:rn(Object.keys(VB))};
+  $('wc').innerHTML='<span class="e">'+wc.p[0]+'</span><b>'+wc.n+'</b><span class="tm">'+(wc.t?'This week':'Last year')+'</span><span class="tm bl">'+wc.v+'</span><div class="hint">…'+wc.p[1]+'</div>';$('wt').textContent=''}
+$('wn').onclick=wish;wish();
+$('wm').onclick=()=>{$('wt').textContent=(wc.t?'This week, ':'Last year, ')+wc.n+' '+VB[wc.v][wc.t]+' to '+wc.p[1]+'.'};
+$('wd').onclick=()=>{add(2);wish()};
+
+/* 2 learn: vocabulary */
+const VOC=[["💯","count to a hundred","считать до ста","Could you count to a hundred when you were five?"],["🧥","do up your coat","застегнуть куртку","Could you do up your coat when you were four?"],["👟","tie your shoes","завязать шнурки","Could you tie your shoes when you were five?"],["🎵","whistle a tune","насвистывать мелодию","Could you whistle a tune when you were eight?"],["🔤","say the alphabet","сказать алфавит","Could you say the alphabet when you were four?"],["🚲","ride a bike","кататься на велосипеде","Could you ride a bike when you were six?"],["🌳","climb a tree","залезть на дерево","Could you climb a tree when you were five?"],["🏊","swim","плавать","Could you swim when you were seven?"]];
+VOC.forEach(v=>{const b=document.createElement('button');b.type='button';b.className='pc';
+  b.innerHTML='<span class="e">'+v[0]+'</span><b>'+v[1]+'</b><i>'+v[2]+'</i>';
+  b.onclick=()=>{$('sent').textContent=v[3]};$('cards').appendChild(b)});
+mkQuiz($('w2'),[
+ ["I wanted ___ climb the tree.","🌉 to"],["I could ___ climb the tree when I was five.","✖ no bridge"],["She needs ___ run home.","🌉 to"],
+ ["Could you ___ whistle a tune?","✖ no bridge"],["He couldn’t ___ tie his shoes.","✖ no bridge"],["Mia learnt ___ count to a hundred.","🌉 to"]
+].map(x=>({q:x[0],a:x[1],o:["🌉 to","✖ no bridge"]})));
+
+/* 3 controlled */
+const MP=[["tie your shoes","👟"],["count to a hundred","💯"],["do up your coat","🧥"],["whistle a tune","🎵"],["ride a bike","🚲"],["climb a tree","🌳"]];
+let ms=null,mc=0;
+function buildMatch(){const m=$('match');m.innerHTML='';ms=null;mc=0;$('msc').textContent='';
+  const L=sh(MP),R=sh(MP);
+  for(let i=0;i<MP.length;i++){
+    const a=document.createElement('button');a.type='button';a.className='w';a.textContent=L[i][0];a.dataset.k=L[i][0];
+    const b=document.createElement('button');b.type='button';b.textContent=R[i][1];b.dataset.k=R[i][0];b.setAttribute('aria-label',R[i][0]);
+    m.append(a,b);[a,b].forEach(el=>el.onclick=()=>pick(el,el===a?'w':'p'));
+  }}
+function pick(el,side){
+  if(!ms||ms.side===side){if(ms)ms.el.classList.remove('sel');ms={el,side};el.classList.add('sel');return}
+  const a=ms.el;a.classList.remove('sel');
+  if(a.dataset.k===el.dataset.k){a.classList.add('ok');el.classList.add('ok');mc++;add(1);$('msc').textContent=mc+'/'+MP.length+' ⭐';if(mc===MP.length)$('msc').textContent=mc+'/'+MP.length+' 🎉 Well done!'}
+  else{[a,el].forEach(x=>{x.classList.add('no');setTimeout(()=>x.classList.remove('no'),400)})}
+  ms=null}
+buildMatch();
+mkQuiz($('w3b'),[
+ ["✅ When he was eight, Mia ___ whistle a tune.","could"],["❌ When I was two, I ___ count to a hundred.","couldn’t"],["❌ When he was one, Tom ___ tie his shoes.","couldn’t"],
+ ["✅ When we were six, we ___ ride a bike.","could"],["❌ The baby squirrel ___ climb a tree last week.","couldn’t"],["✅ My grandma ___ whistle a tune when she was a girl.","could"]
+].map(x=>({q:x[0],a:x[1],o:["could","couldn’t"]})));
+mkBuild($('w3c'),["Could you whistle a tune when you were eight?","Could you do up your coat when you were five?","Could you ride a bike when you started school?","Could you tie your shoes when you were four?"]);
+mkOrder($('dt'),$('dp'),$('dm'),["Could you ride a bike when you were five?","No, I couldn’t. What about you?","Yes, I could! I learnt to ride when I was four.","Wow, that’s early!"]);
+
+/* 4 speaking */
+const SK=[["🚲","ride a bike"],["🏊","swim"],["💯","count to a hundred"],["👟","tie your shoes"],["🧥","do up your coat"],["🎵","whistle a tune"],["🌳","climb a tree"],["🔤","say the alphabet"]];
+let sp=null,spn=0,sc={a:0,b:0};
+function spCard(){spn++;sp={k:rn(SK),a:rn([3,4,5,6,7,8]),ask:spn%2===1};
+  $('sc').innerHTML='<span class="e">'+sp.k[0]+'</span><b>when you were '+sp.a+'</b><span class="tm">'+(sp.ask?'You ask the teacher':'Teacher asks, you answer')+'</span><div class="hint">…'+sp.k[1]+'</div>';$('st').textContent=''}
+$('sn').onclick=spCard;spCard();
+$('sm').onclick=()=>{$('st').textContent=sp.ask?'Could you '+sp.k[1]+' when you were '+sp.a+'?':'Yes, I could. / No, I couldn’t. What about you?'};
+document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{sc[b.dataset.t]++;$(b.dataset.t==='a'?'ta':'tb2').textContent=sc[b.dataset.t];if(b.dataset.t==='a')add(1)});
+const RQ=/^\s*could you ([a-z]+)\b.*\bwhen you (were|started)\b.*\?\s*$/i;
+$('c1').onclick=()=>{const t=$('i1').value.trim();if(!t){$('r1').textContent='';return}
+  if(RQ.test(t)){$('r1').innerHTML='✅ <b>Could you</b> … <b class="t">when you were</b> … 🌰+2';add(2);$('i1').value=''}
+  else $('r1').innerHTML='Use: <b>Could you</b> + verb … <b class="t">when you were</b> … ?'};
+const RC=/\bcould(n['’]t)?\b/i,RT=/\b(want|wants|wanted|need|needs|needed|decide|decides|decided|learn|learns|learnt|learned)\s+to\s+[a-z]+/i;
+$('c2').onclick=()=>{const t=$('i2').value.trim();if(!t){$('r2').textContent='';return}
+  const a=RC.test(t),b=RT.exec(t);
+  if(a&&b){$('r2').innerHTML='✅ <b>could/couldn’t</b> + <b class="t">'+b[0]+'</b> 🌰+3';add(3);$('i2').value=''}
+  else $('r2').innerHTML=(a?'✅':'❌')+' could / couldn’t &nbsp; '+(b?'✅':'❌')+' <b class="t">learnt to…</b> (or want / need / decide to)'};
+$('i1').addEventListener('keydown',e=>{if(e.key==='Enter')$('c1').click()});$('i2').addEventListener('keydown',e=>{if(e.key==='Enter')$('c2').click()});
+
+go(0);
+</script>
+
+</body></html>
