@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lights Out! · Past Continuous Game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night1:#140c3a; --night2:#2b1c70; --bldg:#5b3fb8; --bldg2:#4a31a0; --roof:#3c2788;
+    --dark:#22184f; --amber:#ffb627; --ink:#1d1640; --ok:#2ec27e; --bad:#ff5a6a; --card:#fff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
+  body{
+    font-family:'Nunito',system-ui,sans-serif;color:#fff;
+    background:radial-gradient(1200px 600px at 50% -10%, #3a2a8c 0%, transparent 60%), linear-gradient(180deg,var(--night1),var(--night2));
+    display:flex;justify-content:center;padding:14px 12px 28px;overflow-x:hidden;
+  }
+  .app{width:100%;max-width:440px;position:relative}
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;opacity:.7;animation:tw 3s infinite ease-in-out}
+  @keyframes tw{50%{opacity:.15}}
+  header{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .logo{font-family:'Fredoka';font-weight:700;font-size:22px;letter-spacing:.5px}
+  .logo span{color:var(--amber)}
+  .hud{display:flex;gap:8px;align-items:center;font-weight:800;font-size:14px}
+  .pill{background:rgba(255,255,255,.12);padding:5px 10px;border-radius:999px}
+  .dots{display:flex;gap:5px}
+  .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.25)}
+  .dot.done{background:var(--amber)}
+
+  /* building */
+  .scene{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+  .moon{position:absolute;top:2px;left:8px;font-size:34px;filter:drop-shadow(0 0 12px #fff8)}
+  .roof{width:84%;height:22px;background:var(--roof);border-radius:10px 10px 0 0;margin-top:26px;position:relative}
+  .roof:before{content:"";position:absolute;right:18%;top:-22px;width:22px;height:24px;background:var(--roof);border-radius:4px 4px 0 0}
+  .building{width:92%;background:linear-gradient(180deg,var(--bldg),var(--bldg2));border-radius:8px 8px 0 0;padding:12px 12px 6px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px 10px;box-shadow:0 20px 50px #0007;transition:filter .3s}
+  .flat{display:flex;flex-direction:column;align-items:center;gap:4px}
+  .win{width:100%;aspect-ratio:1/.82;border-radius:6px;background:var(--dark);border:3px solid #7a5ed6;position:relative;overflow:hidden;
+       display:flex;align-items:center;justify-content:center;font-size:clamp(20px,7.5vw,32px);transition:background .25s,border-color .25s,transform .15s}
+  .win:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 48%,#7a5ed6 48%,#7a5ed6 52%,transparent 52%);opacity:.55}
+  .win .emo{opacity:0;transform:scale(.6);transition:all .3s;position:relative;z-index:1;line-height:1}
+  .win.on{border-color:#ffe08a}
+  .win.on:after{opacity:0}
+  .win.on .emo{opacity:1;transform:scale(1)}
+  .num{font-family:'Fredoka';font-weight:700;font-size:12px;width:22px;height:22px;border-radius:50%;background:var(--amber);color:var(--ink);display:flex;align-items:center;justify-content:center}
+  .door{width:92%;height:16px;background:var(--bldg2);display:flex;justify-content:center}
+  .door div{width:44px;height:16px;background:#2d1f66;border-radius:6px 6px 0 0}
+  .ground{width:100%;height:10px;background:#1a1240;border-radius:6px}
+  .building.tap .win{cursor:pointer}
+  .building.tap .win:hover{transform:scale(1.04);border-color:var(--amber)}
+  .win.right{border-color:var(--ok)!important;box-shadow:0 0 0 3px var(--ok),0 0 18px var(--ok)}
+  .win.wrong{border-color:var(--bad)!important;box-shadow:0 0 0 3px var(--bad);animation:shake .35s}
+  @keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+  .building.flicker{animation:flick .9s steps(1)}
+  @keyframes flick{0%{filter:brightness(1)}15%{filter:brightness(.3)}30%{filter:brightness(1.1)}45%{filter:brightness(.2)}60%{filter:brightness(.9)}75%{filter:brightness(.1)}100%{filter:brightness(1)}}
+  .bang{position:absolute;top:44%;left:50%;transform:translate(-50%,-50%) scale(.6);font-family:'Fredoka';font-weight:700;font-size:44px;color:var(--amber);
+        text-shadow:0 4px 0 #a2560a,0 0 30px #ffb62788;opacity:0;pointer-events:none;z-index:5;white-space:nowrap}
+  .bang.show{animation:bang 1.4s ease forwards}
+  @keyframes bang{20%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+
+  /* card */
+  .card{position:relative;z-index:1;background:var(--card);color:var(--ink);border-radius:18px;padding:18px 16px;margin-top:14px;box-shadow:0 12px 30px #0006;animation:pop .25s ease}
+  @keyframes pop{from{transform:translateY(8px);opacity:0}}
+  .card h1{font-family:'Fredoka';font-size:32px;line-height:1}
+  .card h1 span{color:var(--amber)}
+  .card h2{font-family:'Fredoka';font-size:20px;line-height:1.25;margin-bottom:12px}
+  .kicker{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#8a80b8;margin-bottom:6px}
+  .card p{font-size:15px;line-height:1.45;margin:8px 0}
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+  .rule{background:#f3f0ff;border-radius:12px;padding:10px;font-size:13px;line-height:1.4}
+  .rule b{color:#e0453a}
+  .short{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 4px}
+  .short span{font-size:13px;font-weight:700;background:#f3f0ff;border-radius:999px;padding:4px 10px}
+  .btn{display:block;width:100%;border:0;border-radius:14px;padding:14px;font-family:'Fredoka';font-weight:600;font-size:18px;cursor:pointer;
+       background:var(--amber);color:var(--ink);box-shadow:0 4px 0 #c47f00;margin-top:12px;transition:transform .1s}
+  .btn:active{transform:translateY(3px);box-shadow:0 1px 0 #c47f00}
+  .opts{display:flex;flex-direction:column;gap:8px}
+  .opt{border:2px solid #e3defa;background:#fff;border-radius:12px;padding:12px 14px;text-align:left;font:700 15px 'Nunito';color:var(--ink);cursor:pointer;transition:all .15s}
+  .opt:hover:not(:disabled){border-color:#9b87f5;background:#faf8ff}
+  .opt.right{border-color:var(--ok);background:#e6f9ef}
+  .opt.wrong{border-color:var(--bad);background:#ffecee}
+  .opt:disabled{cursor:default}
+  .fb{margin-top:10px;font-weight:800;font-size:15px;min-height:20px}
+  .fb.ok{color:#169a5f}.fb.no{color:#d8334a}
+  .fb small{display:block;font-weight:600;color:#5d5689;margin-top:3px}
+  .timer{height:10px;background:#eee9ff;border-radius:999px;overflow:hidden;margin-top:10px}
+  .timer div{height:100%;width:100%;background:linear-gradient(90deg,var(--amber),#ff7a3d);border-radius:999px}
+  .big{font-family:'Fredoka';font-size:46px;font-weight:700;text-align:center;margin:6px 0}
+  .stars3{text-align:center;font-size:34px;letter-spacing:6px}
+  .hint{font-size:13px;color:#6d659c;text-align:center;margin-top:6px}
+  .lvl{display:flex;gap:6px;margin-top:6px}
+  .lvl button{flex:1;border:2px solid #e3defa;background:#fff;border-radius:10px;padding:8px 4px;font:800 13px 'Nunito';color:var(--ink);cursor:pointer}
+  .lvl button.sel{border-color:var(--amber);background:#fff6e0}
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="app">
+  <header>
+    <div class="logo">Lights <span>Out!</span></div>
+    <div class="hud">
+      <div class="dots" id="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <div class="pill">⭐ <span id="score">0</span></div>
+    </div>
+  </header>
+
+  <div class="scene">
+    <div class="moon">🌙</div>
+    <div class="roof"></div>
+    <div class="building" id="building"></div>
+    <div class="door"><div></div></div>
+    <div class="ground"></div>
+    <div class="bang" id="bang">BLACKOUT!</div>
+  </div>
+
+  <div id="card"></div>
+</div>
+
+<script>
+/* ---------- data ---------- */
+const POOL = [
+  {s:'the boy',p:'he',ing:'watching TV',e:'👦📺',c:'#ffe9b8'},
+  {s:'the grandma',p:'she',ing:'sleeping',e:'👵💤',c:'#cfe3ff'},
+  {s:'the cat',p:'it',ing:'eating fish',e:'🐱🐟',c:'#ffd6e0'},
+  {s:'the girl',p:'she',ing:'dancing',e:'💃🎶',c:'#e8dcff'},
+  {s:'the man',p:'he',ing:'painting a picture',e:'👨‍🎨🖼️',c:'#d9f5d0'},
+  {s:'the friends',p:'they',pl:1,ing:'eating pizza',e:'🧑‍🤝‍🧑🍕',c:'#ffe9b8'},
+  {s:'the woman',p:'she',ing:'reading a book',e:'👩📖',c:'#cfe3ff'},
+  {s:'the dog',p:'it',ing:'playing with a ball',e:'🐶⚽',c:'#d9f5d0'},
+  {s:'the musician',p:'he',ing:'playing the guitar',e:'🧔🎸',c:'#ffd6e0'},
+  {s:'the kids',p:'they',pl:1,ing:'playing video games',e:'🧒🎮',c:'#e8dcff'},
+  {s:'the baby',p:'he',ing:'crying',e:'👶😭',c:'#cfe3ff'},
+  {s:'the chef',p:'she',ing:'cooking pasta',e:'👩‍🍳🍝',c:'#ffe9b8'},
+  {s:'the student',p:'she',ing:'playing the drums',e:'👧🥁',c:'#ffd6e0'},
+  {s:'the grandpa',p:'he',ing:'drinking tea',e:'👴☕',c:'#d9f5d0'},
+  {s:'the twins',p:'they',pl:1,ing:'doing homework',e:'👧👦✏️',c:'#e8dcff'},
+  {s:'the parents',p:'they',pl:1,ing:'watching a film',e:'👫🍿',c:'#cfe3ff'},
+  {s:'the businessman',p:'he',ing:'talking on the phone',e:'🧑‍💼📱',c:'#ffe9b8'},
+  {s:'the singer',p:'she',ing:'singing karaoke',e:'👩‍🎤🎤',c:'#ffd6e0'},
+  {s:'the parrot',p:'it',ing:'talking',e:'🦜💬',c:'#d9f5d0'},
+  {s:'the couple',p:'they',pl:1,ing:'having dinner',e:'💑🍽️',c:'#e8dcff'},
+  {s:'the doctor',p:'she',ing:'working on a laptop',e:'👩‍⚕️💻',c:'#cfe3ff'},
+  {s:'the hamster',p:'it',ing:'running in its wheel',e:'🐹🎡',c:'#ffe9b8'}
+];
+// floors top→bottom
+const LAYOUT = [10,11,12,7,8,9,4,5,6,1,2,3];
+const SPEEDS = {easy:1.5, normal:1, hard:.7};
+const ROUNDS = [
+  {lit:3, time:12, qs:3},
+  {lit:6, time:15, qs:4},
+  {lit:9, time:18, qs:5}
+];
+
+/* ---------- helpers ---------- */
+const $ = id => document.getElementById(id);
+const shuffle = a => { a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];} return a; };
+const cap = s => s[0].toUpperCase()+s.slice(1);
+const be = a => a.pl ? 'were' : 'was';
+const notBe = a => a.pl ? "weren't" : "wasn't";
+const sentence = (a, wrongAux) => `${cap(a.s)} ${wrongAux ? (a.pl?'was':'were') : be(a)} ${a.ing}.`;
+
+let audioCtx;
+function beep(ok){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='triangle'; o.connect(g); g.connect(audioCtx.destination);
+    const t=audioCtx.currentTime;
+    o.frequency.setValueAtTime(ok?660:220,t);
+    if(ok) o.frequency.setValueAtTime(880,t+.09);
+    g.gain.setValueAtTime(.12,t); g.gain.exponentialRampToValueAtTime(.001,t+.28);
+    o.start(t); o.stop(t+.3);
+  }catch(e){}
+}
+function buzz(){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='sawtooth'; o.connect(g); g.connect(audioCtx.destination);
+    const t=audioCtx.currentTime;
+    o.frequency.setValueAtTime(140,t); o.frequency.exponentialRampToValueAtTime(40,t+.7);
+    g.gain.setValueAtTime(.08,t); g.gain.exponentialRampToValueAtTime(.001,t+.8);
+    o.start(t); o.stop(t+.85);
+  }catch(e){}
+}
+
+/* ---------- state ---------- */
+let S = {};
+function reset(){ S = {round:0, score:0, total:0, roundScore:0, lit:{}, qs:[], qi:0, speed:S.speed||'normal'}; $('score').textContent=0; renderDots(); }
+
+/* ---------- building ---------- */
+function buildBuilding(){
+  const b=$('building'); b.innerHTML='';
+  LAYOUT.forEach(n=>{
+    const f=document.createElement('div'); f.className='flat';
+    f.innerHTML=`<div class="win" data-n="${n}"><span class="emo"></span></div><div class="num">${n}</div>`;
+    b.appendChild(f);
+  });
+  b.addEventListener('click', e=>{
+    const w=e.target.closest('.win'); if(!w || !b.classList.contains('tap')) return;
+    onWindowTap(+w.dataset.n, w);
+  });
+}
+const win = n => document.querySelector(`.win[data-n="${n}"]`);
+function lightsOn(map){
+  document.querySelectorAll('.win').forEach(w=>{
+    const a=map[w.dataset.n];
+    w.classList.remove('right','wrong');
+    if(a){ w.classList.add('on'); w.style.background=a.c; w.querySelector('.emo').textContent=a.e; }
+    else { w.classList.remove('on'); w.style.background=''; w.querySelector('.emo').textContent=''; }
+  });
+}
+function lightsOff(){
+  document.querySelectorAll('.win').forEach(w=>{ w.classList.remove('on','right','wrong'); w.style.background=''; });
+}
+function renderDots(){
+  [...$('dots').children].forEach((d,i)=>d.classList.toggle('done', i < S.round));
+}
+
+/* ---------- screens ---------- */
+function card(html){ $('card').innerHTML=`<div class="card">${html}</div>`; }
+
+function intro(){
+  reset(); lightsOn(demoMap());
+  card(`
+    <h1>Lights <span>Out!</span></h1>
+    <p>It's 9 o'clock at night and everyone in the building is busy. Then — the lights go out! Can you remember what they <b>were doing</b>?</p>
+    <div class="kicker" style="margin-top:12px">Remember these words</div>
+    <div class="rules">
+      <div class="rule">I, he, she, it<br><b>was</b> + -ing<br><i>She was reading.</i></div>
+      <div class="rule">you, we, they<br><b>were</b> + -ing<br><i>They were playing.</i></div>
+    </div>
+    <div class="short"><span>Yes, he was.</span><span>No, he wasn't.</span><span>Yes, they were.</span><span>No, they weren't.</span></div>
+    <div class="kicker" style="margin-top:12px">Memory time</div>
+    <div class="lvl" id="lvl">
+      <button data-s="easy">Easy</button><button data-s="normal">Normal</button><button data-s="hard">Hard</button>
+    </div>
+    <button class="btn" id="go">Start ▶</button>
+    <p class="hint">3 rounds · 3 → 6 → 9 windows</p>
+  `);
+  const sel=()=>[...$('lvl').children].forEach(b=>b.classList.toggle('sel', b.dataset.s===S.speed));
+  sel();
+  $('lvl').onclick=e=>{ if(e.target.dataset.s){ S.speed=e.target.dataset.s; sel(); } };
+  $('go').onclick=()=>startRound();
+}
+function demoMap(){ const m={}; const a=shuffle(POOL); shuffle(LAYOUT).slice(0,5).forEach((n,i)=>m[n]=a[i]); return m; }
+
+function startRound(){
+  const R=ROUNDS[S.round];
+  const acts=shuffle(POOL).slice(0,R.lit);
+  const flats=shuffle(LAYOUT).slice(0,R.lit);
+  S.lit={}; flats.forEach((n,i)=>S.lit[n]=acts[i]);
+  S.qs=makeQuestions(R.qs); S.qi=0; S.roundScore=0;
+  lightsOn(S.lit);
+  const secs=Math.round(R.time*SPEEDS[S.speed]);
+  card(`
+    <div class="kicker">Round ${S.round+1} of 3</div>
+    <h2>Look at ${R.lit} windows. Remember who was doing what!</h2>
+    <div class="timer"><div id="bar"></div></div>
+    <p class="hint"><span id="secs">${secs}</span> s · <a href="#" id="skip" style="color:#6d4fd8;font-weight:800">I'm ready</a></p>
+  `);
+  const bar=$('bar');
+  requestAnimationFrame(()=>{ bar.style.transition=`width ${secs}s linear`; bar.style.width='0%'; });
+  let left=secs;
+  const tick=setInterval(()=>{ left--; if($('secs')) $('secs').textContent=Math.max(left,0); if(left<=0){ clearInterval(tick); blackout(); } },1000);
+  $('skip').onclick=e=>{ e.preventDefault(); clearInterval(tick); blackout(); };
+}
+
+function blackout(){
+  $('card').innerHTML='';
+  const b=$('building'); b.classList.add('flicker'); buzz();
+  setTimeout(()=>{
+    b.classList.remove('flicker'); lightsOff();
+    const bang=$('bang'); bang.classList.remove('show'); void bang.offsetWidth; bang.classList.add('show');
+    setTimeout(showQuestion, 1100);
+  }, 900);
+}
+
+/* ---------- questions ---------- */
+function makeQuestions(k){
+  const flats=shuffle(Object.keys(S.lit).map(Number)).slice(0,k);
+  const types=shuffle(['what','yesno','who','what','yesno','who']).slice(0,k);
+  return flats.map((n,i)=>{
+    const a=S.lit[n], t=types[i];
+    if(t==='what'){
+      const others=shuffle(Object.values(S.lit).filter(x=>x!==a));
+      const extra=others[0] || shuffle(POOL.filter(x=>x!==a))[0];
+      // distractor: someone else's activity in this flat (wrong memory)
+      const mix={...a, ing: extra.ing};
+      const opts=shuffle([
+        {t:sentence(a), ok:1},
+        {t:sentence(a,true)},
+        {t:sentence(extra)===sentence(a)?sentence(mix):sentence(Math.random()<.5?extra:mix)}
+      ]);
+      return {type:'what', n, a, q:`What was happening in flat ${n} when the lights went out?`, opts,
+              explain:`${sentence(a)}`};
+    }
+    if(t==='yesno'){
+      const truth=Math.random()<.5;
+      const fake=shuffle(POOL.filter(x=>x.ing!==a.ing && !Object.values(S.lit).some(y=>y===a && y.ing===x.ing)))[0];
+      const ing= truth ? a.ing : fake.ing;
+      const P=cap(a.p);
+      const correct = truth ? `Yes, ${a.p} ${be(a)}.` : `No, ${a.p} ${notBe(a)}.`;
+      const opposite = truth ? `No, ${a.p} ${notBe(a)}.` : `Yes, ${a.p} ${be(a)}.`;
+      const badGrammar = truth ? `Yes, ${a.p} ${a.pl?'was':'were'}.` : `No, ${a.p} ${a.pl?"wasn't":"weren't"}.`;
+      const opts=shuffle([{t:correct,ok:1},{t:opposite},{t:badGrammar}]);
+      return {type:'yesno', n, a, q:`${a.pl?'Were':'Was'} ${a.s} ${ing} in flat ${n}?`, opts,
+              explain: truth ? `${sentence(a)}` : `${P} ${notBe(a)} ${ing}. ${sentence(a)}`};
+    }
+    return {type:'who', n, a, q:`Who was ${a.ing}?`, explain:`${sentence(a)} (flat ${n})`};
+  });
+}
+
+function showQuestion(){
+  const Q=S.qs[S.qi], R=ROUNDS[S.round];
+  const head=`<div class="kicker">Question ${S.qi+1} of ${R.qs} · Round ${S.round+1}</div>`;
+  const b=$('building');
+  if(Q.type==='who'){
+    b.classList.add('tap');
+    card(`${head}<h2>${Q.q}</h2><p style="font-weight:700;color:#6d659c">👆 Tap the window.</p><div class="fb" id="fb"></div><div id="nx"></div>`);
+  } else {
+    b.classList.remove('tap');
+    win(Q.n).style.boxShadow='0 0 0 3px #ffb627';
+    card(`${head}<h2><span class="num" style="display:inline-flex;vertical-align:2px;margin-right:6px">${Q.n}</span>${Q.q}</h2>
+      <div class="opts" id="opts">${Q.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o.t}</button>`).join('')}</div>
+      <div class="fb" id="fb"></div><div id="nx"></div>`);
+    $('opts').onclick=e=>{
+      const btn=e.target.closest('.opt'); if(!btn) return;
+      const o=Q.opts[+btn.dataset.i];
+      [...$('opts').children].forEach((c,i)=>{ c.disabled=true; if(Q.opts[i].ok) c.classList.add('right'); });
+      if(!o.ok) btn.classList.add('wrong');
+      answered(!!o.ok);
+    };
+  }
+}
+
+function onWindowTap(n, w){
+  const Q=S.qs[S.qi]; if(!Q || Q.type!=='who' || Q.done) return;
+  Q.done=true; $('building').classList.remove('tap');
+  const ok = n===Q.n;
+  if(!ok) w.classList.add('wrong');
+  const r=win(Q.n); r.classList.add('right','on'); r.style.background=Q.a.c; r.querySelector('.emo').textContent=Q.a.e;
+  answered(ok);
+}
+
+function answered(ok){
+  const Q=S.qs[S.qi];
+  S.total++; if(ok){ S.score++; S.roundScore++; $('score').textContent=S.score; }
+  beep(ok);
+  const praise=shuffle(['Correct!','Great memory!','Exactly!','Well done!'])[0];
+  const fb=$('fb'); fb.className='fb '+(ok?'ok':'no');
+  fb.innerHTML = (ok?`✅ ${praise}`:'❌ Not quite.') + `<small>${Q.explain}</small>`;
+  const last = S.qi===S.qs.length-1;
+  $('nx').innerHTML=`<button class="btn" id="next">${last?'Turn the lights on 💡':'Next ▶'}</button>`;
+  $('next').onclick=()=>{
+    document.querySelectorAll('.win').forEach(w=>{ w.style.boxShadow=''; });
+    if(last) roundEnd();
+    else { S.qi++; lightsOff(); showQuestion(); }
+  };
+}
+
+function roundEnd(){
+  lightsOn(S.lit);
+  const R=ROUNDS[S.round]; S.round++; renderDots();
+  if(S.round>=ROUNDS.length) return final();
+  const N=ROUNDS[S.round];
+  card(`
+    <div class="kicker">Round ${S.round} complete</div>
+    <h2>The lights are back! 💡</h2>
+    <p>Look at the windows again — were you right? You got <b>${S.roundScore} of ${R.qs}</b>.</p>
+    <p>Next round: <b>${N.lit} windows</b> and less time for each one.</p>
+    <button class="btn" id="go">Round ${S.round+1} ▶</button>
+  `);
+  $('go').onclick=startRound;
+}
+
+function final(){
+  const pct=S.score/S.total;
+  const stars = pct>=.9?'⭐⭐⭐':pct>=.6?'⭐⭐☆':pct>=.3?'⭐☆☆':'☆☆☆';
+  const msg = pct>=.9?'Amazing memory — and perfect Past Continuous!':pct>=.6?'Great job! A little more practice and you\'ll be a star.':'Good try! Play again — the building is different every time.';
+  card(`
+    <div class="kicker">Game over</div>
+    <div class="stars3">${stars}</div>
+    <div class="big">${S.score} / ${S.total}</div>
+    <p style="text-align:center">${msg}</p>
+    <button class="btn" id="again">Play again 🔄</button>
+  `);
+  $('again').onclick=intro;
+}
+
+/* ---------- init ---------- */
+(function(){
+  const st=$('stars');
+  for(let i=0;i<40;i++){ const s=document.createElement('div'); s.className='star';
+    s.style.left=Math.random()*100+'%'; s.style.top=Math.random()*55+'%'; s.style.animationDelay=(Math.random()*3)+'s'; st.appendChild(s); }
+  S.speed='normal';
+  buildBuilding(); intro();
+})();
+</script>
+</body>
+</html>
