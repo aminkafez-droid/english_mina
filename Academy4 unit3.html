@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Max’s Garage · Unit 3 · Lena</title>
+<style>
+:root{--bg:#e6f8f0;--card:#fff;--ink:#16453a;--mint:#2fb58f;--mint2:#bfeadb;--coral:#ff7a6b;--coral2:#ffe3de;--ok:#1f9d6e;--bad:#e5484d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f2a24;--card:#17382f;--ink:#e6f7f1;--mint2:#24594b;--coral2:#4a2723}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 "Nunito","Trebuchet MS",system-ui,sans-serif}
+.w{max-width:1100px;margin:0 auto;padding:12px 16px 28px}
+header{display:flex;align-items:center;gap:14px;flex-wrap:wrap}h1{margin:0;font-size:26px}h1 span{color:var(--coral)}
+.st{display:inline-block;font-size:26px;animation:bob 3s ease-in-out infinite}
+.sc{margin-left:auto;background:var(--coral);color:#fff;border-radius:20px;padding:4px 14px;font-weight:800}
+.road{position:relative;height:36px;margin:8px 0;border-bottom:4px dashed var(--mint)}
+#bike{position:absolute;left:0;bottom:-2px;font-size:28px;transition:left .8s;transform:scaleX(-1)}#bike.fast{animation:wob .5s infinite}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+nav button{border:2px solid var(--mint);background:var(--card);color:var(--ink);border-radius:20px;padding:6px 14px;font:inherit;font-weight:700;cursor:pointer}nav button.on{background:var(--mint);color:#fff}
+.step{display:none;background:var(--card);border-radius:22px;padding:18px;border:3px solid var(--mint2)}.step.on{display:block;animation:in .4s}
+h2{margin:0 0 4px;font-size:22px}.ins{margin:12px 0 8px;color:var(--mint);font-weight:700}
+.g{display:grid;gap:14px}.g2{grid-template-columns:1.3fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:760px){.g2,.g3{grid-template-columns:1fr}}
+.cam{display:block;width:100%;border-radius:16px;border:3px solid var(--mint2)}
+.bub{min-height:92px;margin-top:8px;padding:10px 14px;background:var(--coral2);border-radius:16px;font-size:19px;animation:in .4s}.bub b{font-size:26px}.bub small{color:#7a8f88;margin-left:6px}.bub span{font-size:16px;opacity:.85}
+.ring{animation:rp 1s infinite}
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mc{height:92px;border-radius:14px;background:var(--mint);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;overflow:hidden;font-weight:800;text-align:center;line-height:1.1}
+.mc.on{background:var(--card);color:var(--ink);border:3px solid var(--mint);font-size:17px}.mc.m{border-color:var(--ok);animation:pop .4s}.mc svg,.th svg{width:100%;height:100%}
+.th{width:210px;height:118px;margin:auto;border-radius:12px;overflow:hidden;border:3px solid var(--mint2)}
+.box{border:3px solid var(--mint);border-radius:18px;padding:12px;background:var(--bg)}.box.c{border-color:var(--coral)}.box h3{margin:0 0 6px}
+.chip{display:inline-block;background:var(--card);border:2px solid var(--mint);border-radius:14px;padding:3px 10px;margin:3px 3px 3px 0;font-weight:700}
+.q{background:var(--bg);border-radius:16px;padding:10px;text-align:center}
+.opt{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:6px}
+button.o,button.act{border:2px solid var(--mint);background:var(--card);color:var(--ink);border-radius:12px;padding:5px 11px;font:inherit;font-weight:700;cursor:pointer;transition:transform .15s}button.o:hover,button.act:hover{transform:translateY(-2px)}
+button.act{background:var(--coral);border-color:var(--coral);color:#fff;margin:10px 6px 0 0}
+button.ok{background:var(--ok)!important;border-color:var(--ok)!important;color:#fff!important;animation:pop .4s}button.no{background:var(--bad)!important;border-color:var(--bad)!important;color:#fff!important;animation:shake .35s}
+.row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:6px 0;border-bottom:1px dashed var(--mint2)}.row>b{min-width:110px}
+.kid{text-align:center}
+#wp{position:relative;width:240px;margin:6px auto}#wheel{position:relative;width:240px;height:240px;border-radius:50%;border:6px solid var(--ink);transition:transform 3.2s cubic-bezier(.15,.7,.1,1)}
+#wheel span{position:absolute;left:50%;top:50%;font-weight:800;color:#fff}.ptr{position:absolute;left:50%;top:-8px;margin-left:-12px;border:12px solid transparent;border-top:22px solid var(--ink)}
+#sq{text-align:center;min-height:200px}#tm{font-size:22px;font-weight:800}
+textarea{width:100%;min-height:60px;border:3px solid var(--mint);border-radius:14px;padding:8px;font:inherit;background:var(--card);color:var(--ink)}
+label.r{display:block;padding:5px 0;font-weight:700;cursor:pointer}
+.ctl{display:flex;justify-content:space-between;margin-top:12px}
+#tn{margin-top:18px;border:3px dashed var(--coral);border-radius:16px;padding:12px 16px;background:var(--card);font-size:15px}#tn td,#tn th{border-bottom:1px solid var(--mint2);padding:3px 8px;text-align:left;vertical-align:top}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}@keyframes pop{50%{transform:scale(1.12)}}@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@keyframes bob{50%{transform:translateY(-7px) rotate(6deg)}}@keyframes wob{50%{transform:scaleX(-1) rotate(-8deg)}}@keyframes rp{50%{stroke-opacity:.25}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body><div class="w">
+<header><h1>🚲 Max’s <span>Garage</span></h1><span class="st">⭐</span><span class="st" style="animation-delay:.6s">⛑️</span><span class="sc">★ <span id="sc">0</span></span></header>
+<div class="road"><span id="bike">🚲</span><span style="position:absolute;right:0;bottom:2px;font-size:24px">🏁</span></div>
+<nav id="nav"></nav>
+
+<section class="step" id="s0"><h2>1 · Visit Max’s garage</h2><p class="ins" style="margin-top:0">Watch, listen, repeat. Then play!</p><div class="g g2"><div id="t0"></div><div><h3 style="margin:0 0 6px">Memory game</h3><div class="mg" id="m0"></div></div></div></section>
+<section class="step" id="s1"><h2>2 · More in the garage</h2><p class="ins" style="margin-top:0">Five new words. Say each one after the tour.</p><div class="g g2"><div id="t1"></div><div><h3 style="margin:0 0 6px">Memory game</h3><div class="mg" id="m1"></div></div></div></section>
+
+<section class="step" id="sk"><h2>3 · Useful chunks</h2><p class="ins" style="margin-top:0">Learn little blocks of words. Click a block and say the sentence!</p><div class="g g2"><div id="ck"></div><div class="q" id="co" style="align-self:start"><p>Click a block ➜</p></div></div></section>
+<section class="step" id="s2"><h2>4 · Guess and fix</h2>
+<p class="ins">A. Word guessing: what is it?</p><div class="g g3" id="gu"></div>
+<div class="g g2"><div><p class="ins">B. Bikes have got … or Cyclists need …?</p><div id="so"></div></div>
+<div><p class="ins">C. Find the mistake!</p><div id="mi"></div></div></div>
+<button class="act" onclick="showA('#s2')">Show answers</button></section>
+
+<section class="step" id="s3"><h2>5 · Who’s got …?</h2><div class="g g2"><div><p class="ins" style="margin-top:0">Look and answer.</p><div class="g g3" id="kids"></div><div id="who" style="margin-top:10px"></div><button class="act" onclick="showA('#who')">Show answers</button>
+<div class="box c" style="margin-top:10px">🗣️ Ask your teacher: <b>Who’s got a …?</b></div></div>
+<div><p class="ins" style="margin-top:0">Spin the wheel! Make a sentence.</p><div id="wp"><div id="wheel"></div><i class="ptr"></i></div><div class="opt"><button class="act" onclick="spin()">Spin!</button></div><div id="sp" class="q" style="margin-top:8px">Press Spin ↑</div></div></div></section>
+
+<section class="step" id="s4"><h2>6 · Speed round & wrap-up</h2><div class="g g2"><div class="box c" style="text-align:center"><p class="ins" style="margin-top:0">30 seconds. How many can you get?</p>
+<div>⏱️ <span id="tm">30</span> &nbsp; ✔ <span id="sn">0</span></div><div id="sq"><button class="act" onclick="speed()">Start!</button></div></div>
+<div><div class="box"><h3>I can …</h3><label class="r"><input type="checkbox" class="rf"> say 10 bike words</label><label class="r"><input type="checkbox" class="rf"> say what bikes have got</label><label class="r"><input type="checkbox" class="rf"> say what cyclists need</label><div id="fin" style="font-weight:800;color:var(--coral)"></div></div>
+<div class="box c" style="margin-top:10px"><h3>Homework ✏️ (about 10 min)</h3><ol style="margin:0;padding-left:20px"><li>Write the 10 words in your notebook in two columns: <b>Bikes have got …</b> / <b>Cyclists need …</b> (5 min)</li><li>Draw your bike and write 5 labels (5 min)</li></ol></div></div></div></section>
+
+<div class="ctl"><button class="o" onclick="go(cur-1)">← Back</button><button class="o" onclick="go(cur+1)">Next →</button></div>
+
+<aside id="tn" hidden><h3>Teacher notes (Shift+T)</h3>
+<p><b>Aim:</b> Lena recognises and says 10 bike words in simple chunks: <i>This is a… / Bikes have got… / Cyclists need… / Who’s got…?</i> Words come in two groups of five (easier first: wheel, bell, light, basket, lock; then brakes, gears, pump, safety vest, cyclist) with a game after each. Pictures are my own drawings (one garage scene), not textbook photos; Anna, Max and Mia are drawn avatars. No audio: model pronunciation yourself. Earlier results are unknown, so add 1–2 min of retrieval if needed. The song (PB 3.3, p. 35) is not included: sing it from your own audio at the end if time allows; its chunks <i>forgot to bring / check / take</i> are for recognition only.</p>
+<table><tr><th>Stage</th><th>Min</th><th>Do</th></tr>
+<tr><td>1 Garage 1 + memory</td><td>9</td><td>Max welcomes Lena (lead-in). At each word Lena says it, then “This is a…”. Check RU hints only if stuck. Memory: pairs of picture and word.</td></tr>
+<tr><td>2 Garage 2 + memory</td><td>9</td><td>Same routine. Stress <i>These are gears / brakes</i> (plural).</td></tr>
+<tr><td>3 Chunks</td><td>4</td><td>Lena clicks a block, says the sentence, then covers the picture and says it again. Point out: bikes HAVE got, cyclists NEED. Blocks: Bikes have got… / Cyclists need… / Check the… Bring a… / Who’s got…?</td></tr><tr><td>4 Guess and fix</td><td>7</td><td>A definitions, B sort, C find the mistake. Ask Lena to say the correct sentence aloud.</td></tr>
+<tr><td>5 Who’s got + spin</td><td>6</td><td>Q&amp;A, then Lena asks you 3 questions. Spin: she makes a sentence first, then you check the model.</td></tr>
+<tr><td>6 Speed + wrap-up</td><td>5</td><td>30-second quiz, self-check, explain homework.</td></tr></table>
+<p><b>Keys.</b> Guess: brakes, pump, gears, light, safety vest. Sort: gears, bell, wheels, basket → Bikes have got; lock, pump, safety vest → Cyclists need. Mistakes: “Bikes has got lights”, “Cyclists needs a lock”, “a gears”, “Who’s have”. Who’s got: Anna, Max, Mia, Max.</p>
+<p><b>Likely errors:</b> has/have; <i>a gears</i>; <i>These is</i>; mixing up light and bell. Recast, then repeat the whole sentence.</p></aside>
+</div>
+<script>
+const AV={Anna:["#6b3e26","#ffdcbc","#ff6fa5"],Max:["#2a2a2a","#f1c7a0","#3b82f6"],Mia:["#b5532c","#e9b891","#2fb58f"]};
+const avIn=n=>{const[h,f,c]=AV[n];return `<path d="M6 64a26 26 0 0 1 52 0z" fill="${c}"/>${n!="Max"?`<path d="M16 28v16M48 28v16" stroke="${h}" stroke-width="6"/>`:""}<circle cx="32" cy="28" r="15" fill="${f}"/><path d="M16 28a16 16 0 0 1 32 0q-8-9-16-8t-16 8z" fill="${h}"/><circle cx="27" cy="30" r="2"/><circle cx="37" cy="30" r="2"/><path d="M27 36q5 4 10 0" stroke="#333" fill="none" stroke-width="2"/>`};
+const av=(n,s=80)=>`<svg width="${s}" height="${s}" viewBox="0 0 64 64">${avIn(n)}</svg>`;
+const wl=(x,y)=>`<g transform="translate(${x} ${y})"><circle r="68" fill="none" stroke="#2b3a36" stroke-width="9"/><path d="M0-60V60M-60 0H60M-42-42L42 42M-42 42L42-42" stroke="#9aa" stroke-width="2"/></g>`;
+const SC=`<rect width="800" height="450" fill="#e3f6ee"/><rect y="372" width="800" height="78" fill="#b9c9c3"/>
+${wl(330,300)}${wl(590,300)}
+<path d="M330 300L400 212L440 300ZM400 212H540L440 300M540 212L590 300" fill="none" stroke="#ff7a6b" stroke-width="8" stroke-linejoin="round"/>
+<rect x="380" y="198" width="46" height="12" rx="5" fill="#333"/><path d="M540 212L528 182H598" stroke="#333" stroke-width="7" fill="none" stroke-linecap="round"/>
+<circle cx="440" cy="300" r="24" fill="#cfd6d4" stroke="#444" stroke-width="5"/><circle cx="440" cy="300" r="26" fill="none" stroke="#444" stroke-width="8" stroke-dasharray="4 5"/><circle cx="440" cy="300" r="9" fill="#555"/><rect x="448" y="318" width="26" height="8" fill="#333"/>
+<path d="M517 178a10 10 0 0 1 20 0z" fill="#e53935"/><circle cx="556" cy="196" r="9" fill="#ffe14d" stroke="#444" stroke-width="3"/>
+<path d="M598 196h56l-8 34h-40z" fill="#b5793c" stroke="#7a4a1e" stroke-width="3"/><path d="M606 204l6 22M620 204v24M634 204l-4 24M646 204l-8 22" stroke="#7a4a1e" stroke-width="2"/>
+<rect x="570" y="226" width="40" height="12" rx="4" fill="#444"/><path d="M590 226Q572 205 560 190" stroke="#444" fill="none" stroke-width="3"/>
+<path d="M100 96V70" stroke="#777" stroke-width="4"/><path d="M78 124v36a22 22 0 0 0 44 0v-36" fill="none" stroke="#333" stroke-width="9"/><rect x="70" y="112" width="60" height="22" rx="5" fill="#f2b705"/>
+<path d="M200 98V70" stroke="#777" stroke-width="4"/><path d="M165 98h22l13 14 13-14h22l8 70h-96z" fill="#e4f23a" stroke="#9aa800" stroke-width="3"/><rect x="158" y="138" width="84" height="7" fill="#cfd8dc"/>
+<rect x="700" y="270" width="14" height="96" rx="4" fill="#ffd400" stroke="#444" stroke-width="3"/><rect x="690" y="262" width="34" height="8" rx="3" fill="#333"/>
+<svg x="30" y="250" width="140" height="140" viewBox="0 0 64 64">${avIn("Max")}</svg>`;
+const W=[["wheel","колесо","It’s round and it turns.","Bikes have got two wheels.","This is a wheel."],["bell","звонок","Ring-ring! It warns people.","Bikes have got a bell.","This is a bell."],["light","фара","It helps you see in the dark.","Bikes have got lights.","This is a light."],["basket","корзина","You put things in it.","Bikes have got a basket.","This is a basket."],["lock","замок","It keeps your bike safe.","Cyclists need a lock.","This is a lock."],
+["brakes","тормоза","You use them to stop.","Bikes have got brakes.","These are brakes."],["gears","передачи","They help you go up hills.","Bikes have got gears.","These are gears."],["pump","насос","It puts air in the wheel.","Cyclists need a pump.","This is a pump."],["safety vest","светоотражающий жилет","Bright clothes, so people can see you.","Cyclists need a safety vest.","This is a safety vest."],["cyclist","велосипедист","A person on a bike.","Max is a cyclist.","This is Max. He is a cyclist."]];
+const P={wheel:[200,205,260,146,330,300,76],bell:[447,125,160,90,527,170,18],light:[472,151,160,90,556,196,17],basket:[546,164,160,90,626,213,38],lock:[20,95,160,90,100,140,42],brakes:[510,187,160,90,590,232,28],gears:[360,255,160,90,440,300,34],pump:[600,259,200,112,707,316,58],"safety vest":[130,96,140,79,200,133,52],cyclist:[0,260,200,112,100,320,62]};
+const $=s=>document.querySelector(s),got=new Set();let score=0,cur=0;const MAX=32;
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]),N=W.map(x=>x[0]);
+const thumb=w=>`<svg viewBox="${P[w].slice(0,4).join(" ")}">${SC}</svg>`;
+const opts=w=>shuf([w,...shuf(N.filter(x=>x!=w)).slice(0,3)]);
+function pts(k,n){if(got.has(k))return;got.add(k);score+=n;$("#sc").textContent=score;$("#bike").style.left=Math.min(score/MAX,1)*92+"%";if(score>=MAX*.85)$("#bike").classList.add("fast")}
+["Garage 1","Garage 2","Chunks","Guess & fix","Who’s got?","Speed & wrap-up"].forEach((n,i)=>$("#nav").insertAdjacentHTML("beforeend",`<button onclick="go(${i})">${i+1}. ${n}</button>`));
+function go(i){if(i<0||i>5)return;cur=i;document.querySelectorAll(".step").forEach((s,j)=>s.classList.toggle("on",j==i));document.querySelectorAll("nav button").forEach((b,j)=>b.classList.toggle("on",j==i));scrollTo(0,0)}
+function cam(s,t){const f=s.vb,T=performance.now(),m=matchMedia("(prefers-reduced-motion:reduce)").matches;s.vb=t;(function k(){let u=m?1:Math.min((performance.now()-T)/900,1);u=u<.5?2*u*u:1-2*(1-u)*(1-u);s.setAttribute("viewBox",f.map((a,i)=>a+(t[i]-a)*u).join(" "));if(u<1)requestAnimationFrame(k)})()}
+function tour(el,g){const ws=W.slice(g*5,g*5+5);let i=-1;el.innerHTML=`<svg class="cam" viewBox="0 0 800 450">${SC}<circle class="ring" r="0" fill="none" stroke="#ff7a6b" stroke-width="5"/></svg><div class="bub">${g?"Welcome back! Let’s see more things in my garage.":"Hi! I’m Max. Welcome to my garage! Let’s look at my bike."}</div><button class="act">Start the tour ▶</button>`;
+const s=el.firstChild,b=el.querySelector(".bub"),bt=el.querySelector("button"),rg=el.querySelector(".ring");s.vb=[0,0,800,450];
+bt.onclick=()=>{i++;if(i>4){cam(s,[0,0,800,450]);rg.setAttribute("r",0);b.innerHTML="Well done! Now play the memory game ➜";bt.hidden=true;pts("t"+g,2);return}
+const[w,ru,d,,lk]=ws[i],p=P[w];cam(s,p.slice(0,4));rg.setAttribute("cx",p[4]);rg.setAttribute("cy",p[5]);rg.setAttribute("r",p[6]);b.innerHTML=`<b>${w}</b><small>${ru}</small><br>${lk}<br><span>${d}</span>`;bt.textContent=i<4?"Next word ▶":"Finish ✓"}}
+function mem(el,ws,k){let o=[],n=0;el.innerHTML=shuf(ws.flatMap(w=>[[w,0],[w,1]])).map(([w,t])=>`<div class="mc" data-w="${w}" data-t="${t}">?</div>`).join("");
+el.querySelectorAll(".mc").forEach(c=>c.onclick=()=>{if(o.length>1||c.classList.contains("on"))return;c.classList.add("on");c.innerHTML=c.dataset.t=="0"?thumb(c.dataset.w):c.dataset.w;o.push(c);
+if(o.length==2){if(o[0].dataset.w==o[1].dataset.w){o.forEach(x=>x.classList.add("m"));o=[];if(++n==ws.length)pts(k,3)}else setTimeout(()=>{o.forEach(x=>{x.classList.remove("on");x.innerHTML="?"});o=[]},900)}})}
+function pick(b,k,n){const p=b.parentElement;if(p.dataset.d)return;if(b.dataset.ok==="1"){b.classList.add("ok");p.dataset.d=1;if(!p.dataset.w)pts(k,n)}else{b.classList.add("no");p.dataset.w=1}}
+function showA(s){document.querySelectorAll(s+" [data-ok='1']").forEach(b=>{b.classList.add("ok");b.parentElement.dataset.d=1})}
+const btn=(t,ok,k,n)=>`<button class="o" data-ok="${ok?1:0}" onclick="pick(this,'${k}',${n})">${t}</button>`;
+tour($("#t0"),0);tour($("#t1"),1);mem($("#m0"),N.slice(0,5),"m0");mem($("#m1"),N.slice(5),"m1");
+["light","brakes","gears","pump","safety vest"].forEach(w=>$("#gu").insertAdjacentHTML("beforeend",`<div class="q"><p style="margin:0 0 4px"><b>${W[N.indexOf(w)][2]}</b></p><div class="opt">${opts(w).map(x=>btn(x,x==w,"g"+w,1)).join("")}</div></div>`));
+[["gears",1],["bell",1],["wheels",1],["lock",0],["basket",1],["pump",0],["safety vest",0]].forEach(([w,h])=>$("#so").insertAdjacentHTML("beforeend",`<div class="row"><b>${w}</b><span class="opt" style="margin:0">${btn("Bikes have got",h,"s"+w,.5)}${btn("Cyclists need",!h,"s"+w,.5)}</span></div>`));
+[["Bikes has got lights.","Bikes have got lights."],["Cyclists need a lock.","Cyclists needs a lock."],["Bikes have got a gears.","Bikes have got gears."],["Who’s got a pink safety vest?","Who’s have a pink safety vest?"]].forEach(([a,b],i)=>$("#mi").insertAdjacentHTML("beforeend",`<div class="row"><span class="opt" style="margin:0;justify-content:flex-start">${btn(a,i%2==0,"m"+i,1)}${btn(b,i%2==1,"m"+i,1)}</span></div>`));
+const IC={bell:c=>`<path d="M-22 12a22 22 0 0 1 44 0z" fill="${c}" stroke="#8a1c1c" stroke-width="2"/><rect x="-4" y="-14" width="8" height="6" rx="2" fill="#666"/><circle cx="0" cy="18" r="4" fill="#666"/>`,lock:c=>`<path d="M-14-4v-12a14 14 0 0 1 28 0v12" fill="none" stroke="#555" stroke-width="7"/><rect x="-22" y="-4" width="44" height="30" rx="6" fill="${c}" stroke="#1c3f8a" stroke-width="2"/><circle cx="0" cy="10" r="4" fill="#fff"/>`,basket:c=>`<path d="M-24-8h48l-8 30h-32z" fill="${c}" stroke="#a06b00" stroke-width="3"/><path d="M-12-8l3 30M0-8v30M12-8l-3 30" stroke="#a06b00" stroke-width="2"/><path d="M-20-8a20 14 0 0 1 40 0" fill="none" stroke="#a06b00" stroke-width="3"/>`,pump:c=>`<rect x="-7" y="-14" width="14" height="38" rx="4" fill="${c}" stroke="#1c7a3a" stroke-width="2"/><rect x="-18" y="-22" width="36" height="8" rx="3" fill="#333"/><path d="M7 20q16 0 16-10" stroke="#333" stroke-width="3" fill="none"/>`,light:c=>`<circle r="16" fill="${c}" stroke="#444" stroke-width="4"/><path d="M20-10l12-6M22 0h14M20 10l12 6" stroke="#f2b705" stroke-width="3"/>`,vest:c=>`<path d="M-22-20h14l8 10 8-10h14l5 40h-56z" fill="${c}" stroke="#c23a78" stroke-width="2"/><rect x="-26" y="2" width="52" height="5" fill="#eef3f5"/>`};
+const kidSvg=(n,a,b)=>{const[h,f]=AV[n],sh={Anna:"#9ad0ff",Max:"#ffb347",Mia:"#c8b6ff"}[n];return `<svg viewBox="0 0 200 150" style="width:100%;max-width:230px"><path d="M20 150v-30a40 40 0 0 1 80 0v30z" fill="${sh}"/>${n=="Anna"?`<path d="M26 150v-34q0-16 14-22l20 22 20-22q14 6 14 22v34z" fill="#ff5fa2"/><rect x="26" y="128" width="68" height="6" fill="#eef3f5"/>`:""}${n!="Max"?`<path d="M36 58v26M84 58v26" stroke="${h}" stroke-width="9" stroke-linecap="round"/>`:""}<circle cx="60" cy="58" r="24" fill="${f}"/><path d="M36 58a24 24 0 0 1 48 0q-12-14-24-12t-24 12z" fill="${h}"/><circle cx="51" cy="60" r="3"/><circle cx="69" cy="60" r="3"/><path d="M51 70q9 8 18 0" stroke="#333" stroke-width="3" fill="none"/><g transform="translate(150 42)">${a}</g><g transform="translate(150 108)">${b}</g></svg>`};
+[["Anna","a pink safety vest, a red bell",IC.vest("#ff5fa2"),IC.bell("#e53935")],["Max","a blue lock, a yellow basket",IC.lock("#2f6fe4"),IC.basket("#ffd23f")],["Mia","a green pump, a white light",IC.pump("#2fbf5b"),IC.light("#ffffff")]].forEach(([n,t,a,b])=>$("#kids").insertAdjacentHTML("beforeend",`<div class="box kid">${kidSvg(n,a,b)}<b>${n}</b><br><small>${t}</small></div>`));
+[["a pink safety vest","Anna"],["a blue lock","Max"],["a green pump","Mia"],["a yellow basket","Max"]].forEach(([x,a],i)=>$("#who").insertAdjacentHTML("beforeend",`<div class="row"><b style="min-width:215px">Who’s got ${x}?</b><span class="opt" style="margin:0">${["Anna","Max","Mia"].map(n=>btn(n,n==a,"w"+i,.75)).join("")}</span></div>`));
+let rot=0;$("#wheel").style.background="conic-gradient("+N.map((_,i)=>`${i%2?"#ff7a6b":"#2fb58f"} ${i*36}deg ${i*36+36}deg`).join(",")+")";
+N.forEach((_,i)=>$("#wheel").insertAdjacentHTML("beforeend",`<span style="transform:translate(-50%,-50%) rotate(${i*36+18}deg) translateY(-88px) rotate(${-i*36-18}deg)">${i+1}</span>`));
+function spin(){rot+=1440+Math.random()*360;$("#wheel").style.transform=`rotate(${rot}deg)`;$("#sp").textContent="…";setTimeout(()=>{const i=Math.floor(((360-rot%360)%360)/36),w=W[i];$("#sp").innerHTML=`<div class="th">${thumb(w[0])}</div><p style="margin:6px 0"><b>${w[0]}</b> — make a sentence!</p><button class="o" onclick="this.outerHTML='<b>${w[3]}</b>'">Show model</button>`;pts("sp",1)},3300)}
+let sp={n:0,t:0,on:0};
+function speed(){clearInterval(sp.i);sp={n:0,t:30,on:1};$("#sn").textContent=0;$("#tm").textContent=30;nxt();sp.i=setInterval(()=>{$("#tm").textContent=--sp.t;if(sp.t<=0){clearInterval(sp.i);sp.on=0;$("#sq").innerHTML=`<p>⏱️ Time’s up! You got <b>${sp.n}</b>!</p><button class="act" onclick="speed()">Again</button>`;pts("spd",Math.min(sp.n,5))}},1000)}
+function nxt(){const w=N[Math.random()*10|0];$("#sq").innerHTML=`<div class="th">${thumb(w)}</div><div class="opt">${opts(w).map(x=>`<button class="o" onclick="sa(this,${x==w})">${x}</button>`).join("")}</div>`}
+function sa(b,ok){if(!sp.on)return;if(ok){$("#sn").textContent=++sp.n;nxt()}else b.classList.add("no")}
+document.querySelectorAll(".rf").forEach(c=>c.onchange=()=>{const n=[...document.querySelectorAll(".rf")].filter(x=>x.checked).length;$("#fin").textContent=n==3?"⭐ Great job, Lena! ⭐":"";if(n==3)pts("fin",2)});
+const CK=[["Bikes have got …",[["lights","light","Bikes have got lights."],["a bell","bell","Bikes have got a bell."],["gears","gears","Bikes have got gears."],["brakes","brakes","Bikes have got brakes."],["a basket","basket","Bikes have got a basket."],["two wheels","wheel","Bikes have got two wheels."]]],["Cyclists need …",[["a lock","lock","Cyclists need a lock."],["a pump","pump","Cyclists need a pump."],["a safety vest","safety vest","Cyclists need a safety vest."]]],["Check … / Bring …",[["check the brakes","brakes","Check the brakes."],["check the lights","light","Check the lights."],["bring a lock","lock","Bring a lock."]]],["Who’s got …?",[["a pink safety vest","safety vest","Who’s got a pink safety vest? — Anna!"]]]];
+const seen=new Set();
+CK.forEach(([h,it])=>$("#ck").insertAdjacentHTML("beforeend",`<div class="box" style="margin-bottom:10px"><h3>${h}</h3>${it.map(([t,w,s])=>`<button class="o" style="margin:2px" onclick="ckS('${w}',this)" data-s="${s}">${t}</button>`).join("")}</div>`));
+function ckS(w,b){const s=b.dataset.s;$("#co").innerHTML=`<div class="th">${thumb(w)}</div><p style="font-size:22px;margin:8px 0"><b>${s}</b></p><small>Say it! Then cover the picture and say it again.</small>`;seen.add(s);if(seen.size>=5)pts("ck",2)}
+addEventListener("keydown",e=>{if(e.shiftKey&&e.key==="T")$("#tn").hidden=!$("#tn").hidden});go(0);
+</script></body></html>
